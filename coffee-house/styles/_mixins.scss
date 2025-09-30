@@ -36,6 +36,13 @@
   @if ($ls) {
     letter-spacing: $ls;
   }
+  margin: 0;
+}
+
+@mixin center($gap) {
+  display: flex;
+  gap: $gap;
+  align-items: center;
 }
 
 @mixin img() {
