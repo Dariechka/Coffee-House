@@ -1,0 +1,71 @@
+@use './fonts/fonts.scss';
+@use './variables';
+
+@mixin background($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+@mixin text($ff: false, $fst: false, $color: false, $fs: false, $lh: false, $fw: false, $ls: false) {
+  @if ($ff) {
+    font-family: $ff;
+  }
+
+  @if ($fst) {
+    font-style: $fst;
+  }
+
+  @if ($color) {
+    color: $color;
+  }
+
+  @if ($fs) {
+    font-size: $fs;
+  }
+
+  @if ($lh) {
+    line-height: $lh;
+  }
+
+  @if ($fw) {
+    font-weight: $fw;
+  }
+
+  @if ($ls) {
+    letter-spacing: $ls;
+  }
+}
+
+@mixin img() {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+@mixin respond($breakpoint) {
+  @if ($breakpoint==x-tablet) {
+    @media only screen and (max-width: 1000px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==tablet) {
+    @media only screen and (max-width: 768px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==x-mobile) {
+    @media only screen and (max-width: 470px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==mobile) {
+    @media only screen and (max-width: 380px) {
+      @content;
+    }
+  }
+}
