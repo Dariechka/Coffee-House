@@ -1,1 +1,18 @@
 @use './../node_modules/modern-normalize/modern-normalize.css';
+@use './components/container.scss';
+@use './components/header.scss';
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0 auto;
+}

@@ -1,0 +1,38 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.header {
+  background-color: vars.$beige;
+  &__container {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__logo {
+    text-decoration: none;
+    position: relative;
+    width: 93px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 4.1px;
+    align-items: center;
+    &_circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: vars.$light-brown;
+    }
+    &_text {
+      @include mix.text('Inter', normal, vars.$black, 9px, 9px, 400, 0px);
+      margin: 0;
+    }
+    &_svg {
+      position: absolute;
+      z-index: 1;
+      top: 10%;
+    }
+  }
+}
