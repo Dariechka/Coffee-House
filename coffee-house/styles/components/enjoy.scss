@@ -33,7 +33,7 @@
     flex-direction: column;
     gap: 40px;
     &__title {
-      @include mix.text('Inter', normal, vars.$beige, 72px, 105%, 600, 2px);
+      @include mix.text('Inter', normal, vars.$beige, 72px, 105%, 600, 2.6px);
       &_italic {
         color: vars.$light-brown;
         font-style: italic;
@@ -42,12 +42,6 @@
         font-size: 42px;
         line-height: 115%;
         letter-spacing: 1px;
-      }
-      &_space {
-        letter-spacing: 2.8px;
-        @include mix.respond(xx-mobile) {
-          letter-spacing: 1.5px;
-        }
       }
     }
     &__text {
@@ -63,8 +57,10 @@
       &_svg {
         display: none;
       }
-      &:hover > .enjoy__text__link_svg {
-        display: flex;
+      @media (hover: hover) {
+        &:hover > .enjoy__text__link_svg {
+          display: flex;
+        }
       }
     }
   }

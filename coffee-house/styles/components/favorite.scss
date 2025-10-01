@@ -1,0 +1,66 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.favorite {
+  background-color: vars.$beige;
+  &__container {
+    @include mix.center(40px);
+    padding-top: 100px;
+    padding-bottom: 100px;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+  }
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+    &_italic {
+      color: vars.$light-brown;
+      font-style: italic;
+    }
+  }
+  &__slider {
+    @include mix.center(0);
+    justify-content: space-between;
+    width: 100%;
+    &__button {
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 1px solid vars.$gray;
+      background-color: transparent;
+      &_svg {
+        stroke: vars.$black;
+      }
+      @media (hover: hover) {
+        &:hover {
+          background-color: vars.$gray;
+        }
+        &:hover > .favorite__slider__button_svg {
+          stroke: vars.$beige;
+        }
+      }
+    }
+    &__ribbon {
+      min-width: 480px;
+      @include mix.center(16px);
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 4px;
+      &__image {
+        width: 480px;
+        height: 480px;
+        &_img {
+          @include mix.img();
+        }
+      }
+      &__title {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 2px);
+      }
+      &__text {
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0.5px);
+        max-width: 480px;
+        text-align: center;
+      }
+    }
+  }
+}
