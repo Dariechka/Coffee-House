@@ -5,3 +5,11 @@
     local('Inter'),
     url('./fonts/Inter.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'Inter';
+  font-style: italic;
+  src:
+    local('Inter_28pt-SemiBoldItalic'),
+    url('./fonts/Inter_28pt-SemiBoldItalic.ttf') format('truetype');
+}

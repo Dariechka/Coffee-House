@@ -71,8 +71,7 @@
     &_text {
       @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0px);
       @include mix.respond(tablet) {
-        @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 0px);
-        letter-spacing: 1px;
+        @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 1px);
         margin-right: 2px;
       }
     }
@@ -133,8 +132,7 @@
         }
       }
       @include mix.respond(tablet) {
-        @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 0px);
-        letter-spacing: 1px;
+        @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 1px);
       }
     }
     @include mix.respond(x-tablet) {

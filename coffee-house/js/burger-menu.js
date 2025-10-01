@@ -3,6 +3,7 @@ const button = document.querySelector('.header__burger-menu')
 const cup = document.querySelector('.header__menu')
 const body = document.body
 const links = document.querySelectorAll('.header__navigation_item')
+const logo = document.querySelector('.header__logo')
 const mql = window.matchMedia('(max-width: 768px)')
 
 mql.addEventListener('change', (e) => {
@@ -27,6 +28,11 @@ for (const link of links) {
     }, 500)
   })
 }
+
+logo.addEventListener('click', (event) => {
+  event.preventDefault()
+  closeMenu()
+})
 
 button.addEventListener('click', function () {
   if (button.hasAttribute('data-open')) {

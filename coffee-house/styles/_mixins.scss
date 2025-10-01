@@ -51,7 +51,25 @@
   object-fit: cover;
 }
 
+@mixin button($height, $color, $border-color: false) {
+  width: 200px;
+  border-radius: 100px;
+  height: $height;
+  background-color: $color;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @if ($border-color) {
+    border: 1px solid $border-color;
+  }
+}
+
 @mixin respond($breakpoint) {
+  @if ($breakpoint==xx-tablet) {
+    @media only screen and (max-width: 1300px) {
+      @content;
+    }
+  }
   @if ($breakpoint==x-tablet) {
     @media only screen and (max-width: 1000px) {
       @content;
@@ -60,6 +78,12 @@
 
   @if ($breakpoint==tablet) {
     @media only screen and (max-width: 768px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==xx-mobile) {
+    @media only screen and (max-width: 680px) {
       @content;
     }
   }

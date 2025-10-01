@@ -1,0 +1,71 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.enjoy {
+  background-color: vars.$beige;
+  &__background {
+    @include mix.background('./../assets/images/enjoy.jpg');
+    max-width: vars.$large-s;
+    padding: 100px 730px 100px 100px;
+    border-radius: vars.$radius;
+    @include mix.respond(xx-tablet) {
+      padding: 100px 98px 100px 60px;
+    }
+    @include mix.respond(x-mobile) {
+      padding: 60px 16px;
+    }
+    position: relative;
+    overflow: hidden;
+    &__video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+  }
+  &__text {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    &__title {
+      @include mix.text('Inter', normal, vars.$beige, 72px, 105%, 600, 2px);
+      &_italic {
+        color: vars.$light-brown;
+        font-style: italic;
+      }
+      @include mix.respond(xx-mobile) {
+        font-size: 42px;
+        line-height: 115%;
+        letter-spacing: 1px;
+      }
+      &_space {
+        letter-spacing: 2.8px;
+        @include mix.respond(xx-mobile) {
+          letter-spacing: 1.5px;
+        }
+      }
+    }
+    &__text {
+      @include mix.text('Inter', normal, vars.$beige, 16px, 150%, 400, 0.1px);
+    }
+    &__link {
+      text-decoration: none;
+      @include mix.button(64px, vars.$beige);
+      gap: 0.5rem;
+      &_text {
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0px);
+      }
+      &_svg {
+        display: none;
+      }
+      &:hover > .enjoy__text__link_svg {
+        display: flex;
+      }
+    }
+  }
+}
