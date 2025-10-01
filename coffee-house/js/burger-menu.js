@@ -1,5 +1,6 @@
 const menu = document.querySelector('.header__navigation')
 const button = document.querySelector('.header__burger-menu')
+const cup = document.querySelector('.header__menu')
 const body = document.body
 const links = document.querySelectorAll('.header__navigation_item')
 const mql = window.matchMedia('(max-width: 768px)')
@@ -13,6 +14,7 @@ mql.addEventListener('change', (e) => {
 function closeMenu() {
   menu.removeAttribute('data-open')
   button.removeAttribute('data-open')
+  cup.removeAttribute('data-open')
   body.classList.remove('no-scroll')
 }
 
@@ -32,6 +34,7 @@ button.addEventListener('click', function () {
   } else {
     menu.setAttribute('data-open', '')
     button.setAttribute('data-open', '')
+    cup.setAttribute('data-open', '')
     body.classList.add('no-scroll')
   }
 })
