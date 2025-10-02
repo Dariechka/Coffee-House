@@ -18,6 +18,7 @@
     }
   }
   &__slider {
+    padding: 0 3.5px;
     @include mix.center(0);
     justify-content: space-between;
     width: 100%;
@@ -45,22 +46,33 @@
       @include mix.center(16px);
       flex-direction: column;
       justify-content: space-between;
-      margin-bottom: 4px;
       &__image {
         width: 480px;
         height: 480px;
+        margin-bottom: 4.3px;
         &_img {
           @include mix.img();
         }
       }
       &__title {
-        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 2px);
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.3px);
       }
       &__text {
-        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0.5px);
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0.1px);
         max-width: 480px;
         text-align: center;
       }
+    }
+  }
+  &__pointers {
+    @include mix.center(12px);
+    justify-content: space-between;
+    &_pointer {
+      cursor: pointer;
+      width: 40px;
+      height: 4px;
+      border-radius: vars.$radius;
+      background-color: vars.$beige2;
     }
   }
 }
