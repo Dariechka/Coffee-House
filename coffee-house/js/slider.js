@@ -3,12 +3,17 @@
   const ribbon = document.querySelector('.favorite__slider__ribbon')
   const left = document.querySelector('.left')
   const right = document.querySelector('.right')
+  const progressBar = document.querySelector('.favorite__pointers')
+  const slider = document.querySelector('.favorite__slider')
 
   const allDrinks = await fetchCoffee()
 
   let step = 0
   let size = 'large'
-  let skipClick = false
+  progressBar.children[step].style.backgroundPosition = 'left'
+  let touchStartX = 0
+  let touchEndX = 0
+  let interval
 
   // function declarations
   async function fetchCoffee() {
@@ -24,7 +29,54 @@
     return window.innerWidth > 768 ? 480 : 348
   }
 
+  interval = setInterval(() => {
+    leftSliderScroll()
+  }, 5000)
+
+  // events handling
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX
+  })
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX
+    handleSwipe()
+  })
+
+  ribbon.addEventListener('touchstart', (e) => {
+    clearInterval(interval);
+  })
+  ribbon.addEventListener('touchcancel', (e) => {
+    interval = setInterval(leftSliderScroll, 5000);
+  })
+
+  ribbon.addEventListener('pointerover', (e) => {
+    clearInterval(interval);
+  })
+  ribbon.addEventListener('pointerout', (e) => {
+    interval = setInterval(leftSliderScroll, 5000);
+  })
+
+  right.addEventListener('pointerover', (e) => {
+    clearInterval(interval);
+  })
+  right.addEventListener('pointerout', (e) => {
+    interval = setInterval(leftSliderScroll, 5000);
+  })
+
+  left.addEventListener('pointerover', (e) => {
+    clearInterval(interval);
+  })
+  left.addEventListener('pointerout', (e) => {
+    interval = setInterval(leftSliderScroll, 5000);
+  })
+
+  right.addEventListener('click', () => rightSliderScroll())
+  left.addEventListener('click', () => leftSliderScroll())
+
   function renderCard(step, place) {
+    for (const child of progressBar.children) {
+      child.style.backgroundPosition = 'right'
+    }
     const drink = allDrinks.find((drink, index) => index === step)
     const cardHtml = `<div class="favorite__slider__card">
                 <div class="favorite__slider__card__image">
@@ -35,6 +87,8 @@
                 <h4 class="favorite__slider__card__title">${drink.price}</h4>
             </div>`
     ribbon.insertAdjacentHTML(place, cardHtml)
+
+    progressBar.children[step].style.backgroundPosition = 'left'
   }
 
   function scroll(translation, immediate = false) {
@@ -48,7 +102,7 @@
     }
   }
 
-  right.addEventListener('click', () => {
+  function leftSliderScroll() {
     const cardToRemove = ribbon.firstElementChild
     if (step === 0) {
       step = allDrinks.length - 1
@@ -65,9 +119,9 @@
       cardToRemove.remove()
       scroll(0, true)
     }, 600)
-  })
+  }
 
-  left.addEventListener('click', () => {
+  function rightSliderScroll() {
     const cardToRemove = ribbon.firstElementChild
     if (step === allDrinks.length - 1) {
       step = 0
@@ -84,5 +138,21 @@
     setTimeout(() => {
       cardToRemove.remove()
     }, 600)
-  })
+  }
+
+  function handleSwipe() {
+    if (calcDelta() === 480) {
+      return
+    }
+    const diff = touchStartX - touchEndX
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swiped left
+        leftSliderScroll()
+      } else {
+        // Swiped right
+        rightSliderScroll()
+      }
+    }
+  }
 })()

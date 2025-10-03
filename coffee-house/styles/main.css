@@ -719,7 +719,9 @@ summary {
   width: 40px;
   height: 4px;
   border-radius: 40px;
-  background-color: #c1b6ad;
+  background: linear-gradient(to left, #c1b6ad 50%, #665f55 50%) right;
+  background-size: 200%;
+  transition: 0.2s ease-out;
 }
 
 .ribbon_scroll {

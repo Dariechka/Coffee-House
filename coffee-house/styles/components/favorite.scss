@@ -111,7 +111,9 @@
       width: 40px;
       height: 4px;
       border-radius: vars.$radius;
-      background-color: vars.$beige2;
+      background: linear-gradient(to left, vars.$beige2 50%, vars.$gray 50%) right;
+      background-size: 200%;
+      transition: 0.2s ease-out;
     }
   }
 }
