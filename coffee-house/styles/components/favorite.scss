@@ -9,18 +9,26 @@
     padding-bottom: 100px;
     flex-flow: column nowrap;
     justify-content: space-between;
+    @include mix.respond(xx-mobile) {
+      justify-content: center;
+    }
   }
   &__title {
     @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+    text-align: center;
     &_italic {
       color: vars.$light-brown;
       font-style: italic;
+    }
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
     }
   }
   &__slider {
     padding: 0 3.5px;
     @include mix.center(0);
     justify-content: space-between;
+    height: 640px;
     width: 100%;
     &__button {
       cursor: pointer;
@@ -40,16 +48,33 @@
           stroke: vars.$beige;
         }
       }
+      @include mix.respond(xx-mobile) {
+        display: none;
+      }
     }
     &__ribbon {
-      min-width: 480px;
+      width: 480px;
+      display: flex;
+      overflow: hidden;
+      @include mix.respond(xx-mobile) {
+        width: 348px;
+      }
+    }
+    &__card {
+      width: 480px;
+      flex-shrink: 0;
       @include mix.center(16px);
       flex-direction: column;
       justify-content: space-between;
+      overflow: hidden;
       &__image {
         width: 480px;
         height: 480px;
         margin-bottom: 4.3px;
+        @include mix.respond(xx-mobile) {
+          width: 348px;
+          height: 348px;
+        }
         &_img {
           @include mix.img();
         }
@@ -59,9 +84,23 @@
       }
       &__text {
         @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0.1px);
-        max-width: 480px;
+        width: 480px;
         text-align: center;
+        @include mix.respond(xx-mobile) {
+          width: 348px;
+          letter-spacing: 0;
+        }
       }
+      @include mix.respond(xx-mobile) {
+        width: 348px;
+      }
+    }
+    @include mix.respond(tablet) {
+      padding: 0;
+    }
+    @include mix.respond(xx-mobile) {
+      width: 348px;
+      height: 532px;
     }
   }
   &__pointers {
@@ -75,4 +114,8 @@
       background-color: vars.$beige2;
     }
   }
+}
+
+.ribbon_scroll {
+  transition: 0.5s ease-out;
 }

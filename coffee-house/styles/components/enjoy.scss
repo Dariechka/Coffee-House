@@ -51,6 +51,7 @@
       text-decoration: none;
       @include mix.button(64px, vars.$beige);
       gap: 0.5rem;
+      transition: 0.5s ease-out;
       &_text {
         @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0px);
       }

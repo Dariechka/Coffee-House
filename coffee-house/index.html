@@ -36,76 +36,79 @@
         </a>
       </div>
     </header>
-    <script type="module" src="./js/burger-menu.js"></script>
-  </body>
-  <main>
-    <section class="enjoy">
-      <div class="container">
-        <div class="enjoy__background">
-          <video autoplay muted loop playsinline class="enjoy__background__video">
-            <source src="./assets/video.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          <div class="enjoy__text">
-            <h1 class="enjoy__text__title">
-              <span class="enjoy__text__title_italic">Enjoy</span> premium coffee at our charming cafe
-            </h1>
-            <p class="enjoy__text__text">
-              With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular
-              destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite
-              beverage.
-            </p>
-            <a href="./menu.html" class="enjoy__text__link">
-              <p class="enjoy__text__link_text">Menu</p>
-              <svg width="20" height="20" viewBox="0 0 20 20" class="enjoy__text__link_svg">
-                <use href="./assets/icon.svg#cup"></use>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section id="favorite-coffee" class="favorite">
-      <div class="container favorite__container">
-        <h2 class="favorite__title">Choose your <span class="favorite__title_italic">favorite</span> coffee</h2>
-        <div class="favorite__slider">
-          <button class="favorite__slider__button left">
-            <svg width="14" height="14" viewBox="0 0 14 14" class="favorite__slider__button_svg">
-              <use href="./assets/icon.svg#left"></use>
-            </svg>
-          </button>
-          <div class="favorite__slider__ribbon">
-            <div class="favorite__slider__ribbon__image">
-              <img src="./assets/images/1.png" alt="coffee" class="favorite__slider__ribbon__image_img" />
+    <main>
+      <section class="enjoy">
+        <div class="container">
+          <div class="enjoy__background">
+            <video autoplay muted loop playsinline class="enjoy__background__video">
+              <source src="./assets/video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div class="enjoy__text">
+              <h1 class="enjoy__text__title">
+                <span class="enjoy__text__title_italic">Enjoy</span> premium coffee at our charming cafe
+              </h1>
+              <p class="enjoy__text__text">
+                With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular
+                destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite
+                beverage.
+              </p>
+              <a href="./menu.html" class="enjoy__text__link">
+                <p class="enjoy__text__link_text">Menu</p>
+                <svg width="20" height="20" viewBox="0 0 20 20" class="enjoy__text__link_svg">
+                  <use href="./assets/icon.svg#cup"></use>
+                </svg>
+              </a>
             </div>
-            <h4 class="favorite__slider__ribbon__title">S&rsquo;mores Frappuccino</h4>
-            <p class="favorite__slider__ribbon__text">
-              This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat
-              milk.
-            </p>
-            <h4 class="favorite__slider__ribbon__title">$5.50</h4>
           </div>
-          <button class="favorite__slider__button right">
-            <svg width="14" height="14" viewBox="0 0 14 14" class="favorite__slider__button_svg">
-              <use href="./assets/icon.svg#right"></use>
-            </svg>
-          </button>
         </div>
-        <div class="favorite__pointers">
-          <div class="favorite__pointers_pointer"></div>
-          <div class="favorite__pointers_pointer"></div>
-          <div class="favorite__pointers_pointer"></div>
+      </section>
+      <section id="favorite-coffee" class="favorite">
+        <div class="container favorite__container">
+          <h2 class="favorite__title">Choose your <span class="favorite__title_italic">favorite</span> coffee</h2>
+          <div class="favorite__slider">
+            <button class="favorite__slider__button left">
+              <svg width="14" height="14" viewBox="0 0 14 14" class="favorite__slider__button_svg">
+                <use href="./assets/icon.svg#left"></use>
+              </svg>
+            </button>
+            <div class="favorite__slider__ribbon">
+              <div class="favorite__slider__card">
+                <div class="favorite__slider__card__image">
+                  <img src="assets/images/0-large.png" alt="coffee" class="favorite__slider__card__image_img" />
+                </div>
+                <h4 class="favorite__slider__card__title">S&rsquo;mores Frappuccino</h4>
+                <p class="favorite__slider__card__text">
+                  This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with
+                  oat milk.
+                </p>
+                <h4 class="favorite__slider__card__title">$5.50</h4>
+              </div>
+            </div>
+            <button class="favorite__slider__button right">
+              <svg width="14" height="14" viewBox="0 0 14 14" class="favorite__slider__button_svg">
+                <use href="./assets/icon.svg#right"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="favorite__pointers">
+            <div class="favorite__pointers_pointer"></div>
+            <div class="favorite__pointers_pointer"></div>
+            <div class="favorite__pointers_pointer"></div>
+          </div>
         </div>
-      </div>
-    </section>
-    <section id="about" class="about">
-      <div class="container"></div>
-    </section>
-    <section id="mobile-app" class="app">
-      <div class="container"></div>
-    </section>
-    <section id="contact-usp" class="contact">
-      <div class="container"></div>
-    </section>
-  </main>
+      </section>
+      <section id="about" class="about">
+        <div class="container"></div>
+      </section>
+      <section id="mobile-app" class="app">
+        <div class="container"></div>
+      </section>
+      <section id="contact-usp" class="contact">
+        <div class="container"></div>
+      </section>
+    </main>
+    <script type="module" src="./js/burger-menu.js"></script>
+    <script type="module" src="./js/slider.js"></script>
+  </body>
 </html>
