@@ -34,40 +34,40 @@
   }, 5000)
 
   // events handling
-  slider.addEventListener('touchstart', (e) => {
+  slider.addEventListener('touchstart', () => {
     touchStartX = e.changedTouches[0].screenX
   })
-  slider.addEventListener('touchend', (e) => {
+  slider.addEventListener('touchend', () => {
     touchEndX = e.changedTouches[0].screenX
     handleSwipe()
   })
 
-  ribbon.addEventListener('touchstart', (e) => {
-    clearInterval(interval);
+  ribbon.addEventListener('touchstart', () => {
+    clearInterval(interval)
   })
-  ribbon.addEventListener('touchcancel', (e) => {
-    interval = setInterval(leftSliderScroll, 5000);
-  })
-
-  ribbon.addEventListener('pointerover', (e) => {
-    clearInterval(interval);
-  })
-  ribbon.addEventListener('pointerout', (e) => {
-    interval = setInterval(leftSliderScroll, 5000);
+  ribbon.addEventListener('touchcancel', () => {
+    interval = setInterval(leftSliderScroll, 5000)
   })
 
-  right.addEventListener('pointerover', (e) => {
-    clearInterval(interval);
+  ribbon.addEventListener('pointerover', () => {
+    clearInterval(interval)
   })
-  right.addEventListener('pointerout', (e) => {
-    interval = setInterval(leftSliderScroll, 5000);
+  ribbon.addEventListener('pointerout', () => {
+    interval = setInterval(leftSliderScroll, 5000)
   })
 
-  left.addEventListener('pointerover', (e) => {
-    clearInterval(interval);
+  right.addEventListener('pointerover', () => {
+    clearInterval(interval)
   })
-  left.addEventListener('pointerout', (e) => {
-    interval = setInterval(leftSliderScroll, 5000);
+  right.addEventListener('pointerout', () => {
+    interval = setInterval(leftSliderScroll, 5000)
+  })
+
+  left.addEventListener('pointerover', () => {
+    clearInterval(interval)
+  })
+  left.addEventListener('pointerout', () => {
+    interval = setInterval(leftSliderScroll, 5000)
   })
 
   right.addEventListener('click', () => rightSliderScroll())

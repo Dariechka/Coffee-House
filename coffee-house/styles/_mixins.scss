@@ -4,7 +4,7 @@
 @mixin background($url) {
   background-image: url($url);
   background-repeat: no-repeat;
-  background-position: center center;
+  background-position: center;
   background-size: cover;
 }
 
@@ -65,13 +65,32 @@
 }
 
 @mixin respond($breakpoint) {
-  @if ($breakpoint==xx-tablet) {
+  @if ($breakpoint==xxx-tablet) {
     @media only screen and (max-width: 1300px) {
       @content;
     }
   }
+
+  @if ($breakpoint==xx-tablet) {
+    @media only screen and (max-width: 1200px) {
+      @content;
+    }
+  }
+
   @if ($breakpoint==x-tablet) {
     @media only screen and (max-width: 1000px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==x2-tablet) {
+    @media only screen and (max-width: 900px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==x3-tablet) {
+    @media only screen and (max-width: 850px) {
       @content;
     }
   }

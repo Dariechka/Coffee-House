@@ -8,7 +8,7 @@
     max-width: vars.$large-s;
     padding: 100px 730px 100px 100px;
     border-radius: vars.$radius;
-    @include mix.respond(xx-tablet) {
+    @include mix.respond(xxx-tablet) {
       padding: 100px 98px 100px 60px;
     }
     @include mix.respond(x-mobile) {
