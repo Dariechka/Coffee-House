@@ -1,5 +1,5 @@
 @use './fonts/fonts.scss';
-@use './variables';
+@use './variables' as vars;
 
 @mixin background($url) {
   background-image: url($url);
@@ -64,9 +64,25 @@
   }
 }
 
+@mixin italic() {
+  color: vars.$light-brown;
+  font-style: italic;
+}
 @mixin respond($breakpoint) {
+  @if ($breakpoint==xxx2-tablet) {
+    @media only screen and (max-width: 1420px) {
+      @content;
+    }
+  }
+
   @if ($breakpoint==xxx-tablet) {
     @media only screen and (max-width: 1300px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==xx2-tablet) {
+    @media only screen and (max-width: 1240px) {
       @content;
     }
   }

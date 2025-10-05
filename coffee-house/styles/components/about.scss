@@ -13,8 +13,7 @@
   &__title {
     @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
     &_italic {
-      color: vars.$light-brown;
-      font-style: italic;
+      @include mix.italic();
     }
     @include mix.respond(xx-mobile) {
       font-size: 32px;

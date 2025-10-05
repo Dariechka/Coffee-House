@@ -14,7 +14,7 @@ Use a better box model (opinionated).
 
 html {
   /* Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3) */
-  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
   line-height: 1.15; /* 1. Correct the line height in all browsers. */
   -webkit-text-size-adjust: 100%; /* 2. Prevent adjustments of font size after orientation changes in iOS. */
   tab-size: 4; /* 3. Use a more readable tab size (opinionated). */
@@ -48,7 +48,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; /* 1 */
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace; /* 1 */
   font-size: 1em; /* 2 */
 }
 
@@ -112,9 +112,9 @@ textarea {
 Correct the inability to style clickable types in iOS and Safari.
 */
 button,
-[type=button],
-[type=reset],
-[type=submit] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 
@@ -144,7 +144,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 1. Correct the odd appearance in Chrome and Safari.
 2. Correct the outline style in Safari.
 */
-[type=search] {
+[type='search'] {
   -webkit-appearance: textfield; /* 1 */
   outline-offset: -2px; /* 2 */
 }
@@ -177,9 +177,11 @@ summary {
 }
 
 @font-face {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
-  src: local("Inter"), url("./fonts/Inter.ttf") format("truetype");
+  src:
+    local('Inter'),
+    url('./fonts/Inter.ttf') format('truetype');
 }
 .container {
   max-width: 1440px;
@@ -222,7 +224,7 @@ summary {
   background-color: #b0907a;
 }
 .header__logo_text {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 9px;
@@ -246,7 +248,7 @@ summary {
   position: relative;
 }
 .header__menu:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   background-color: #403f3d;
@@ -276,7 +278,7 @@ summary {
   }
 }
 .header__menu_text {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 16px;
@@ -287,7 +289,7 @@ summary {
 }
 @media only screen and (max-width: 768px) {
   .header__menu_text {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     color: #403f3d;
     font-size: 32px;
@@ -336,7 +338,7 @@ summary {
 }
 .header__navigation_item {
   text-decoration: none;
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 16px;
@@ -346,7 +348,7 @@ summary {
   margin: 0;
 }
 .header__navigation_item:after {
-  content: "";
+  content: '';
   display: block;
   position: relative;
   top: 1%;
@@ -370,7 +372,7 @@ summary {
 }
 @media only screen and (max-width: 768px) {
   .header__navigation_item {
-    font-family: "Inter";
+    font-family: 'Inter';
     font-style: normal;
     color: #403f3d;
     font-size: 32px;
@@ -456,7 +458,7 @@ summary {
   background-color: #e1d4c9;
 }
 .enjoy__background {
-  background-image: url("./../assets/images/enjoy.jpg");
+  background-image: url('./../assets/images/enjoy.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -495,7 +497,7 @@ summary {
   gap: 40px;
 }
 .enjoy__text__title {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #e1d4c9;
   font-size: 72px;
@@ -516,7 +518,7 @@ summary {
   }
 }
 .enjoy__text__text {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #e1d4c9;
   font-size: 16px;
@@ -538,7 +540,7 @@ summary {
   transition: 0.5s ease-out;
 }
 .enjoy__text__link_text {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 16px;
@@ -574,7 +576,7 @@ summary {
   }
 }
 .favorite__title {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 60px;
@@ -663,7 +665,7 @@ summary {
   object-fit: cover;
 }
 .favorite__slider__card__title {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 24px;
@@ -673,7 +675,7 @@ summary {
   margin: 0;
 }
 .favorite__slider__card__text {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 16px;
@@ -737,7 +739,7 @@ summary {
   justify-content: stretch;
 }
 .about__title {
-  font-family: "Inter";
+  font-family: 'Inter';
   font-style: normal;
   color: #403f3d;
   font-size: 60px;
@@ -786,9 +788,9 @@ summary {
 }
 .about__gallery__image_1 {
   grid-column: 1;
-  grid-row: 1/span 3;
+  grid-row: 1 / span 3;
   max-height: 590px;
-  background-image: url("./../assets/images/about_1.png");
+  background-image: url('./../assets/images/about_1.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -840,7 +842,7 @@ summary {
 .about__gallery__image_2 {
   grid-column: 2;
   grid-row: 1/1;
-  background-image: url("./../assets/images/about_2.png");
+  background-image: url('./../assets/images/about_2.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -865,7 +867,7 @@ summary {
 .about__gallery__image_3 {
   grid-column: 1;
   grid-row: 4/4;
-  background-image: url("./../assets/images/about_3.png");
+  background-image: url('./../assets/images/about_3.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -889,8 +891,8 @@ summary {
 }
 .about__gallery__image_4 {
   grid-column: 2;
-  grid-row: 3/span 2;
-  background-image: url("./../assets/images/about_4.png");
+  grid-row: 3 / span 2;
+  background-image: url('./../assets/images/about_4.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -941,6 +943,156 @@ summary {
   }
 }
 
+.app {
+  background-color: #e1d4c9;
+}
+.app__container {
+  display: flex;
+  gap: 100px;
+  align-items: center;
+  justify-content: space-between;
+}
+@media only screen and (max-width: 1240px) {
+  .app__container {
+    flex-direction: column;
+    gap: 100px;
+  }
+}
+@media only screen and (max-width: 470px) {
+  .app__container {
+    gap: 40px;
+  }
+}
+.app__text {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  max-width: 630px;
+}
+@media only screen and (max-width: 1420px) {
+  .app__text {
+    max-width: 450px;
+  }
+}
+@media only screen and (max-width: 1240px) {
+  .app__text {
+    max-width: 688px;
+  }
+}
+.app__text__title {
+  font-family: 'Inter';
+  font-style: normal;
+  color: #403f3d;
+  font-size: 60px;
+  line-height: 125%;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin: 0;
+}
+.app__text__title_italic {
+  color: #b0907a;
+  font-style: italic;
+}
+@media only screen and (max-width: 680px) {
+  .app__text__title {
+    font-size: 32px;
+    letter-spacing: 1px;
+  }
+}
+.app__text__text {
+  font-family: 'Inter';
+  font-style: normal;
+  color: #403f3d;
+  font-size: 16px;
+  line-height: 150%;
+  font-weight: 400;
+  letter-spacing: 0.1px;
+  margin: 0;
+}
+.app__text__buttons-container {
+  display: flex;
+  gap: 20px;
+}
+@media only screen and (max-width: 470px) {
+  .app__text__buttons-container {
+    flex-direction: column;
+  }
+}
+.app__text__button {
+  padding-left: 23px;
+  cursor: pointer;
+  width: 200px;
+  border-radius: 100px;
+  height: 64px;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #665f55;
+  display: flex;
+  gap: 5px;
+  justify-content: flex-start;
+  transition: 0.5s ease-out;
+}
+.app__text__button__svg {
+  width: 36px;
+  height: 36px;
+  fill: #403f3d;
+}
+.app__text__button__text {
+  font-family: 'Inter';
+  font-style: normal;
+  color: #403f3d;
+  font-size: 10px;
+  line-height: 140%;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+.app__text__button__text__platform {
+  font-family: 'Inter';
+  font-style: normal;
+  color: #403f3d;
+  font-size: 16px;
+  line-height: 148%;
+  font-weight: 600;
+  letter-spacing: 0;
+  margin: 0;
+}
+@media (hover: hover) {
+  .app__text__button:hover {
+    background-color: #665f55;
+  }
+  .app__text__button:hover span {
+    color: #e1d4c9;
+  }
+  .app__text__button:hover > .app__text__button__svg {
+    fill: #e1d4c9;
+  }
+}
+.app__image {
+  width: 630px;
+  height: 630px;
+}
+.app__image_img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+@media only screen and (max-width: 680px) {
+  .app__image {
+    width: 348px;
+    height: 348px;
+  }
+}
+
+.contact {
+  background-color: #e1d4c9;
+}
 *,
 ::before,
 ::after {

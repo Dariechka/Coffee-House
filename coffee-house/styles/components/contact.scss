@@ -1,0 +1,8 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.contact {
+  background-color: vars.$beige;
+  &__container {
+  }
+}
