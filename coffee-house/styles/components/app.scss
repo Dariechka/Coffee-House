@@ -4,6 +4,7 @@
 .app {
   background-color: vars.$beige;
   &__container {
+    padding-bottom: 100px;
     @include mix.center(100px);
     justify-content: space-between;
     @include mix.respond(xx2-tablet) {

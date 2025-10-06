@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coffee-house</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/coffee.png" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container header__container">
+        <a href="./index.html" class="header__logo">
+          <svg width="93" height="23" viewBox="0 0 93 23" class="header__logo_svg">
+            <use href="./assets/icon.svg#logo"></use>
+          </svg>
+          <div class="header__logo_circle"></div>
+          <h2 class="header__logo_text">COFFEE HOUSE</h2>
+        </a>
+        <button class="header__burger-menu">
+          <span class="header__burger-menu_line up"></span>
+          <span class="header__burger-menu_line down"></span>
+        </button>
+        <nav class="header__navigation">
+          <a href="./index.html#favorite-coffee" class="header__navigation_item">Favorite coffee</a>
+          <a href="./index.html#about" class="header__navigation_item">About</a>
+          <a href="./index.html#mobile-app" class="header__navigation_item">Mobile app</a>
+          <a href="#contact-us" class="header__navigation_item">Contact us</a>
+        </nav>
+        <a href="./menu.html" class="header__menu header__menu_active">
+          <h2 class="header__menu_text">Menu</h2>
+          <svg width="20" height="20" viewBox="0 0 20 20" class="header__menu_svg">
+            <use href="./assets/icon.svg#cup"></use>
+          </svg>
+        </a>
+      </div>
+    </header>
+    <main></main>
+    <footer>
+      <section id="contact-us" class="contact">
+        <div class="container">
+          <div class="contact__container">
+            <div class="contact__title">
+              <h2 class="contact__title_title">
+                Sip, Savor, Smile. <span class="contact__title_title_italic">It’s coffee time!</span>
+              </h2>
+              <div class="contact__social-media">
+                <button class="contact__social-media__button">
+                  <svg class="contact__social-media__button__svg">
+                    <use href="./assets/icon.svg#twitter"></use>
+                  </svg>
+                </button>
+                <button class="contact__social-media__button">
+                  <svg class="contact__social-media__button__svg">
+                    <use href="./assets/icon.svg#instagram"></use>
+                  </svg>
+                </button>
+                <button class="contact__social-media__button">
+                  <svg class="contact__social-media__button__svg">
+                    <use href="./assets/icon.svg#facebook"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="contact__info">
+              <h3 class="contact__info__title">Contact us</h3>
+              <ul class="contact__info__list">
+                <li class="contact__info__list_item">
+                  <a
+                    class="contact__info__list_item_link"
+                    href="https://www.google.com/maps/place/Green+Moore+Rd,+Louisiana+70661,+USA/@30.2835013,-93.6835997,813m/data=!3m1!1e3!4m15!1m8!3m7!1s0x863bfca8e71a9973:0xcffc575a39443e57!2sGreen+Moore+Rd,+Louisiana+70661,+USA!3b1!8m2!3d30.2834967!4d-93.6810194!16s%2Fg%2F1thz20sz!3m5!1s0x863bfca8e71a9973:0xcffc575a39443e57!8m2!3d30.2834967!4d-93.6810194!16s%2Fg%2F1thz20sz?entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" class="contact__info__list_item_svg">
+                      <use href="./assets/icon.svg#map"></use>
+                    </svg>
+                    <h3 class="contact__info__list_item_text">8558 Green Rd., LA</h3>
+                  </a>
+                </li>
+                <li class="contact__info__list_item">
+                  <a class="contact__info__list_item_link" href="tel:+16035550123">
+                    <svg width="19" height="19" viewBox="0 0 19 19" class="contact__info__list_item_svg">
+                      <use href="./assets/icon.svg#phone"></use>
+                    </svg>
+                    <h3 class="contact__info__list_item_text">+1 (603) 555-0123</h3>
+                  </a>
+                </li>
+                <li class="contact__info__list_item">
+                  <svg width="20" height="20" viewBox="0 0 20 20" class="contact__info__list_item_svg">
+                    <use href="./assets/icon.svg#clock"></use>
+                  </svg>
+                  <h3 class="contact__info__list_item_li">Mon-Sat: 9:00 AM – 23:00 PM</h3>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </footer>
+    <script type="module" src="./js/burger-menu.js"></script>
+  </body>
+</html>

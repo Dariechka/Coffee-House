@@ -34,10 +34,10 @@
   }, 5000)
 
   // events handling
-  slider.addEventListener('touchstart', () => {
+  slider.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX
   })
-  slider.addEventListener('touchend', () => {
+  slider.addEventListener('touchend', (e) => {
     touchEndX = e.changedTouches[0].screenX
     handleSwipe()
   })

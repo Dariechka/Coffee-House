@@ -82,6 +82,9 @@
         height: 40px;
       }
     }
+    &_active:after {
+      transform: scaleX(1);
+    }
     @include mix.respond(tablet) {
       display: flex;
       justify-content: center;
