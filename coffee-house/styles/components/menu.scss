@@ -1,0 +1,105 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.menu {
+  background-color: vars.$beige;
+  &__container {
+    padding-bottom: 100px;
+    @include mix.center(40px);
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+    text-align: center;
+    max-width: 800px;
+    &_italic {
+      @include mix.italic();
+      letter-spacing: 2.2px;
+    }
+  }
+  &__buttons-container {
+    display: flex;
+    gap: 16px;
+  }
+  &__button {
+    cursor: pointer;
+    padding-right: 16px;
+    @include mix.button(46px, transparent, vars.$beige2);
+    @include mix.center(8px);
+    width: 100%;
+    &_circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      @include mix.center(0);
+      justify-content: center;
+      background-color: vars.$beige2;
+    }
+    &_img {
+      width: 16px;
+      height: 16px;
+    }
+    &_text {
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+    }
+  }
+  &__list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 40px;
+    justify-content: space-between;
+  }
+  &__card {
+    width: 310px;
+    height: 506px;
+    display: flex;
+    flex-direction: column;
+    border-radius: vars.$radius;
+    border: 1px solid vars.$beige2;
+    &__img {
+      border-radius: vars.$radius;
+      width: 308px;
+      height: 310px;
+      @include mix.background("./../assets/images/irish.png");
+      background-size: 110%;
+      transition: 0.5s ease-out;
+      @media (hover: hover) {
+        &:hover {
+          background-size: 100%;
+        }
+      }
+    }
+    &__text {
+      padding: 20px;
+      display: flex;
+      height: 196px;
+      flex-direction: column;
+      justify-content: space-between;
+      &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      &_large {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.5px);
+      }
+      &_small {
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0px);
+        align-self: stretch;
+      }
+    }
+  }
+}
+
+.active-button {
+  background-color: vars.$gray;
+  border-color: vars.$gray;
+  & > .menu__button_circle {
+    background-color: vars.$beige;
+  }
+  & > .menu__button_text {
+    color: vars.$beige;
+  }
+}

@@ -30,7 +30,6 @@ for (const link of links) {
 }
 
 logo.addEventListener('click', (event) => {
-  event.preventDefault()
   closeMenu()
 })
 

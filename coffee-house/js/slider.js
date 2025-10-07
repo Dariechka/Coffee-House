@@ -70,8 +70,8 @@
     interval = setInterval(leftSliderScroll, 5000)
   })
 
-  right.addEventListener('click', () => rightSliderScroll())
-  left.addEventListener('click', () => leftSliderScroll())
+  right.addEventListener('click', () => leftSliderScroll())
+  left.addEventListener('click', () => rightSliderScroll())
 
   function renderCard(step, place) {
     for (const child of progressBar.children) {
