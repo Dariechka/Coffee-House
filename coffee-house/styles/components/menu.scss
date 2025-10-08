@@ -28,6 +28,7 @@
     @include mix.button(46px, transparent, vars.$beige2);
     @include mix.center(8px);
     width: 100%;
+    transition: 0.5s ease-out;
     &_circle {
       width: 30px;
       height: 30px;
@@ -50,6 +51,7 @@
     flex-wrap: wrap;
     row-gap: 40px;
     justify-content: space-between;
+    transition: 0.5s ease-out;
   }
   &__card {
     width: 310px;
@@ -62,7 +64,9 @@
       border-radius: vars.$radius;
       width: 308px;
       height: 310px;
-      @include mix.background("./../assets/images/irish.png");
+      background-image: url('./../../assets/images/irish.png');
+      background-repeat: no-repeat;
+      background-position: center;
       background-size: 110%;
       transition: 0.5s ease-out;
       @media (hover: hover) {
