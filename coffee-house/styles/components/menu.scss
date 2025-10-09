@@ -16,11 +16,21 @@
     &_italic {
       @include mix.italic();
       letter-spacing: 2.2px;
+      @include mix.respond(xx-mobile) {
+        letter-spacing: 1.5px;
+      }
+    }
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
     }
   }
   &__buttons-container {
     display: flex;
     gap: 16px;
+    @include mix.respond(xx-mobile) {
+      gap: 8px;
+    }
   }
   &__button {
     cursor: pointer;
@@ -49,9 +59,12 @@
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    row-gap: 40px;
     justify-content: space-between;
+    gap: 40px;
     transition: 0.5s ease-out;
+    @include mix.respond(x4-tablet) {
+      justify-content: center;
+    }
   }
   &__card {
     width: 310px;
@@ -92,6 +105,31 @@
       &_small {
         @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0px);
         align-self: stretch;
+      }
+    }
+  }
+  &__load-button {
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid vars.$gray;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    &_svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: vars.$black;
+    }
+    @media (hover: hover) {
+      &:hover {
+        background-color: vars.$gray;
+      }
+      &:hover > .menu__load-button_svg {
+        stroke: vars.$beige;
       }
     }
   }
