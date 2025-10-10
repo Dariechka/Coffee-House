@@ -5,6 +5,10 @@ export default function openModal(card) {
   body.classList.add('no-scroll')
   background.style.display = 'block'
 
+  let initialPrice = +card.price
+  let volumePrise = 0
+  let additivePrice = 0
+
   body.insertAdjacentHTML(
     `afterbegin`,
     `<div class="modal">
@@ -16,7 +20,7 @@ export default function openModal(card) {
     </div>
     <div class="modal__info__buttons-container">
       <p class="menu__card__text_small">Size</p>
-      <div class="menu__buttons-container modal__buttons">
+      <div id="size" class="menu__buttons-container modal__buttons">
         <button class="menu__button modal__button active-button">
           <span class="menu__button_circle">S</span>
           <span class="menu__button_text">${card.sizes.s.size}</span>
@@ -33,7 +37,7 @@ export default function openModal(card) {
     </div>
     <div class="modal__info__buttons-container">
       <p class="menu__card__text_small">Additives</p>
-      <div class="menu__buttons-container modal__buttons">
+      <div id="additives" class="menu__buttons-container modal__buttons">
         <button class="menu__button modal__button">
           <span class="menu__button_circle">1</span>
           <span class="menu__button_text">${card.additives[0].name}</span>
@@ -50,7 +54,7 @@ export default function openModal(card) {
     </div>
     <div class="modal__info__price-container">
       <h3 class="menu__card__text_large">Total:</h3>
-      <h3 class="menu__card__text_large">$7.00</h3>
+      <h3 id="price" class="menu__card__text_large">$${card.price}</h3>
     </div>
     <div class="modal__info__info-container">
       <div class="svg">
@@ -77,6 +81,9 @@ export default function openModal(card) {
   const modal = document.querySelector('.modal')
   modal.querySelector('.modal__img').style.backgroundImage = `url("${card.src}")`
   const closeButton = document.querySelector('.modal__info__close')
+  const renderPrice = modal.querySelector('#price')
+  const sizeButtons = modal.querySelector('#size')
+  const additivesButtons = modal.querySelector('#additives')
 
   body.addEventListener('click', function closeModalListener(event) {
     if (modal.contains(event.target) && !closeButton.contains(event.target)) {
@@ -89,4 +96,39 @@ export default function openModal(card) {
 
     body.removeEventListener('click', closeModalListener)
   })
+
+  for (let button of sizeButtons.children) {
+    button.addEventListener('click', () => {
+      for (let button2 of sizeButtons.children) {
+        button2.classList.remove('active-button')
+      }
+      volumePrise = 0
+      button.classList.add('active-button')
+
+      volumePrise = +card.sizes[button.textContent.trim().split('')[0].toLowerCase()]['add-price']
+      const price = initialPrice + volumePrise + additivePrice
+      changePrice(price)
+    })
+  }
+
+  for (let button of additivesButtons.children) {
+    button.addEventListener('click', () => {
+      button.classList.toggle('active-button')
+      const text = button.querySelector('.menu__button_text')
+
+      const additionalPrice = +card.additives.find((additive) => additive.name === text.textContent.trim())['add-price']
+      if (button.classList.contains('active-button')) {
+        additivePrice += additionalPrice
+      } else {
+        additivePrice -= additionalPrice
+      }
+
+      const price = initialPrice + additivePrice + volumePrise
+      changePrice(price)
+    })
+  }
+
+  function changePrice(newPrice) {
+    renderPrice.textContent = `$${newPrice}`
+  }
 }

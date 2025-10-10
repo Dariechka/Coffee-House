@@ -4,6 +4,7 @@ const cup = document.querySelector('.header__menu')
 const body = document.body
 const links = document.querySelectorAll('.header__navigation_item')
 const logo = document.querySelector('.header__logo')
+const menuLink = document.querySelector('.header__menu')
 const mql = window.matchMedia('(max-width: 768px)')
 
 mql.addEventListener('change', (e) => {
@@ -30,6 +31,10 @@ for (const link of links) {
 }
 
 logo.addEventListener('click', (event) => {
+  closeMenu()
+})
+
+menuLink.addEventListener('click', (event) => {
   closeMenu()
 })
 
