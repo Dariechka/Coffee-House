@@ -117,7 +117,7 @@
     }
   }
 
-  @if ($breakpoint==x3-tablet) {
+  @if ($breakpoint==x5-tablet) {
     @media only screen and (max-width: 850px) {
       @content;
     }
@@ -125,6 +125,12 @@
 
   @if ($breakpoint==tablet) {
     @media only screen and (max-width: 768px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint==xxx-mobile) {
+    @media only screen and (max-width: 700px) {
       @content;
     }
   }

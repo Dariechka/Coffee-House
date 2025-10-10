@@ -26,8 +26,7 @@
     }
   }
   &__buttons-container {
-    display: flex;
-    gap: 16px;
+    @include mix.center(8px);
     @include mix.respond(xx-mobile) {
       gap: 8px;
     }
@@ -35,10 +34,13 @@
   &__button {
     cursor: pointer;
     padding-right: 16px;
+    padding-left: 8px;
     @include mix.button(46px, transparent, vars.$beige2);
     @include mix.center(8px);
     width: 100%;
     transition: 0.5s ease-out;
+    justify-content: flex-start;
+    white-space: nowrap;
     &_circle {
       width: 30px;
       height: 30px;
@@ -67,6 +69,7 @@
     }
   }
   &__card {
+    cursor: pointer;
     width: 310px;
     height: 506px;
     display: flex;

@@ -1,3 +1,5 @@
+import openModal from './modal.js'
+
 ;(async () => {
   const buttons = document.querySelector('.menu__buttons-container')
   const catalog = document.querySelector('.menu__list')
@@ -73,6 +75,11 @@
 
     cardHTML.prepend(image)
     cardHTML.append(textWrapper)
+
+    cardHTML.addEventListener('click', (event) => {
+      openModal(card)
+      event.stopPropagation()
+    })
 
     return cardHTML
   }

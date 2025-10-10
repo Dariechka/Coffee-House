@@ -72,12 +72,7 @@
       @media (hover: hover) {
         &:hover {
           background-color: vars.$gray;
-        }
-        &:hover span {
           color: vars.$beige;
-        }
-        &:hover > .app__text__button__svg {
-          fill: vars.$beige;
         }
       }
     }
