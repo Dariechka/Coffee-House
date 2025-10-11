@@ -1,0 +1,25 @@
+@use './../node_modules/modern-normalize/modern-normalize.css';
+@use './components/container.scss';
+@use './components/header.scss';
+@use './components/enjoy.scss';
+@use './components/favorite.scss';
+@use './components/about.scss';
+@use './components/app.scss';
+@use './components/contact.scss';
+@use './components/menu.scss';
+@use './components/modal.scss';
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0 auto;
+}

@@ -1,0 +1,122 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.favorite {
+  background-color: vars.$beige;
+  &__container {
+    @include mix.center(40px);
+    padding-top: 100px;
+    padding-bottom: 100px;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    @include mix.respond(xx-mobile) {
+      justify-content: center;
+    }
+  }
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+    text-align: center;
+    &_italic {
+      @include mix.italic();
+    }
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+    }
+  }
+  &__slider {
+    padding: 0 3.5px;
+    @include mix.center(0);
+    justify-content: space-between;
+    height: 640px;
+    width: 100%;
+    &__button {
+      cursor: pointer;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 1px solid vars.$gray;
+      background-color: transparent;
+      &_svg {
+        stroke: vars.$black;
+      }
+      @media (hover: hover) {
+        &:hover {
+          background-color: vars.$gray;
+        }
+        &:hover > .favorite__slider__button_svg {
+          stroke: vars.$beige;
+        }
+      }
+      @include mix.respond(xx-mobile) {
+        display: none;
+      }
+    }
+    &__ribbon {
+      width: 480px;
+      display: flex;
+      overflow: hidden;
+      @include mix.respond(xx-mobile) {
+        width: 348px;
+      }
+    }
+    &__card {
+      width: 480px;
+      flex-shrink: 0;
+      @include mix.center(16px);
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      &__image {
+        width: 480px;
+        height: 480px;
+        margin-bottom: 4.3px;
+        @include mix.respond(xx-mobile) {
+          width: 348px;
+          height: 348px;
+        }
+        &_img {
+          @include mix.img();
+        }
+      }
+      &__title {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.3px);
+      }
+      &__text {
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0.1px);
+        width: 480px;
+        text-align: center;
+        @include mix.respond(xx-mobile) {
+          width: 348px;
+          letter-spacing: 0;
+        }
+      }
+      @include mix.respond(xx-mobile) {
+        width: 348px;
+      }
+    }
+    @include mix.respond(tablet) {
+      padding: 0;
+    }
+    @include mix.respond(xx-mobile) {
+      width: 348px;
+      height: 532px;
+    }
+  }
+  &__pointers {
+    @include mix.center(12px);
+    justify-content: space-between;
+    &_pointer {
+      cursor: pointer;
+      width: 40px;
+      height: 4px;
+      border-radius: vars.$radius;
+      background: linear-gradient(to left, vars.$beige2 50%, vars.$gray 50%) right;
+      background-size: 200%;
+      transition: 0.2s ease-out;
+    }
+  }
+}
+
+.ribbon_scroll {
+  transition: 0.5s ease-out;
+}

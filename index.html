@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>coffee-house</title>
+    <link rel="icon" type="image/x-icon" href="./assets/images/coffee.png" />
+    <link rel="stylesheet" href="./styles/main.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container header__container">
+        <a href="#" class="header__logo">
+          <svg width="93" height="23" viewBox="0 0 93 23" class="header__logo_svg">
+            <use href="./assets/icon.svg#logo"></use>
+          </svg>
+          <div class="header__logo_circle"></div>
+          <h2 class="header__logo_text">COFFEE HOUSE</h2>
+        </a>
+        <button class="header__burger-menu">
+          <span class="header__burger-menu_line up"></span>
+          <span class="header__burger-menu_line down"></span>
+        </button>
+        <nav class="header__navigation">
+          <a href="#favorite-coffee" class="header__navigation_item">Favorite coffee</a>
+          <a href="#about" class="header__navigation_item">About</a>
+          <a href="#mobile-app" class="header__navigation_item">Mobile app</a>
+          <a href="#contact-us" class="header__navigation_item">Contact us</a>
+        </nav>
+        <a href="./menu.html" class="header__menu">
+          <h2 class="header__menu_text">Menu</h2>
+          <svg width="20" height="20" viewBox="0 0 20 20" class="header__menu_svg">
+            <use href="./assets/icon.svg#cup"></use>
+          </svg>
+        </a>
+      </div>
+    </header>
+    <main>
+      <section class="enjoy">
+        <div class="container">
+          <div class="enjoy__background">
+            <video autoplay muted loop playsinline class="enjoy__background__video">
+              <source src="./assets/video.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div class="enjoy__text">
+              <h1 class="enjoy__text__title">
+                <span class="enjoy__text__title_italic">Enjoy</span> premium coffee at our charming cafe
+              </h1>
+              <p class="enjoy__text__text">
+                With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular
+                destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite
+                beverage.
+              </p>
+              <a href="./menu.html" class="enjoy__text__link">
+                <p class="enjoy__text__link_text">Menu</p>
+                <svg width="20" height="20" viewBox="0 0 20 20" class="enjoy__text__link_svg">
+                  <use href="./assets/icon.svg#cup"></use>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section id="favorite-coffee" class="favorite">
+        <div class="container favorite__container">
+          <h2 class="favorite__title">Choose your <span class="favorite__title_italic">favorite</span> coffee</h2>
+          <div class="favorite__slider">
+            <button class="favorite__slider__button left">
+              <svg width="14" height="14" viewBox="0 0 14 14" class="favorite__slider__button_svg">
+                <use href="./assets/icon.svg#left"></use>
+              </svg>
+            </button>
+            <div class="favorite__slider__ribbon">
+              <div class="favorite__slider__card">
+                <div class="favorite__slider__card__image">
+                  <img src="assets/images/0-large.png" alt="coffee" class="favorite__slider__card__image_img" />
+                </div>
+                <h4 class="favorite__slider__card__title">S&rsquo;mores Frappuccino</h4>
+                <p class="favorite__slider__card__text">
+                  This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with
+                  oat milk.
+                </p>
+                <h4 class="favorite__slider__card__title">$5.50</h4>
+              </div>
+            </div>
+            <button class="favorite__slider__button right">
+              <svg width="14" height="14" viewBox="0 0 14 14" class="favorite__slider__button_svg">
+                <use href="./assets/icon.svg#right"></use>
+              </svg>
+            </button>
+          </div>
+          <div class="favorite__pointers">
+            <div class="favorite__pointers_pointer"></div>
+            <div class="favorite__pointers_pointer"></div>
+            <div class="favorite__pointers_pointer"></div>
+          </div>
+        </div>
+      </section>
+      <section id="about" class="about">
+        <div class="container about__container">
+          <h2 class="about__title">
+            Resource is <span class="about__title_italic">the perfect and cozy place</span> where you can enjoy a
+            variety of hot beverages, relax, catch up with friends, or get some work done.
+          </h2>
+          <div class="about__gallery">
+            <div class="about__gallery__image about__gallery__image_1"></div>
+            <div class="about__gallery__image about__gallery__image_2"></div>
+            <div class="about__gallery__image about__gallery__image_3"></div>
+            <div class="about__gallery__image about__gallery__image_4"></div>
+          </div>
+        </div>
+      </section>
+      <section id="mobile-app" class="app">
+        <div class="container app__container">
+          <div class="app__text">
+            <h2 class="app__text__title">
+              <span class="app__text__title_italic">Download</span> our apps to start ordering
+            </h2>
+            <div class="app__text__text">
+              Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever
+              you are
+            </div>
+            <div class="app__text__buttons-container">
+              <button class="app__text__button">
+                <svg class="app__text__button__svg">
+                  <use href="./assets/icon.svg#apple"></use>
+                </svg>
+                <span class="app__text__button__text">
+                  Available on the
+                  <span class="app__text__button__text__platform">App Store</span>
+                </span>
+              </button>
+              <button class="app__text__button">
+                <svg class="app__text__button__svg">
+                  <use href="./assets/icon.svg#android"></use>
+                </svg>
+                <span class="app__text__button__text">
+                  Available on
+                  <span class="app__text__button__text__platform">Google Play</span>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div class="app__image">
+            <img src="assets/images/phones.png" alt="phones" class="app__image_img" />
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <section id="contact-us" class="contact">
+        <div class="container">
+          <div class="contact__container">
+            <div class="contact__title">
+              <h2 class="contact__title_title">
+                Sip, Savor, Smile. <span class="contact__title_title_italic">It’s coffee time!</span>
+              </h2>
+              <div class="contact__social-media">
+                <button class="contact__social-media__button">
+                  <svg class="contact__social-media__button__svg">
+                    <use href="./assets/icon.svg#twitter"></use>
+                  </svg>
+                </button>
+                <button class="contact__social-media__button">
+                  <svg class="contact__social-media__button__svg">
+                    <use href="./assets/icon.svg#instagram"></use>
+                  </svg>
+                </button>
+                <button class="contact__social-media__button">
+                  <svg class="contact__social-media__button__svg">
+                    <use href="./assets/icon.svg#facebook"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="contact__info">
+              <h3 class="contact__info__title">Contact us</h3>
+              <ul class="contact__info__list">
+                <li class="contact__info__list_item">
+                  <a
+                    class="contact__info__list_item_link"
+                    href="https://www.google.com/maps/place/Green+Moore+Rd,+Louisiana+70661,+USA/@30.2835013,-93.6835997,813m/data=!3m1!1e3!4m15!1m8!3m7!1s0x863bfca8e71a9973:0xcffc575a39443e57!2sGreen+Moore+Rd,+Louisiana+70661,+USA!3b1!8m2!3d30.2834967!4d-93.6810194!16s%2Fg%2F1thz20sz!3m5!1s0x863bfca8e71a9973:0xcffc575a39443e57!8m2!3d30.2834967!4d-93.6810194!16s%2Fg%2F1thz20sz?entry=ttu&g_ep=EgoyMDI1MTAwMS4wIKXMDSoASAFQAw%3D%3D"
+                    target="_blank"
+                  >
+                    <svg width="20" height="20" viewBox="0 0 20 20" class="contact__info__list_item_svg">
+                      <use href="./assets/icon.svg#map"></use>
+                    </svg>
+                    <h3 class="contact__info__list_item_text">8558 Green Rd., LA</h3>
+                  </a>
+                </li>
+                <li class="contact__info__list_item">
+                  <a class="contact__info__list_item_link" href="tel:+16035550123">
+                    <svg width="19" height="19" viewBox="0 0 19 19" class="contact__info__list_item_svg">
+                      <use href="./assets/icon.svg#phone"></use>
+                    </svg>
+                    <h3 class="contact__info__list_item_text">+1 (603) 555-0123</h3>
+                  </a>
+                </li>
+                <li class="contact__info__list_item">
+                  <svg width="20" height="20" viewBox="0 0 20 20" class="contact__info__list_item_svg">
+                    <use href="./assets/icon.svg#clock"></use>
+                  </svg>
+                  <h3 class="contact__info__list_item_li">Mon-Sat: 9:00 AM – 23:00 PM</h3>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </footer>
+    <script type="module" src="./js/burger-menu.js"></script>
+    <script type="module" src="./js/slider.js"></script>
+  </body>
+</html>
