@@ -4,7 +4,7 @@
     "description": "Fragrant black coffee with Jameson Irish whiskey and whipped milk",
     "price": "7.00",
     "category": "coffee",
-    "src": "./../../assets/images/irish.png",
+    "src": "./../assets/images/irish.png",
     "sizes": {
       "s": {
         "size": "200 ml",
@@ -40,7 +40,7 @@
     "description": "Classic coffee with milk and Kahlua liqueur under a cap of frothed milk",
     "price": "7.00",
     "category": "coffee",
-    "src": "./../../assets/images/kahlua.png",
+    "src": "./../assets/images/kahlua.png",
     "sizes": {
       "s": {
         "size": "200 ml",

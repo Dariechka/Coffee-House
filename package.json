@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "homepage": "https://dariechka.github.io/Coffee-House/coffee-house",
+  "homepage": "https://dariechka.github.io/Coffee-House/",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "format": "prettier --write \"**/*\" --ignore-unknown",
