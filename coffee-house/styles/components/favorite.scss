@@ -36,6 +36,7 @@
       border-radius: 50%;
       border: 1px solid vars.$gray;
       background-color: transparent;
+      transition: 0.5s ease-out;
       &_svg {
         stroke: vars.$black;
       }
