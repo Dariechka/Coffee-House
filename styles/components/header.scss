@@ -19,6 +19,9 @@
     flex-direction: column;
     width: 6.25rem;
     height: 100%;
+    &_active {
+      cursor: auto;
+    }
     &_circle {
       width: 38px;
       height: 38px;
@@ -84,9 +87,11 @@
         height: 40px;
       }
     }
+    &_active {
+      cursor: auto;
+    }
     &_active:hover:after {
       animation: none;
-      cursor: auto;
     }
     &_active:after {
       transform: scaleX(1);
