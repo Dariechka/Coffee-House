@@ -84,6 +84,9 @@
         height: 40px;
       }
     }
+    &_active:hover:after {
+      animation: none;
+    }
     &_active:after {
       transform: scaleX(1);
     }

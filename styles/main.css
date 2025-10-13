@@ -309,6 +309,9 @@ summary {
     height: 40px;
   }
 }
+.header__menu_active:hover:after {
+  animation: none;
+}
 .header__menu_active:after {
   transform: scaleX(1);
 }
