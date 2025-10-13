@@ -86,6 +86,7 @@
     }
     &_active:hover:after {
       animation: none;
+      cursor: auto;
     }
     &_active:after {
       transform: scaleX(1);
