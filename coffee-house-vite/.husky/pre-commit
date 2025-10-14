@@ -1,0 +1,2 @@
+cd coffee-house-vite
+npx lint-staged
