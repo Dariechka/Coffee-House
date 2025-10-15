@@ -1,11 +1,11 @@
-import Router, { type Route } from './router.ts'
+import { type Route } from './router.ts'
 import MainPage from '../pages /main-page/main-page.ts'
 import RegistrationPage from '../pages /registration-page/registration-page.ts'
 import SignInPage from '../pages /sign-in-page/sign-in-page.ts'
 import MenuPage from '../pages /menu-page/menu-page.ts'
 import CartPage from '../pages /cart-page/cart-page.ts'
 import NotFoundPage from '../pages /not-found-page/not-found-page.ts'
-import { root } from '../root-element/root-element.ts'
+import { root } from '../app.ts'
 
 export enum Page {
   HOME = '',
@@ -17,7 +17,7 @@ export enum Page {
   NOT_FOUND = 'not-found',
 }
 
-const routes: Array<Route> = [
+export const routes: Array<Route> = [
   {
     path: Page.HOME,
     callback: () => root.setPage(new MainPage()),
@@ -47,5 +47,3 @@ const routes: Array<Route> = [
     callback: () => root.setPage(new NotFoundPage()),
   },
 ]
-
-export const router: Router = new Router(routes)

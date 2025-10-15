@@ -10,7 +10,7 @@ export default class RootElement extends HtmlElementComponent<'main'> {
     })
   }
 
-  public mountDom(parent: HTMLElement): void {
+  public mountTo(parent: HTMLElement): void {
     parent.appendChild(this.element)
   }
 
@@ -22,5 +22,3 @@ export default class RootElement extends HtmlElementComponent<'main'> {
     this.currentPage.mountToParent(this)
   }
 }
-
-export const root: RootElement = new RootElement()

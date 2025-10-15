@@ -1,3 +1,3 @@
-import { root } from './root-element/root-element.ts'
+import { startApp } from './app.ts'
 
-document.addEventListener('DOMContentLoaded', () => root.mountDom(document.body))
+document.addEventListener('DOMContentLoaded', () => startApp())

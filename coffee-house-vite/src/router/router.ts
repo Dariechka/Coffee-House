@@ -7,6 +7,7 @@ export default class Router {
   constructor(private routes: Array<Route>) {
     document.addEventListener('click', (event: MouseEvent) => this.interceptNavigation(event))
     window.addEventListener('popstate', () => this.navigate(this.getCurrentUrl()))
+    document.addEventListener('DOMContentLoaded', () => this.onBrowserUrlChange())
   }
 
   public getCurrentUrl(): string {
@@ -24,9 +25,13 @@ export default class Router {
     route.callback()
   }
 
+  private onBrowserUrlChange(): void {
+    this.navigate(this.getCurrentUrl())
+  }
+
   private pushHistory(url: string): void {
     //window.history.pushState(null, '', `${window.location.pathname}#/${url}`)
-    window.history.pushState(null, '', `${window.location.pathname}/${url}`)
+    window.history.pushState(null, '', `${window.location.origin}/${url}`)
   }
 
   private interceptNavigation(event: Event): void {
