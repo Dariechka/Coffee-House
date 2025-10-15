@@ -1,5 +1,4 @@
 import openModal from './modal.js'
-
 ;(async () => {
   const buttons = document.querySelector('.menu__buttons-container')
   const catalog = document.querySelector('.menu__list')

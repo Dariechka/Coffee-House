@@ -70,8 +70,8 @@
     interval = setInterval(leftSliderScroll, 5000)
   })
 
-  right.addEventListener('click', () => leftSliderScroll())
-  left.addEventListener('click', () => rightSliderScroll())
+  right.addEventListener('click', () => rightSliderScroll())
+  left.addEventListener('click', () => leftSliderScroll())
 
   function renderCard(step, place) {
     for (const child of progressBar.children) {
@@ -109,15 +109,15 @@
     } else {
       step -= 1
     }
-    renderCard(step, 'beforeend')
+    renderCard(step, 'afterbegin')
     const translation = calcDelta()
+    scroll(-translation, true)
 
     setTimeout(() => {
-      scroll(-translation)
+      scroll(0)
     }, 100)
     setTimeout(() => {
       cardToRemove.remove()
-      scroll(0, true)
     }, 600)
   }
 
@@ -128,15 +128,15 @@
     } else {
       step += 1
     }
-    renderCard(step, 'afterbegin')
+    renderCard(step, 'beforeend')
     const translation = calcDelta()
-    scroll(-translation, true)
 
     setTimeout(() => {
-      scroll(0)
+      scroll(-translation)
     }, 100)
     setTimeout(() => {
       cardToRemove.remove()
+      scroll(0, true)
     }, 600)
   }
 
