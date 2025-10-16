@@ -1,0 +1,20 @@
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.error-message {
+  animation: surface 5s ease forwards;
+  @include mix.text('Inter', italic, vars.$light-brown, 28px, 125%, 600, 1px);
+  padding: 0.5rem;
+  text-align: center;
+}
+
+@keyframes surface {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
