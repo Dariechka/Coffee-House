@@ -36,9 +36,11 @@ export default class Router {
 
   private interceptNavigation(event: Event): void {
     const element = event.target
+    // console.log('event', event)
     if (!(element instanceof HTMLAnchorElement) || element.origin !== location.origin) {
       return
     }
+    // console.log('processing')
 
     event.preventDefault()
     this.navigate(element.href)

@@ -5,8 +5,14 @@ export default class MainPage extends HtmlElementComponent<'section'> {
   constructor() {
     super({
       tag: 'section',
-      children: [new Header()],
       classes: ['page'],
     })
+    this.mountChildren(
+      new Header('menu', ['header__logo_active']),
+      new HtmlElementComponent<'p'>({
+        tag: 'p',
+        text: 'Main page',
+      }),
+    )
   }
 }
