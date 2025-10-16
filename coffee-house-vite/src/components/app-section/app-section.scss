@@ -1,0 +1,114 @@
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.app {
+  background-color: vars.$beige;
+
+  &__container {
+    justify-content: space-between;
+    padding-bottom: 100px;
+
+    @include mix.center(100px);
+
+    @include mix.respond(xx2-tablet) {
+      flex-direction: column;
+      gap: 100px;
+    }
+
+    @include mix.respond(x-mobile) {
+      gap: 40px;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    max-width: 630px;
+
+    @include mix.respond(xxx2-tablet) {
+      max-width: 450px;
+    }
+
+    @include mix.respond(xx2-tablet) {
+      max-width: 688px;
+    }
+
+    &__title {
+      @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+      &_italic {
+        @include mix.italic;
+      }
+
+      @include mix.respond(xx-mobile) {
+        font-size: 32px;
+        letter-spacing: 1px;
+      }
+    }
+
+    &__text {
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0.1px);
+    }
+
+    &__buttons-container {
+      display: flex;
+      gap: 20px;
+
+      @include mix.respond(x-mobile) {
+        flex-direction: column;
+      }
+    }
+
+    &__button {
+      cursor: pointer;
+      display: flex;
+      gap: 5px;
+      justify-content: flex-start;
+      padding-left: 23px;
+      transition: 0.5s ease-out;
+
+      @include mix.button(64px, transparent, vars.$gray);
+
+      &__svg {
+        width: 36px;
+        height: 36px;
+        fill: vars.$black;
+      }
+
+      &__text {
+        @include mix.text('Inter', normal, vars.$black, 10px, 140%, 600, 0);
+
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: space-between;
+
+        &__platform {
+          @include mix.text('Inter', normal, vars.$black, 16px, 148%, 600, 0);
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          color: vars.$beige;
+          background-color: vars.$gray;
+        }
+      }
+    }
+  }
+
+  &__image {
+    width: 630px;
+    height: 630px;
+
+    &_img {
+      @include mix.img;
+    }
+
+    @include mix.respond(xx-mobile) {
+      width: 348px;
+      height: 348px;
+    }
+  }
+}

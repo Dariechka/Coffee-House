@@ -1,1 +1,7 @@
-/* stylelint passing */
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.main-page {
+  width: 100%;
+  background-color: vars.$beige;
+}

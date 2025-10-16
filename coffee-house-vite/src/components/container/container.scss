@@ -2,10 +2,11 @@
 @use './../../styles/_mixins' as mix;
 
 .container {
-  max-width: vars.$large;
-  padding: 0 2.5rem;
   overflow: hidden;
+  max-width: vars.$large;
   margin: 0 auto;
+  padding: 0 2.5rem;
+
   @include mix.respond(mobile) {
     padding: 0 1rem;
   }

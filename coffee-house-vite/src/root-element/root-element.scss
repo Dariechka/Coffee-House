@@ -1,4 +1,23 @@
+@use './../styles/_variables' as vars;
+@use './../styles/_mixins' as mix;
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0 auto;
+}
+
 .root-container {
   width: 100%;
   height: 100%;
+  background-color: vars.$beige;
 }

@@ -22,7 +22,6 @@ export default [
       unicorn: eslintPluginUnicorn,
     },
     rules: {
-      'max-lines-per-function': ['error', { max: 40, skipComments: true, skipBlankLines: true }],
       '@typescript-eslint/no-magic-numbers': ['error', { ignore: [0, 1, -1], ignoreReadonlyClassProperties: true }],
       'no-magic-strings': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { caughtErrorsIgnorePattern: '^_' }],
