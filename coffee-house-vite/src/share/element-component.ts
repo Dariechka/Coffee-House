@@ -1,14 +1,14 @@
 import type { EventCallback, Subscription } from './even-emitter'
 import { EventEmitter } from './even-emitter'
-import type { AttributesType, ElementParameters, EventListener } from '../typing/types.ts'
+import type { AttributesType, ElementParameters, EventListener, Listener } from '../typing/types.ts'
 
 export const eventEmitter: EventEmitter = new EventEmitter()
 
 export class ElementComponent<E extends Element> {
   protected readonly element: E
 
-  private subscriptions: Array<Subscription> = []
-  private children: Array<ElementComponent<Element>> = []
+  protected subscriptions: Array<Subscription> = []
+  protected children: Array<ElementComponent<Element>> = []
 
   constructor(element: E, { classes, text, attributes, listeners, children }: ElementParameters) {
     this.element = element
@@ -26,6 +26,10 @@ export class ElementComponent<E extends Element> {
     if (children) {
       children.forEach((child) => child.mountToParent(this))
     }
+  }
+
+  public handleEvent<K extends keyof ElementEventMap>(type: string, listener: Listener<K>): void {
+    this.element.addEventListener(type, listener)
   }
 
   public mountToParent(parent: ElementComponent<Element>): void {

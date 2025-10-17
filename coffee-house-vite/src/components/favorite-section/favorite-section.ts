@@ -1,6 +1,7 @@
 import './favorite-section.scss'
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
 import Container from '../container/container.ts'
+import Slider from '../slider/slider.ts'
 
 export default class FavoriteSection extends HtmlElementComponent<'section'> {
   constructor() {
@@ -14,7 +15,7 @@ export default class FavoriteSection extends HtmlElementComponent<'section'> {
       ],
       classes: ['favorite'],
     })
-    this.mountChildren(new Container(['favorite__container'], [this.createTitle()]))
+    this.mountChildren(new Container(['favorite__container'], [this.createTitle(), new Slider()]))
   }
 
   private createTitle(): HtmlElementComponent<'h2'> {
