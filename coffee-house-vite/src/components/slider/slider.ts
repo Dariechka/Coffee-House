@@ -6,6 +6,7 @@ import { fetchFavoriteProducts } from '../../share/api.ts'
 import Ribbon from './ribbon/ribbon.ts'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
+import { calcDelta, timerDelayValue } from '../../utils/calcDelta.ts'
 
 export default class Slider extends HtmlElementComponent<'div'> {
   private readonly leftButton: HtmlElementComponent<'button'>
@@ -14,6 +15,7 @@ export default class Slider extends HtmlElementComponent<'div'> {
   private readonly pointersList: HtmlElementComponent<'div'>
 
   private favouriteCoffee: Array<Product> = []
+  private step: number = 0
 
   constructor() {
     super({
@@ -27,6 +29,9 @@ export default class Slider extends HtmlElementComponent<'div'> {
     this.mountChildren(this.createContainer(), this.creatPointersList())
 
     this.loadData()
+
+    this.leftButton.handleEvent('click', () => this.leftSliderScroll())
+    this.rightButton.handleEvent('click', () => this.rightSliderScroll())
   }
 
   private creatLeftButton(): HtmlElementComponent<'button'> {
@@ -133,14 +138,18 @@ export default class Slider extends HtmlElementComponent<'div'> {
 
   private async loadData(): Promise<void> {
     this.ribbon.mountChildren(new Loader())
-    const response = await fetchFavoriteProducts()
-    this.ribbon.clearRibbon()
-    if (typeof response === 'string') {
-      this.ribbon.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
-    } else {
-      this.favouriteCoffee = response.data
-      this.ribbon.mountChildren(this.renderCard(this.favouriteCoffee[0]))
-    }
+    setTimeout(async () => {
+      const response = await fetchFavoriteProducts()
+      this.ribbon.clearRibbon()
+      if (typeof response === 'string') {
+        this.ribbon.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
+        this.leftButton.disable()
+        this.rightButton.disable()
+      } else {
+        this.favouriteCoffee = response.data
+        this.ribbon.mountChildren(...this.favouriteCoffee.map((coffee) => this.renderCard(coffee)))
+      }
+    }, timerDelayValue)
   }
 
   private renderCard(card: Product): HtmlElementComponent<'div'> {
@@ -180,28 +189,39 @@ export default class Slider extends HtmlElementComponent<'div'> {
         }),
         new HtmlElementComponent<'h4'>({
           tag: 'h4',
-          text: `${card.price}`,
+          text: `$${card.price}`,
           classes: ['favorite__slider__card__title'],
         }),
       ],
     })
   }
-}
 
-//function renderCard(step, place) {
-//     for (const child of progressBar.children) {
-//       child.style.backgroundPosition = 'right'
-//     }
-//     const drink = allDrinks.find((drink, index) => index === step)
-//     const cardHtml = `<div class="favorite__slider__card">
-//                 <div class="favorite__slider__card__image">
-//                   <img src="assets/images/${step}-${size}.png" alt="coffee" class="favorite__slider__card__image_img" />
-//                 </div>
-//                 <h4 class="favorite__slider__card__title">${drink.title}</h4>
-//                 <p class="favorite__slider__card__text">${drink.text}</p>
-//                 <h4 class="favorite__slider__card__title">${drink.price}</h4>
-//             </div>`
-//     ribbon.insertAdjacentHTML(place, cardHtml)
-//
-//     progressBar.children[step].style.backgroundPosition = 'left'
-//   }
+  private scroll(translation: number, immediate: boolean = false): void {
+    if (immediate) {
+      this.ribbon.removeClass('ribbon_scroll')
+    } else {
+      this.ribbon.addClass('ribbon_scroll')
+    }
+    this.ribbon.translateChildren(translation)
+  }
+
+  private leftSliderScroll(): void {
+    if (this.step === 0) {
+      this.step = this.favouriteCoffee.length - 1
+    } else {
+      this.step -= 1
+    }
+    const translation = calcDelta()
+    this.scroll(-translation, false)
+  }
+
+  private rightSliderScroll(): void {
+    if (this.step === this.favouriteCoffee.length - 1) {
+      this.step = 0
+    } else {
+      this.step += 1
+    }
+    const translation = calcDelta()
+    this.scroll(translation, false)
+  }
+}

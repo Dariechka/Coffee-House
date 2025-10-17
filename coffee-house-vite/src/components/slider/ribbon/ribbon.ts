@@ -9,7 +9,25 @@ export default class Ribbon extends HtmlElementComponent<'div'> {
     })
   }
 
+  private get htmlChildren(): Array<HtmlElementComponent<keyof HTMLElementTagNameMap>> {
+    return this.children.filter((child) => child instanceof HtmlElementComponent)
+  }
+
   public clearRibbon(): void {
     this.children.forEach((child: ElementComponent<Element>): void => child.unmount())
+  }
+
+  public addClass(name: string): void {
+    this.addClassToChildren(name)
+  }
+
+  public removeClass(name: string): void {
+    this.removeClassFromChildren(name)
+  }
+
+  public translateChildren(translationPx: number): void {
+    for (const child of this.htmlChildren) {
+      child.translate(translationPx)
+    }
   }
 }

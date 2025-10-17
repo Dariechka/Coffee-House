@@ -35,6 +35,18 @@
         stroke: vars.$black;
       }
 
+      &[disabled] {
+        cursor: auto;
+
+        &:hover {
+          background-color: vars.$beige;
+
+          & > .favorite__slider__button_svg {
+            stroke: vars.$black;
+          }
+        }
+      }
+
       @media (hover: hover) {
         &:hover {
           background-color: vars.$gray;
@@ -53,11 +65,14 @@
     &__ribbon {
       overflow: hidden;
       display: flex;
-      justify-content: center;
       width: 480px;
 
       @include mix.respond(xx-mobile) {
         width: 348px;
+      }
+
+      & > span {
+        margin-left: 40%;
       }
     }
 

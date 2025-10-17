@@ -28,6 +28,18 @@ export class ElementComponent<E extends Element> {
     }
   }
 
+  public addClassToChildren(name: string): void {
+    this.children.forEach((child) => child.element.classList.add(name))
+  }
+
+  public removeClassFromChildren(name: string): void {
+    this.children.forEach((child) => child.element.classList.remove(name))
+  }
+
+  public disable(): void {
+    this.element.setAttribute('disabled', '')
+  }
+
   public handleEvent<K extends keyof ElementEventMap>(type: string, listener: Listener<K>): void {
     this.element.addEventListener(type, listener)
   }

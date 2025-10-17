@@ -1,7 +1,7 @@
 import type { ErrorResponse, Product } from '../typing/types.ts'
 
-export function isErrorResponse(response: object): response is ErrorResponse {
-  return !!response['error']
+export function isErrorResponse(response: unknown): response is ErrorResponse {
+  return typeof response === 'object' && response !== null && 'error' in response
 }
 
 export function ifProduct(product: object): product is Product {
