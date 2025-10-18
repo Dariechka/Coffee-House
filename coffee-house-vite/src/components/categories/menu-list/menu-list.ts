@@ -1,5 +1,4 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
-import type { ElementComponent } from '../../../share/element-component.ts'
 import type { Product } from '../../../typing/types.ts'
 import Card from './card/card.ts'
 
@@ -12,7 +11,7 @@ export default class MenuList extends HtmlElementComponent<'div'> {
   }
 
   public clearList(): void {
-    this.children.forEach((child: ElementComponent<Element>): void => child.unmount())
+    this.children.splice(0, this.children.length).forEach((child): void => child.unmount())
   }
 
   public renderCards(products: Array<Product>): void {

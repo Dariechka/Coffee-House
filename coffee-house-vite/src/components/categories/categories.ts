@@ -7,15 +7,16 @@ import { fetchProducts } from '../../share/api.ts'
 import MenuList from './menu-list/menu-list.ts'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
-import { timerDelayValue } from '../../utils/calcDelta.ts'
+import { isMoreBorderWindowWidth, numberOfCards, timerDelayValue } from '../../utils/calcDelta.ts'
 import CategoryButton from './category-button/category-button.ts'
 
 export default class Categories extends HtmlElementComponent<'section'> {
   private menuList: MenuList = new MenuList()
   private categories: Array<string> = ['coffee', 'tea', 'dessert']
   private products: Product[] = []
-  private loadButton: HtmlElementComponent<'button'>
-  private buttonContainer: Array<CategoryButton>
+  private readonly loadButton: HtmlElementComponent<'button'>
+  private readonly buttonContainer: Array<CategoryButton>
+  private activeCategory: string = 'coffee'
 
   constructor() {
     super({
@@ -34,12 +35,13 @@ export default class Categories extends HtmlElementComponent<'section'> {
     this.loadProducts()
 
     this.buttonContainer.forEach((button) => {
-      button.handleEvent('click', () => this.handleButtonClick(button.getTextContent()))
+      button.handleEvent('click', () => {
+        this.activeCategory = button.getTextContent()
+        this.handleButtonClick()
+      })
     })
-
-    window.addEventListener('resize', () => {
-      this.loadButton.changeDisplay('flex')
-    })
+    window.addEventListener('resize', () => this.checkNumberAndRenderCards())
+    this.loadButton.handleEvent('click', () => this.renderAllCards())
   }
 
   private createTitle(): HtmlElementComponent<'h1'> {
@@ -87,27 +89,51 @@ export default class Categories extends HtmlElementComponent<'section'> {
     })
   }
 
-  private handleButtonClick(category: string): void {
+  private handleButtonClick(): void {
     this.buttonContainer.forEach((button): void => button.removeClassFromButton('active-button'))
-    this.menuList.clearList()
-    this.menuList.renderCards(this.products.filter((product) => product.category === category))
-    this.buttonContainer.find((button) => button.isCategoriesTheSame(category))?.addClassToButton('active-button')
+    this.buttonContainer
+      .find((button) => button.isCategoriesTheSame(this.activeCategory))
+      ?.addClassToButton('active-button')
+    this.checkNumberAndRenderCards()
   }
 
   private async loadProducts(): Promise<void> {
     this.menuList.mountChildren(new Loader())
     setTimeout(async () => {
       const response = await fetchProducts()
-      this.menuList.clearList()
       if (typeof response === 'string') {
+        this.menuList.clearList()
         this.menuList.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
       } else {
         this.products = response.data
-        this.menuList.renderCards(this.products.filter((product) => product.category === this.categories[0]))
+        this.activeCategory = this.categories[0]
         this.buttonContainer
           .find((button) => button.isCategoriesTheSame(this.categories[0]))
           ?.addClassToButton('active-button')
+        this.checkNumberAndRenderCards()
       }
     }, timerDelayValue)
+  }
+
+  private renderFirstFourCards(): void {
+    this.menuList.clearList()
+    this.menuList.renderCards(
+      this.products.filter((product) => product.category === this.activeCategory).slice(0, numberOfCards)
+    )
+    this.loadButton.changeDisplay('flex')
+  }
+
+  private renderAllCards(): void {
+    this.menuList.clearList()
+    this.menuList.renderCards(this.products.filter((product) => product.category === this.activeCategory))
+    this.loadButton.changeDisplay('none')
+  }
+
+  private checkNumberAndRenderCards(): void {
+    if (isMoreBorderWindowWidth()) {
+      this.renderAllCards()
+    } else {
+      this.renderFirstFourCards()
+    }
   }
 }
