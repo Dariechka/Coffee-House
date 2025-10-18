@@ -16,4 +16,12 @@ export class HtmlElementComponent<K extends keyof HTMLElementTagNameMap> extends
   public setImage(path: string): void {
     this.element.style.backgroundImage = `url('${path}')`
   }
+
+  public changeDisplay(display: 'none' | 'flex'): void {
+    this.element.style.display = display
+  }
+
+  public changePosition(position: 'left' | 'right'): void {
+    this.element.style.backgroundPosition = position
+  }
 }

@@ -22,7 +22,7 @@ export default [
       unicorn: eslintPluginUnicorn,
     },
     rules: {
-      '@typescript-eslint/no-magic-numbers': ['error', { ignore: [0, 1, -1], ignoreReadonlyClassProperties: true }],
+      '@typescript-eslint/no-magic-numbers': ['error', { ignore: [0, 1, -1, 3], ignoreReadonlyClassProperties: true }],
       'no-magic-strings': 'off',
       '@typescript-eslint/no-unused-vars': ['error', { caughtErrorsIgnorePattern: '^_' }],
       '@typescript-eslint/consistent-type-imports': 'error',

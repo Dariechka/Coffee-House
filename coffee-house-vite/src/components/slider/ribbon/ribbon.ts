@@ -1,5 +1,4 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
-import type { ElementComponent } from '../../../share/element-component.ts'
 
 export default class Ribbon extends HtmlElementComponent<'div'> {
   constructor() {
@@ -14,7 +13,7 @@ export default class Ribbon extends HtmlElementComponent<'div'> {
   }
 
   public clearRibbon(): void {
-    this.children.forEach((child: ElementComponent<Element>): void => child.unmount())
+    this.children.splice(0, this.children.length).forEach((child): void => child.unmount())
   }
 
   public addClass(name: string): void {
@@ -29,5 +28,9 @@ export default class Ribbon extends HtmlElementComponent<'div'> {
     for (const child of this.htmlChildren) {
       child.translate(translationPx)
     }
+  }
+
+  public unmountChild(index: number): void {
+    this.children.splice(index, 1)[0].unmount()
   }
 }

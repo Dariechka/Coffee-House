@@ -6,16 +6,29 @@ import { fetchFavoriteProducts } from '../../share/api.ts'
 import Ribbon from './ribbon/ribbon.ts'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
-import { calcDelta, timerDelayValue } from '../../utils/calcDelta.ts'
+import {
+  calcDelta,
+  errorSwipe,
+  minTouchValue,
+  sliderInterval,
+  timerDelayValue,
+  transitionTime,
+  unmountChildTime,
+} from '../../utils/calcDelta.ts'
+import Pointer from './ribbon/pointer/pointer.ts'
 
 export default class Slider extends HtmlElementComponent<'div'> {
   private readonly leftButton: HtmlElementComponent<'button'>
   private readonly rightButton: HtmlElementComponent<'button'>
   private readonly ribbon = new Ribbon()
-  private readonly pointersList: HtmlElementComponent<'div'>
+  private readonly pointersList: Array<Pointer>
 
   private favouriteCoffee: Array<Product> = []
+  private touchStartX: number = 0
+  private touchEndX: number = 0
   private step: number = 0
+
+  private autoScrollIntervalId: number | undefined
 
   constructor() {
     super({
@@ -24,7 +37,7 @@ export default class Slider extends HtmlElementComponent<'div'> {
     })
     this.leftButton = this.creatLeftButton()
     this.rightButton = this.creatRightButton()
-    this.pointersList = this.creatPointersList()
+    this.pointersList = [new Pointer(), new Pointer(), new Pointer()]
 
     this.mountChildren(this.createContainer(), this.creatPointersList())
 
@@ -32,6 +45,14 @@ export default class Slider extends HtmlElementComponent<'div'> {
 
     this.leftButton.handleEvent('click', () => this.leftSliderScroll())
     this.rightButton.handleEvent('click', () => this.rightSliderScroll())
+
+    this.element.addEventListener('touchstart', (event) => {
+      this.touchStartX = event.changedTouches[0].screenX
+    })
+    this.element.addEventListener('touchend', (event) => {
+      this.touchEndX = event.changedTouches[0].screenX
+      this.handleSwipe()
+    })
   }
 
   private creatLeftButton(): HtmlElementComponent<'button'> {
@@ -119,20 +140,7 @@ export default class Slider extends HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'div'>({
       tag: 'div',
       classes: ['favorite__pointers'],
-      children: [
-        new HtmlElementComponent<'div'>({
-          tag: 'div',
-          classes: ['favorite__pointers_pointer'],
-        }),
-        new HtmlElementComponent<'div'>({
-          tag: 'div',
-          classes: ['favorite__pointers_pointer'],
-        }),
-        new HtmlElementComponent<'div'>({
-          tag: 'div',
-          classes: ['favorite__pointers_pointer'],
-        }),
-      ],
+      children: [...this.pointersList],
     })
   }
 
@@ -147,12 +155,18 @@ export default class Slider extends HtmlElementComponent<'div'> {
         this.rightButton.disable()
       } else {
         this.favouriteCoffee = response.data
-        this.ribbon.mountChildren(...this.favouriteCoffee.map((coffee) => this.renderCard(coffee)))
+        this.ribbon.mountChildren(this.createCard(this.favouriteCoffee[this.step]))
+        this.autoScrollIntervalId = window.setInterval(() => this.rightSliderScroll(), sliderInterval)
+        this.pointersList[this.step].changePosition('left')
       }
     }, timerDelayValue)
   }
 
-  private renderCard(card: Product): HtmlElementComponent<'div'> {
+  private createCard(card: Product): HtmlElementComponent<'div'> {
+    for (const pointer of this.pointersList) {
+      pointer.changePosition('right')
+    }
+    this.pointersList[this.step].changePosition('left')
     return new HtmlElementComponent<'div'>({
       tag: 'div',
       classes: ['favorite__slider__card'],
@@ -204,24 +218,47 @@ export default class Slider extends HtmlElementComponent<'div'> {
     }
     this.ribbon.translateChildren(translation)
   }
-
   private leftSliderScroll(): void {
     if (this.step === 0) {
       this.step = this.favouriteCoffee.length - 1
     } else {
       this.step -= 1
     }
+    this.ribbon.prependChildren(this.createCard(this.favouriteCoffee[this.step]))
     const translation = calcDelta()
-    this.scroll(-translation, false)
-  }
+    this.scroll(-translation, true)
 
+    setTimeout(() => this.scroll(0), transitionTime)
+    setTimeout(() => this.ribbon.unmountChild(1), unmountChildTime)
+  }
   private rightSliderScroll(): void {
     if (this.step === this.favouriteCoffee.length - 1) {
       this.step = 0
     } else {
       this.step += 1
     }
+    this.ribbon.mountChildren(this.createCard(this.favouriteCoffee[this.step]))
     const translation = calcDelta()
-    this.scroll(translation, false)
+
+    setTimeout(() => this.scroll(-translation), transitionTime)
+    setTimeout(() => {
+      this.ribbon.unmountChild(0)
+      this.scroll(0, true)
+    }, unmountChildTime)
+  }
+  private handleSwipe(): void {
+    if (calcDelta() === errorSwipe) {
+      return
+    }
+    const diff = this.touchStartX - this.touchEndX
+    if (Math.abs(diff) > minTouchValue) {
+      if (diff > 0) {
+        this.rightSliderScroll()
+      } else {
+        this.leftSliderScroll()
+      }
+    }
+    this.touchStartX = 0
+    this.touchEndX = 0
   }
 }

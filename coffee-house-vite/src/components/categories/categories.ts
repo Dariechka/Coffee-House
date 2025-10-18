@@ -1,32 +1,45 @@
 import './categories.scss'
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
 import Container from '../container/container.ts'
-import type { Category, Product } from '../../typing/types.ts'
+import type { Product } from '../../typing/types.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
 import { fetchProducts } from '../../share/api.ts'
 import MenuList from './menu-list/menu-list.ts'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
 import { timerDelayValue } from '../../utils/calcDelta.ts'
+import CategoryButton from './category-button/category-button.ts'
 
 export default class Categories extends HtmlElementComponent<'section'> {
   private menuList: MenuList = new MenuList()
-  private categories: Category[] = ['coffee', 'tea', 'dessert']
+  private categories: Array<string> = ['coffee', 'tea', 'dessert']
   private products: Product[] = []
+  private loadButton: HtmlElementComponent<'button'>
+  private buttonContainer: Array<CategoryButton>
 
   constructor() {
     super({
       tag: 'section',
       classes: ['menu'],
     })
+    this.buttonContainer = this.categories.map((category) => new CategoryButton(category))
+    this.loadButton = this.createLoadButton()
+
     this.mountChildren(
       new Container(
         ['menu__container'],
-        [this.createTitle(), this.creatButtonContainer(), this.menuList, this.createLoadButton()]
+        [this.createTitle(), this.creatButtonContainer(), this.menuList, this.loadButton]
       )
     )
-
     this.loadProducts()
+
+    this.buttonContainer.forEach((button) => {
+      button.handleEvent('click', () => this.handleButtonClick(button.getTextContent()))
+    })
+
+    window.addEventListener('resize', () => {
+      this.loadButton.changeDisplay('flex')
+    })
   }
 
   private createTitle(): HtmlElementComponent<'h1'> {
@@ -47,101 +60,7 @@ export default class Categories extends HtmlElementComponent<'section'> {
     return new HtmlElementComponent<'div'>({
       tag: 'div',
       classes: ['menu__buttons-container'],
-      children: [
-        new HtmlElementComponent<'button'>({
-          tag: 'button',
-          classes: ['menu__button', 'active-button'],
-          children: [
-            new HtmlElementComponent<'span'>({
-              tag: 'span',
-              classes: ['menu__button_circle'],
-              children: [
-                new HtmlElementComponent<'img'>({
-                  tag: 'img',
-                  classes: ['menu__button_img'],
-                  attributes: [
-                    {
-                      name: 'alt',
-                      value: 'coffee',
-                    },
-                    {
-                      name: 'src',
-                      value: './images/cup.png',
-                    },
-                  ],
-                }),
-              ],
-            }),
-            new HtmlElementComponent<'span'>({
-              tag: 'span',
-              text: 'Coffee',
-              classes: ['menu__button_text'],
-            }),
-          ],
-        }),
-        new HtmlElementComponent<'button'>({
-          tag: 'button',
-          classes: ['menu__button'],
-          children: [
-            new HtmlElementComponent<'span'>({
-              tag: 'span',
-              classes: ['menu__button_circle'],
-              children: [
-                new HtmlElementComponent<'img'>({
-                  tag: 'img',
-                  classes: ['menu__button_img'],
-                  attributes: [
-                    {
-                      name: 'alt',
-                      value: 'teapot',
-                    },
-                    {
-                      name: 'src',
-                      value: './images/teapot.png',
-                    },
-                  ],
-                }),
-              ],
-            }),
-            new HtmlElementComponent<'span'>({
-              tag: 'span',
-              text: 'Tea',
-              classes: ['menu__button_text'],
-            }),
-          ],
-        }),
-        new HtmlElementComponent<'button'>({
-          tag: 'button',
-          classes: ['menu__button'],
-          children: [
-            new HtmlElementComponent<'span'>({
-              tag: 'span',
-              classes: ['menu__button_circle'],
-              children: [
-                new HtmlElementComponent<'img'>({
-                  tag: 'img',
-                  classes: ['menu__button_img'],
-                  attributes: [
-                    {
-                      name: 'alt',
-                      value: 'dessert',
-                    },
-                    {
-                      name: 'src',
-                      value: './images/dessert.png',
-                    },
-                  ],
-                }),
-              ],
-            }),
-            new HtmlElementComponent<'span'>({
-              tag: 'span',
-              text: 'Dessert',
-              classes: ['menu__button_text'],
-            }),
-          ],
-        }),
-      ],
+      children: [...this.buttonContainer],
     })
   }
   private createLoadButton(): HtmlElementComponent<'button'> {
@@ -168,6 +87,13 @@ export default class Categories extends HtmlElementComponent<'section'> {
     })
   }
 
+  private handleButtonClick(category: string): void {
+    this.buttonContainer.forEach((button): void => button.removeClassFromButton('active-button'))
+    this.menuList.clearList()
+    this.menuList.renderCards(this.products.filter((product) => product.category === category))
+    this.buttonContainer.find((button) => button.isCategoriesTheSame(category))?.addClassToButton('active-button')
+  }
+
   private async loadProducts(): Promise<void> {
     this.menuList.mountChildren(new Loader())
     setTimeout(async () => {
@@ -177,7 +103,10 @@ export default class Categories extends HtmlElementComponent<'section'> {
         this.menuList.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
       } else {
         this.products = response.data
-        this.menuList.renderCards(this.products.filter((product) => product.category === 'coffee'))
+        this.menuList.renderCards(this.products.filter((product) => product.category === this.categories[0]))
+        this.buttonContainer
+          .find((button) => button.isCategoriesTheSame(this.categories[0]))
+          ?.addClassToButton('active-button')
       }
     }, timerDelayValue)
   }
