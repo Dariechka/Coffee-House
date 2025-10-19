@@ -1,5 +1,5 @@
 import { HtmlElementComponent } from '../../../../share/html-element-component.ts'
-import type { Product } from '../../../../typing/types.ts'
+import { eventType, type Product } from '../../../../typing/types.ts'
 
 export default class Card extends HtmlElementComponent<'div'> {
   private isSignIn: boolean = true
@@ -8,6 +8,14 @@ export default class Card extends HtmlElementComponent<'div'> {
     super({
       tag: 'div',
       classes: ['menu__card'],
+      listeners: [
+        {
+          type: 'click',
+          value: (): void => {
+            this.emit(eventType.fetchProductData, this.product.id.toString())
+          },
+        },
+      ],
     })
 
     this.mountChildren(this.createImage(), this.createText())

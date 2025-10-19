@@ -1,5 +1,12 @@
 import type { ElementComponent } from '../share/element-component.ts'
 
+export const eventType = {
+  fetchProductData: 'fetchProductData',
+  openBackground: 'openBackground',
+  closeBackground: 'closeBackground',
+  addToCart: 'addToCart',
+}
+
 export type ElementParameters = {
   classes?: Array<string>
   text?: string
@@ -36,8 +43,31 @@ export type Product = {
   name: string
   description: string
   price: string
-  discountPrice: string
+  discountPrice: string | null
   category: Category
+}
+
+export type Size = {
+  size: string
+  price: string
+  discountPrice: string | null
+}
+
+export type Additive = {
+  name: string
+  price: string
+  discountPrice: string | null
+}
+
+export type ExtendedProduct = Product & {
+  sizes: {
+    s: Size
+    m: Size
+    l: Size
+    xl: Size
+    xxl: Size
+  }
+  additives: Array<Additive>
 }
 
 export type ProductResponse = {
@@ -46,6 +76,17 @@ export type ProductResponse = {
   error: string
 }
 
+export type ExtendedProductResponse = {
+  data: ExtendedProduct
+  message: string
+  error: string
+}
+
 export type ErrorResponse = {
   error: string
+}
+
+export type PricesToCart = {
+  totalPrise: number
+  totalDiscount: number
 }

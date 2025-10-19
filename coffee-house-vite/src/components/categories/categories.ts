@@ -1,14 +1,15 @@
 import './categories.scss'
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
 import Container from '../container/container.ts'
-import type { Product } from '../../typing/types.ts'
+import { eventType, type Product } from '../../typing/types.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
-import { fetchProducts } from '../../share/api.ts'
+import { fetchProduct, fetchProducts } from '../../share/api.ts'
 import MenuList from './menu-list/menu-list.ts'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
 import { isMoreBorderWindowWidth, numberOfCards, timerDelayValue } from '../../utils/calcDelta.ts'
 import CategoryButton from './category-button/category-button.ts'
+import Modal from '../modal/modal.ts'
 
 export default class Categories extends HtmlElementComponent<'section'> {
   private menuList: MenuList = new MenuList()
@@ -42,6 +43,8 @@ export default class Categories extends HtmlElementComponent<'section'> {
     })
     window.addEventListener('resize', () => this.checkNumberAndRenderCards())
     this.loadButton.handleEvent('click', () => this.renderAllCards())
+
+    this.on(eventType.fetchProductData, (id: string) => this.handleFetchProductData(id))
   }
 
   private createTitle(): HtmlElementComponent<'h1'> {
@@ -58,6 +61,7 @@ export default class Categories extends HtmlElementComponent<'section'> {
       ],
     })
   }
+
   private creatButtonContainer(): HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'div'>({
       tag: 'div',
@@ -65,6 +69,7 @@ export default class Categories extends HtmlElementComponent<'section'> {
       children: [...this.buttonContainer],
     })
   }
+
   private createLoadButton(): HtmlElementComponent<'button'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
@@ -135,5 +140,22 @@ export default class Categories extends HtmlElementComponent<'section'> {
     } else {
       this.renderFirstFourCards()
     }
+  }
+
+  private handleFetchProductData(id: string): void {
+    this.emit(eventType.openBackground)
+    const modal = new Modal()
+    this.prependChildren(modal)
+    modal.renderLoader()
+    setTimeout(async () => {
+      const response = await fetchProduct(id)
+      modal.clearModal()
+      if (typeof response === 'string') {
+        modal.renderError()
+      } else {
+        const product = response.data
+        modal.renderProduct(product)
+      }
+    }, timerDelayValue)
   }
 }

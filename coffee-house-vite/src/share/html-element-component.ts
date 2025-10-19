@@ -17,11 +17,20 @@ export class HtmlElementComponent<K extends keyof HTMLElementTagNameMap> extends
     this.element.style.backgroundImage = `url('${path}')`
   }
 
-  public changeDisplay(display: 'none' | 'flex'): void {
+  public changeDisplay(display: 'none' | 'flex' | 'block'): void {
     this.element.style.display = display
   }
 
   public changePosition(position: 'left' | 'right'): void {
     this.element.style.backgroundPosition = position
+  }
+
+  public containsEvent(event: MouseEvent): boolean {
+    const target = event.target
+    return target instanceof Node && this.element.contains(target)
+  }
+
+  public changeTopValue(offset: number): void {
+    this.element.style.top = offset + 'px'
   }
 }

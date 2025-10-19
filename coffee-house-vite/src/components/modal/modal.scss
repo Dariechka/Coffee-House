@@ -1,0 +1,180 @@
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.background {
+  position: fixed;
+  z-index: 7;
+  display: none;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(64 63 61 / 80%);
+}
+
+.modal-wrapper {
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  & > .error-message {
+    color: vars.$dark-red;
+  }
+}
+
+.modal {
+  display: flex;
+  width: 800px;
+  height: 504px;
+  padding: 16px;
+  border-radius: vars.$radius;
+  background-color: vars.$beige;
+
+  @include mix.respond(x5-tablet) {
+    width: 680px;
+    height: 626px;
+  }
+
+  @include mix.respond(xxx-mobile) {
+    width: 450px;
+  }
+
+  @include mix.respond(x2-mobile) {
+    width: 380px;
+  }
+
+  @include mix.respond(x-mobile) {
+    width: 342px;
+  }
+
+  &__close {
+    cursor: pointer;
+    position: absolute;
+    bottom: 100%;
+    left: 95%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 1px solid vars.$beige;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: 0.5s ease-out;
+
+    &_svg {
+      stroke: vars.$beige;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: vars.$gray;
+      }
+    }
+
+    @include mix.respond(x-mobile) {
+      left: 90%;
+    }
+  }
+
+  &__buttons {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  &__button {
+    flex: 0 1 0;
+  }
+
+  &__img {
+    width: 310px;
+    height: 310px;
+    border-radius: vars.$radius;
+    background-image: url('./../../assets/images/irish.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s ease-out;
+
+    @media (hover: hover) {
+      &:hover {
+        background-size: 100%;
+      }
+    }
+
+    @include mix.respond(xxx-mobile) {
+      display: none;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    width: 458px;
+    padding-left: 20px;
+
+    @include mix.respond(x5-tablet) {
+      width: 346px;
+    }
+
+    @include mix.respond(x-mobile) {
+      padding-left: 0;
+    }
+
+    &__buttons-container {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    &__title {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    &__price-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      &_price {
+        display: flex;
+        gap: 8px;
+      }
+    }
+
+    &__add {
+      cursor: pointer;
+
+      @include mix.button(44px, transparent, vars.$gray);
+
+      width: 100%;
+      transition: 0.5s ease-out;
+
+      @media (hover: hover) {
+        &:hover {
+          color: vars.$beige;
+          background-color: vars.$gray;
+        }
+      }
+    }
+  }
+}
+
+.menu__button_circle {
+  @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+}
+
+.letter-spacing {
+  letter-spacing: 0.1px;
+}
+
+.svg {
+  width: 16px;
+  height: 16px;
+}

@@ -1,4 +1,4 @@
-import type { ProductResponse } from '../typing/types.ts'
+import type { ExtendedProductResponse, ProductResponse } from '../typing/types.ts'
 import { isErrorResponse } from '../utils/guards.ts'
 
 const baseUrl = 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com'
@@ -21,6 +21,12 @@ export async function fetchFavoriteProducts(): Promise<ProductResponse | string>
 
 export async function fetchProducts(): Promise<ProductResponse | string> {
   const url = new URL('/products', baseUrl)
+  const response = await fetch(url)
+  return await parse(response)
+}
+
+export async function fetchProduct(id: string): Promise<ExtendedProductResponse | string> {
+  const url = new URL(`/products/${id}`, baseUrl)
   const response = await fetch(url)
   return await parse(response)
 }
