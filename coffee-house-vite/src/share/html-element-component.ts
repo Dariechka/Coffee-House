@@ -33,4 +33,8 @@ export class HtmlElementComponent<K extends keyof HTMLElementTagNameMap> extends
   public changeTopValue(offset: number): void {
     this.element.style.top = offset + 'px'
   }
+
+  public changeTextContent(text: string): void {
+    this.element.textContent = text
+  }
 }

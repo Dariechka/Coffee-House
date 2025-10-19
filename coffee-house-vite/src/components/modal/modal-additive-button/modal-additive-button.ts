@@ -1,5 +1,5 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
-import type { Additive } from '../../../typing/types.ts'
+import type { Additive, PriceData } from '../../../typing/types.ts'
 
 export type AdditiveButtonProps = {
   additive: Additive
@@ -8,7 +8,7 @@ export type AdditiveButtonProps = {
 
 export default class ModalAdditiveButton extends HtmlElementComponent<'button'> {
   private readonly additive: Additive
-  constructor(props: AdditiveButtonProps) {
+  constructor(props: AdditiveButtonProps, callBack: (data: PriceData, twice: boolean) => void) {
     super({
       tag: 'button',
       children: [
@@ -23,9 +23,36 @@ export default class ModalAdditiveButton extends HtmlElementComponent<'button'> 
           classes: ['menu__button_text'],
         }),
       ],
+      listeners: [
+        {
+          type: 'click',
+          value: (): void => {
+            if (!this.containsActiveClass()) {
+              callBack(this.getPriceData(), false)
+            } else {
+              callBack(this.getPriceData(), true)
+            }
+            this.toggleActiveClass()
+          },
+        },
+      ],
       classes: ['menu__button', 'modal__button'],
     })
     this.additive = props.additive
-    console.log(this.additive)
+  }
+
+  public containsActiveClass(): boolean {
+    return this.element.classList.contains('active-button')
+  }
+
+  public toggleActiveClass(): void {
+    this.element.classList.toggle('active-button')
+  }
+
+  public getPriceData(): PriceData {
+    return {
+      price: +this.additive.price,
+      discountPrice: this.additive.discountPrice ? +this.additive.discountPrice : 0,
+    }
   }
 }

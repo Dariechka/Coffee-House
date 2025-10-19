@@ -1,5 +1,5 @@
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
-import { eventType, type ExtendedProduct } from '../../typing/types.ts'
+import { eventType, type ExtendedProduct, type PriceData, type PricesHolder } from '../../typing/types.ts'
 import './modal.scss'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
@@ -11,8 +11,18 @@ import { topOffset } from '../../utils/calcDelta.ts'
 export default class Modal extends HtmlElementComponent<'div'> {
   private isSignIn: boolean = true
   private isErrorRendered: boolean = false
+
+  private price: PricesHolder = {
+    sizePrice: 0,
+    sizeDiscountPrice: 0,
+    additivePrice: 0,
+    additiveDiscountPrice: 0,
+  }
+
   private totalPrice: number = 0
   private totalDiscountPrice: number = 0
+  private readonly htmlTotalPrice: HtmlElementComponent<'p'>
+  private readonly htmlTotalDiscountPrice: HtmlElementComponent<'p'>
 
   private sizeButtonsContainer: Array<ModalSizeButton> = []
   private additiveButtonsContainer: Array<ModalAdditiveButton> = []
@@ -27,6 +37,8 @@ export default class Modal extends HtmlElementComponent<'div'> {
     })
     this.closeButton = this.createCloseButton()
     this.addButton = this.createAddButton()
+    this.htmlTotalPrice = this.createTotalPrice()
+    this.htmlTotalDiscountPrice = this.createTotalDiscountPrice()
 
     setTimeout((): void => {
       const closeListener = (event: MouseEvent): void => {
@@ -35,12 +47,39 @@ export default class Modal extends HtmlElementComponent<'div'> {
       }
       document.body.addEventListener('click', closeListener)
     })
-
     document.addEventListener('keyup', (event: KeyboardEvent): void => {
       if (event.key === 'Escape') {
         this.closeModal()
       }
     })
+  }
+
+  public changeBySize(data: PriceData): void {
+    this.price.sizePrice = data.price
+    this.price.sizeDiscountPrice = data.discountPrice === 0 ? data.price : data.discountPrice
+    this.sizeButtonsContainer.forEach((button) => button.removeActiveClass())
+    this.rerenderPrice()
+  }
+
+  public changeByAdditive(data: PriceData, twice: boolean): void {
+    if (twice) {
+      if (data.discountPrice > 0) {
+        this.price.additivePrice -= data.price
+        this.price.additiveDiscountPrice -= data.discountPrice
+      } else {
+        this.price.additivePrice -= data.price
+        this.price.additiveDiscountPrice -= data.price
+      }
+    } else {
+      if (data.discountPrice > 0) {
+        this.price.additivePrice += data.price
+        this.price.additiveDiscountPrice += data.discountPrice
+      } else {
+        this.price.additivePrice += data.price
+        this.price.additiveDiscountPrice += data.price
+      }
+    }
+    this.rerenderPrice()
   }
 
   public closeModalListener(event: MouseEvent): void {
@@ -49,33 +88,45 @@ export default class Modal extends HtmlElementComponent<'div'> {
     }
     this.closeModal()
   }
-
   public clearModal(): void {
     this.children.splice(0, this.children.length).forEach((child): void => child.unmount())
   }
-
   public renderLoader(): void {
-    this.isSignIn = false
+    this.isErrorRendered = false
     this.mountChildren(new Loader())
   }
-
   public renderError(): void {
     this.emit(eventType.closeBackground)
     this.isErrorRendered = true
     this.changeTopValue(topOffset)
     this.mountChildren(new ErrorMessage('Something went wrong. Please, try again'))
   }
-
   public renderProduct(product: ExtendedProduct): void {
-    this.isSignIn = false
-    this.totalPrice = +product.sizes.s.price
-    this.totalDiscountPrice = product.sizes.s.discountPrice ? +product.sizes.s.discountPrice : 0
+    this.isErrorRendered = false
+    this.price.sizePrice = +product.sizes.s.price
+    this.price.sizeDiscountPrice = product.sizes.s.discountPrice
+      ? +product.sizes.s.discountPrice
+      : +product.sizes.s.price
     this.sizeButtonsContainer = [
-      ...Object.entries(product.sizes).map((entry) => new ModalSizeButton({ size: entry[1], typeSize: entry[0] })),
+      ...Object.entries(product.sizes).map((entry) => {
+        const button = new ModalSizeButton({ size: entry[1], typeSize: entry[0] }, (data: PriceData) =>
+          this.changeBySize(data)
+        )
+        if (entry[0] === 's') {
+          button.addActiveClass()
+        }
+        return button
+      }),
     ]
     this.additiveButtonsContainer = [
-      ...product.additives.map((additive, index) => new ModalAdditiveButton({ additive, index })),
+      ...product.additives.map(
+        (additive, index) =>
+          new ModalAdditiveButton({ additive, index }, (data: PriceData, twice: boolean) =>
+            this.changeByAdditive(data, twice)
+          )
+      ),
     ]
+    this.rerenderPrice()
 
     this.mountChildren(this.createProductModal(product))
   }
@@ -86,7 +137,6 @@ export default class Modal extends HtmlElementComponent<'div'> {
     }
     this.unmount()
   }
-
   private addToCart(): void {
     this.emit(
       eventType.addToCart,
@@ -172,22 +222,7 @@ export default class Modal extends HtmlElementComponent<'div'> {
                 new HtmlElementComponent<'div'>({
                   tag: 'div',
                   classes: ['modal__info__price-container_price'],
-                  children: [
-                    new HtmlElementComponent<'p'>({
-                      tag: 'p',
-                      text: !this.isSignIn ? '' : this.totalDiscountPrice > 0 ? `$${this.totalPrice}` : '',
-                      classes: ['menu__card__text_large_price'],
-                    }),
-                    new HtmlElementComponent<'p'>({
-                      tag: 'p',
-                      text: !this.isSignIn
-                        ? `$${this.totalPrice}`
-                        : this.totalDiscountPrice > 0
-                          ? `$${this.totalDiscountPrice}`
-                          : `$${this.totalPrice}`,
-                      classes: ['menu__card__text_large'],
-                    }),
-                  ],
+                  children: [this.htmlTotalPrice, this.htmlTotalDiscountPrice],
                 }),
               ],
             }),
@@ -197,6 +232,23 @@ export default class Modal extends HtmlElementComponent<'div'> {
       ],
     })
   }
+
+  private rerenderPrice(): void {
+    this.totalPrice = this.price.sizePrice + this.price.additivePrice
+    this.totalDiscountPrice = this.price.sizeDiscountPrice + this.price.additiveDiscountPrice
+
+    this.htmlTotalPrice.changeTextContent(
+      !this.isSignIn ? '' : this.totalDiscountPrice !== this.totalPrice ? `$${this.totalPrice}` : ''
+    )
+    this.htmlTotalDiscountPrice.changeTextContent(
+      !this.isSignIn
+        ? `$${this.totalPrice}`
+        : this.totalDiscountPrice !== this.totalPrice
+          ? `$${this.totalDiscountPrice}`
+          : `$${this.totalPrice}`
+    )
+  }
+
   private createCloseButton(): HtmlElementComponent<'button'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
@@ -251,6 +303,18 @@ export default class Modal extends HtmlElementComponent<'div'> {
           value: () => this.addToCart(),
         },
       ],
+    })
+  }
+  private createTotalPrice(): HtmlElementComponent<'p'> {
+    return new HtmlElementComponent<'p'>({
+      tag: 'p',
+      classes: ['menu__card__text_large_price'],
+    })
+  }
+  private createTotalDiscountPrice(): HtmlElementComponent<'p'> {
+    return new HtmlElementComponent<'p'>({
+      tag: 'p',
+      classes: ['menu__card__text_large'],
     })
   }
 }

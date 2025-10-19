@@ -86,7 +86,20 @@ export type ErrorResponse = {
   error: string
 }
 
-export type PricesToCart = {
+export type DFataToCart = {
+  id: number
   totalPrise: number
   totalDiscount: number
+}
+
+export type PricesHolder = {
+  sizePrice: number
+  sizeDiscountPrice: number
+  additivePrice: number
+  additiveDiscountPrice: number
+}
+
+export type PriceData = {
+  price: number
+  discountPrice: number
 }
