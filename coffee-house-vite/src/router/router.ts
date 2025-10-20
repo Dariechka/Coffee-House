@@ -35,14 +35,15 @@ export default class Router {
   }
 
   private interceptNavigation(event: Event): void {
-    const element = event.target
-    // console.log('event', event)
-    if (!(element instanceof HTMLAnchorElement) || element.origin !== location.origin) {
-      return
-    }
-    // console.log('processing')
+    const target = event.target
+    if (target instanceof Element) {
+      const link = target.closest('a')
+      if (!link || link.origin !== location.origin) {
+        return
+      }
 
-    event.preventDefault()
-    this.navigate(element.href)
+      event.preventDefault()
+      this.navigate(link.pathname.slice(1))
+    }
   }
 }

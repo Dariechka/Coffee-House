@@ -1,12 +1,13 @@
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
-import Header from '../../components/header/header.ts'
 import './menu-page.scss'
 import ContactSection from '../../components/contact-section/contact-section.ts'
 import Categories from '../../components/categories/categories.ts'
 import { eventType } from '../../typing/types.ts'
+import Header from '../../components/header/header.ts'
 
 export default class MenuPage extends HtmlElementComponent<'section'> {
-  private background: HtmlElementComponent<'div'>
+  private readonly background: HtmlElementComponent<'div'>
+
   constructor() {
     super({
       tag: 'section',
