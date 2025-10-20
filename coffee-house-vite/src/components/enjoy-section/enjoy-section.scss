@@ -58,8 +58,8 @@
     }
 
     &__link {
+      cursor: pointer;
       gap: 0.5rem;
-      text-decoration: none;
       transition: 0.5s ease-out;
 
       @include mix.button(64px, vars.$beige);

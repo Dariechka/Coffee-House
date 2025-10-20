@@ -3,6 +3,7 @@ import { HtmlElementComponent } from '../../share/html-element-component.ts'
 import Container from '../container/container.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
 import EnjoyVideoHtmlComponent from '../enjoy-video-component/enjoy-video-component.ts'
+import { router } from '../../app.ts'
 
 export default class EnjoySection extends HtmlElementComponent<'section'> {
   constructor() {
@@ -44,12 +45,12 @@ export default class EnjoySection extends HtmlElementComponent<'section'> {
               text: 'With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.',
               classes: ['enjoy__text__text'],
             }),
-            new HtmlElementComponent<'a'>({
-              tag: 'a',
-              attributes: [
+            new HtmlElementComponent<'div'>({
+              tag: 'div',
+              listeners: [
                 {
-                  name: 'href',
-                  value: 'menu',
+                  type: 'click',
+                  value: () => router.navigate('menu'),
                 },
               ],
               classes: ['enjoy__text__link'],

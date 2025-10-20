@@ -86,10 +86,13 @@ export type ErrorResponse = {
   error: string
 }
 
-export type DFataToCart = {
+export type DataToCart = {
   id: number
+  name: string
   totalPrise: number
   totalDiscount: number
+  size: string
+  additives: Array<string>
 }
 
 export type PricesHolder = {

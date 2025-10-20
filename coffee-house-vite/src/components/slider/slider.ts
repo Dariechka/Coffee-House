@@ -43,9 +43,6 @@ export default class Slider extends HtmlElementComponent<'div'> {
 
     this.loadData()
 
-    this.leftButton.handleEvent('click', () => this.leftSliderScroll())
-    this.rightButton.handleEvent('click', () => this.rightSliderScroll())
-
     this.element.addEventListener('touchstart', (event) => {
       this.touchStartX = event.changedTouches[0].screenX
     })
@@ -59,6 +56,20 @@ export default class Slider extends HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
       classes: ['favorite__slider__button', 'left'],
+      listeners: [
+        {
+          type: 'click',
+          value: () => this.leftSliderScroll(),
+        },
+        {
+          type: 'pointerover',
+          value: () => clearInterval(this.autoScrollIntervalId),
+        },
+        {
+          type: 'pointerout',
+          value: () => (this.autoScrollIntervalId = window.setInterval(() => this.rightSliderScroll(), sliderInterval)),
+        },
+      ],
       children: [
         new SvgElementComponent<'svg'>({
           tag: 'svg',
@@ -96,6 +107,20 @@ export default class Slider extends HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
       classes: ['favorite__slider__button', 'right'],
+      listeners: [
+        {
+          type: 'click',
+          value: () => this.rightSliderScroll(),
+        },
+        {
+          type: 'pointerover',
+          value: () => clearInterval(this.autoScrollIntervalId),
+        },
+        {
+          type: 'pointerout',
+          value: () => (this.autoScrollIntervalId = window.setInterval(() => this.rightSliderScroll(), sliderInterval)),
+        },
+      ],
       children: [
         new SvgElementComponent<'svg'>({
           tag: 'svg',

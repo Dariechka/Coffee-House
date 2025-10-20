@@ -1,1 +1,42 @@
-/* stylelint passing */
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.not-found-page {
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: vars.$beige;
+
+  @include mix.center(40px);
+
+  &__text {
+    text-align: center;
+
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+    @include mix.italic;
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__button {
+    @include mix.center(0);
+
+    cursor: pointer;
+    justify-content: center;
+    transition: 0.5s ease-out;
+
+    @include mix.button(64px, transparent, vars.$gray);
+    @include mix.text('Inter', normal, vars.$black, 16px, 148%, 600, 0);
+
+    @media (hover: hover) {
+      &:hover {
+        color: vars.$beige;
+        background-color: vars.$gray;
+      }
+    }
+  }
+}

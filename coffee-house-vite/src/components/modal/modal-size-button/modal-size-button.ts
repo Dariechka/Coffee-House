@@ -1,5 +1,6 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
 import type { PriceData, Size } from '../../../typing/types.ts'
+import Tooltip from '../../tooltip/tooltip.ts'
 
 export type SizeButtonProps = {
   size: Size
@@ -8,9 +9,30 @@ export type SizeButtonProps = {
 
 export default class ModalSizeButton extends HtmlElementComponent<'button'> {
   private readonly size: Size
-  constructor(props: SizeButtonProps, callBack: (data: PriceData) => void) {
+  private readonly tooltip: Tooltip
+  constructor(props: SizeButtonProps, callBack: (data: PriceData) => void, isSignIn: boolean) {
     super({
       tag: 'button',
+      listeners: [
+        {
+          type: 'click',
+          value: (): void => {
+            if (this.containsActiveClass()) {
+              return
+            }
+            callBack(this.getPriceData())
+            this.addActiveClass()
+          },
+        },
+        {
+          type: 'pointerover',
+          value: (): void => this.tooltip.appear(),
+        },
+        {
+          type: 'pointerout',
+          value: (): void => this.tooltip.disappear(),
+        },
+      ],
       children: [
         new HtmlElementComponent<'span'>({
           tag: 'span',
@@ -23,21 +45,12 @@ export default class ModalSizeButton extends HtmlElementComponent<'button'> {
           classes: ['menu__button_text'],
         }),
       ],
-      listeners: [
-        {
-          type: 'click',
-          value: (): void => {
-            if (this.containsActiveClass()) {
-              return
-            }
-            callBack(this.getPriceData())
-            this.addActiveClass()
-          },
-        },
-      ],
       classes: ['menu__button', 'modal__button'],
     })
     this.size = props.size
+    this.tooltip = new Tooltip(this.getPriceData(), isSignIn)
+    this.tooltip.disappear()
+    this.mountChildren(this.tooltip)
   }
 
   public containsActiveClass(): boolean {

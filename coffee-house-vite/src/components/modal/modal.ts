@@ -42,7 +42,14 @@ export default class Modal extends HtmlElementComponent<'div'> {
 
     setTimeout((): void => {
       const closeListener = (event: MouseEvent): void => {
-        this.closeModalListener(event)
+        if (
+          this.containsEvent(event) &&
+          !this.closeButton.containsEvent(event) &&
+          !this.addButton.containsEvent(event)
+        ) {
+          return
+        }
+        this.closeModal()
         document.body.removeEventListener('click', closeListener)
       }
       document.body.addEventListener('click', closeListener)
@@ -82,12 +89,6 @@ export default class Modal extends HtmlElementComponent<'div'> {
     this.rerenderPrice()
   }
 
-  public closeModalListener(event: MouseEvent): void {
-    if (this.containsEvent(event) && !this.closeButton.containsEvent(event) && !this.addButton.containsEvent(event)) {
-      return
-    }
-    this.closeModal()
-  }
   public clearModal(): void {
     this.children.splice(0, this.children.length).forEach((child): void => child.unmount())
   }
@@ -109,8 +110,10 @@ export default class Modal extends HtmlElementComponent<'div'> {
       : +product.sizes.s.price
     this.sizeButtonsContainer = [
       ...Object.entries(product.sizes).map((entry) => {
-        const button = new ModalSizeButton({ size: entry[1], typeSize: entry[0] }, (data: PriceData) =>
-          this.changeBySize(data)
+        const button = new ModalSizeButton(
+          { size: entry[1], typeSize: entry[0] },
+          (data: PriceData) => this.changeBySize(data),
+          this.isSignIn
         )
         if (entry[0] === 's') {
           button.addActiveClass()
@@ -121,8 +124,10 @@ export default class Modal extends HtmlElementComponent<'div'> {
     this.additiveButtonsContainer = [
       ...product.additives.map(
         (additive, index) =>
-          new ModalAdditiveButton({ additive, index }, (data: PriceData, twice: boolean) =>
-            this.changeByAdditive(data, twice)
+          new ModalAdditiveButton(
+            { additive, index },
+            (data: PriceData, twice: boolean) => this.changeByAdditive(data, twice),
+            this.isSignIn
           )
       ),
     ]
