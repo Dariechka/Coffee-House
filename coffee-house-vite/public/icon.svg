@@ -65,13 +65,13 @@
             <path d="M21.8883 13.5C21.1645 18.3113 17.013 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C16.1006 2 19.6248 4.46819 21.1679 8" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M17 8H21.4C21.7314 8 22 7.73137 22 7.4V3" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
-        <symbol id="cart">
-            <path d="M31.9276 15.0292L34.6455 32.6959C34.8319 33.9074 33.8945 35 32.6688 35H7.33122C6.10545 35 5.16809 33.9074 5.35448 32.6959L8.07243 15.0292C8.22253 14.0536 9.06203 13.3333 10.0492 13.3333H29.9508C30.938 13.3333 31.7775 14.0536 31.9276 15.0292Z" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M23.3334 8.33333C23.3334 6.49238 21.841 5 20.0001 5C18.1591 5 16.6667 6.49238 16.6667 8.33333" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </symbol>
         <symbol id="cross" fill="none">
             <path d="M1.34326 1.34314L12.657 12.6568" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M1.34326 12.6569L12.657 1.34315" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </symbol>
+        <symbol id="cart" fill="none">
+            <path d="M16.0942 8.36255L17.1455 15.1959C17.3319 16.4074 16.3945 17.5 15.1688 17.5H4.83122C3.60545 17.5 2.66809 16.4074 2.85448 15.1959L3.90576 8.36255C4.05586 7.38689 4.89536 6.66667 5.88251 6.66667H14.1175C15.1046 6.66667 15.9441 7.38689 16.0942 8.36255Z" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11.6668 4.16667C11.6668 3.24619 10.9206 2.5 10.0002 2.5C9.07969 2.5 8.3335 3.24619 8.3335 4.16667" stroke="#403F3D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </symbol>
     </defs>
 </svg>

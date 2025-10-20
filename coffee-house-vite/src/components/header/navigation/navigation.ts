@@ -1,20 +1,22 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
-import { router } from '../../../app.ts'
-import type { PageList } from '../../../router/pages.ts'
-
-type AnchorLinks = 'about' | 'mobile-app' | 'favorite-coffee' | 'contact-us'
 
 export default class Navigation extends HtmlElementComponent<'header'> {
-  constructor(private page: PageList) {
+  constructor(callBack: () => void) {
     super({
       tag: 'header',
       children: [
-        new HtmlElementComponent<'div'>({
-          tag: 'div',
+        new HtmlElementComponent<'a'>({
+          tag: 'a',
+          attributes: [
+            {
+              name: 'href',
+              value: 'main#favorite-coffee',
+            },
+          ],
           listeners: [
             {
               type: 'click',
-              value: (): void => this.scrollPage('favorite-coffee'),
+              value: (): void => callBack(),
             },
           ],
           text: 'Favorite coffee',
@@ -22,10 +24,16 @@ export default class Navigation extends HtmlElementComponent<'header'> {
         }),
         new HtmlElementComponent<'a'>({
           tag: 'a',
+          attributes: [
+            {
+              name: 'href',
+              value: 'main#about',
+            },
+          ],
           listeners: [
             {
               type: 'click',
-              value: (): void => this.scrollPage('about'),
+              value: (): void => callBack(),
             },
           ],
           text: 'About',
@@ -33,10 +41,16 @@ export default class Navigation extends HtmlElementComponent<'header'> {
         }),
         new HtmlElementComponent<'a'>({
           tag: 'a',
+          attributes: [
+            {
+              name: 'href',
+              value: 'main#mobile-app',
+            },
+          ],
           listeners: [
             {
               type: 'click',
-              value: (): void => this.scrollPage('mobile-app'),
+              value: (): void => callBack(),
             },
           ],
           text: 'Mobile app',
@@ -44,10 +58,16 @@ export default class Navigation extends HtmlElementComponent<'header'> {
         }),
         new HtmlElementComponent<'a'>({
           tag: 'a',
+          attributes: [
+            {
+              name: 'href',
+              value: '#contact-us',
+            },
+          ],
           listeners: [
             {
               type: 'click',
-              value: (): void => this.scrollPage('contact-us'),
+              value: (): void => callBack(),
             },
           ],
           text: 'Contact us',
@@ -56,15 +76,5 @@ export default class Navigation extends HtmlElementComponent<'header'> {
       ],
       classes: ['header__navigation'],
     })
-  }
-
-  private scrollPage(link: AnchorLinks): void {
-    if (link === 'contact-us') {
-      router.pushHistory(`${this.page}#contact-us`)
-      window.scrollTo({
-        top: document.body.scrollHeight,
-        behavior: 'smooth',
-      })
-    }
   }
 }

@@ -37,4 +37,16 @@ export class HtmlElementComponent<K extends keyof HTMLElementTagNameMap> extends
   public changeTextContent(text: string): void {
     this.element.textContent = text
   }
+
+  public addAttribute(attributeName: string, value: string): void {
+    this.element.setAttribute(attributeName, value)
+  }
+
+  public removeAttribute(attributeName: string): void {
+    this.element.removeAttribute(attributeName)
+  }
+
+  public hasAttribute(attributeName: string): boolean {
+    return this.element.hasAttribute(attributeName)
+  }
 }

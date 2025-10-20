@@ -126,7 +126,7 @@
             transition: 0.5s ease-out;
 
             @include mix.respond(tablet) {
-              top: 140px;
+              top: 30px;
               width: 140px;
             }
           }
