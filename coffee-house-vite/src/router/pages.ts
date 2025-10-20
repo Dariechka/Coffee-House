@@ -17,6 +17,8 @@ export enum Page {
   NOT_FOUND = 'not-found',
 }
 
+export type PageList = 'registration' | 'sign-in' | 'main' | 'menu' | 'cart' | 'not-found'
+
 export const routes: Array<Route> = [
   {
     path: Page.HOME,

@@ -2,13 +2,17 @@
 @use './../../styles/_mixins' as mix;
 
 .not-found-page {
-  flex-direction: column;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
   background-color: vars.$beige;
 
-  @include mix.center(40px);
+  &__container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 200px 0;
+    background-color: vars.$beige;
+
+    @include mix.center(40px);
+  }
 
   &__text {
     text-align: center;

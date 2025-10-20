@@ -2,8 +2,11 @@ import { HtmlElementComponent } from '../../share/html-element-component.ts'
 import Container from '../container/container.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
 import './header.scss'
+import Navigation from './navigation/navigation.ts'
+import type { PageList } from '../../router/pages.ts'
 
 export type HeaderProps = {
+  page: PageList
   additionalLinkClasses: Array<string>
   additionalMenuClasses: Array<string>
 }
@@ -19,8 +22,9 @@ export default class Header extends HtmlElementComponent<'header'> {
         ['header__container'],
         [
           this.createLogo(props.additionalLinkClasses),
+          new Navigation(props.page),
           this.createBurgerMenuButton(),
-          this.createMenuButton(props.additionalMenuClasses),
+          this.createMenuLink(props.additionalMenuClasses),
         ]
       )
     )
@@ -78,7 +82,6 @@ export default class Header extends HtmlElementComponent<'header'> {
       ],
     })
   }
-
   private createBurgerMenuButton(): HtmlElementComponent<'button'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
@@ -95,8 +98,7 @@ export default class Header extends HtmlElementComponent<'header'> {
       ],
     })
   }
-
-  private createMenuButton(additionalMenuClasses: Array<string>): HtmlElementComponent<'a'> {
+  private createMenuLink(additionalMenuClasses: Array<string>): HtmlElementComponent<'a'> {
     return new HtmlElementComponent<'a'>({
       tag: 'a',
       attributes: [

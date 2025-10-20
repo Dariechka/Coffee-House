@@ -25,13 +25,13 @@ export default class Router {
     route.callback()
   }
 
-  private onBrowserUrlChange(): void {
-    this.navigate(this.getCurrentUrl())
-  }
-
-  private pushHistory(url: string): void {
+  public pushHistory(url: string): void {
     //window.history.pushState(null, '', `${window.location.pathname}#/${url}`)
     window.history.pushState(null, '', `${window.location.origin}/${url}`)
+  }
+
+  private onBrowserUrlChange(): void {
+    this.navigate(this.getCurrentUrl())
   }
 
   private interceptNavigation(event: Event): void {
