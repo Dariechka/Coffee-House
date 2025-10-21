@@ -3,10 +3,8 @@ import Container from '../container/container.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
 import './header.scss'
 import Navigation from './navigation/navigation.ts'
-import type { PageList } from '../../router/pages.ts'
 
 export type HeaderProps = {
-  page: PageList
   additionalLinkClasses: Array<string>
   additionalMenuClasses: Array<string>
 }

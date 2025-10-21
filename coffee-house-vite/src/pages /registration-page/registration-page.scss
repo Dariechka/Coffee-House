@@ -1,1 +1,194 @@
-/* stylelint passing */
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.registration-page {
+  width: 100%;
+  background-color: vars.$beige;
+}
+
+.registration {
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 100px;
+
+  @include mix.center(40px);
+
+  &__container {
+    padding-right: 56px;
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__form {
+    flex-direction: column;
+    width: 100%;
+
+    @include mix.center(24px);
+
+    &__top-row {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    &__low-row {
+      display: flex;
+      flex-direction: row;
+      gap: 24px;
+      justify-content: flex-start;
+    }
+
+    &_fieldset {
+      display: flex;
+      gap: 24px;
+      border: none;
+    }
+
+    &_error-svg {
+      position: absolute;
+      top: 57%;
+      left: 89.5%;
+      display: none;
+    }
+
+    &_correct-svg {
+      position: absolute;
+      top: 57%;
+      left: 89.5%;
+      display: none;
+    }
+
+    &_item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+
+      &_error > .registration__form_error-svg {
+        display: block;
+      }
+
+      &_correct > .registration__form_correct-svg {
+        display: block;
+      }
+
+      &_radio {
+        @include mix.center(12px);
+
+        position: relative;
+        flex-direction: row-reverse;
+
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+
+        &_state {
+          cursor: pointer;
+          position: relative;
+          width: 16px;
+          height: 16px;
+          border: 1px solid vars.$gray;
+          border-radius: 50%;
+        }
+
+        &_circle {
+          position: absolute;
+          z-index: 2;
+          top: 30%;
+          left: 28%;
+          display: none;
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background-color: vars.$beige;
+        }
+      }
+    }
+
+    &_label {
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+    }
+
+    &_input {
+      width: 400px;
+      height: 56px;
+      padding: 16px 12px;
+      border: 1px solid vars.$beige2;
+      border-radius: 12px;
+      background-color: transparent;
+      transition: ease-in-out 0.5s;
+
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+
+      &::placeholder {
+        color: vars.$gray2;
+      }
+
+      &:focus {
+        border-color: vars.$beige2;
+        outline: none;
+      }
+
+      &_error {
+        border-color: vars.$red;
+      }
+
+      &_correct {
+        border-color: vars.$green;
+      }
+
+      &_radio {
+        position: absolute;
+        left: -100vw;
+        opacity: 0;
+      }
+
+      &_small {
+        width: 260px;
+      }
+    }
+  }
+
+  &__submit {
+    cursor: pointer;
+    margin-top: 16px;
+    transition: 0.5s ease-out;
+
+    &[disabled] {
+      cursor: auto;
+
+      @media (hover: hover) {
+        &:hover {
+          color: vars.$black;
+          background-color: transparent;
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: vars.$beige;
+        background-color: vars.$gray;
+      }
+    }
+
+    @include mix.button(44px, transparent, vars.$gray);
+    @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+  }
+}
+
+.registration__form_input_radio:checked ~ .registration__form_item_radio_state {
+  background-color: vars.$gray;
+}
+
+.registration__form_input_radio:checked ~ .registration__form_item_radio_state .registration__form_item_radio_circle {
+  display: block;
+}

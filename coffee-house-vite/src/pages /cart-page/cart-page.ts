@@ -1,5 +1,6 @@
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
 import Header from '../../components/header/header.ts'
+import './cart-page.scss'
 
 export default class CartPage extends HtmlElementComponent<'section'> {
   constructor() {
@@ -7,12 +8,11 @@ export default class CartPage extends HtmlElementComponent<'section'> {
       tag: 'section',
       children: [
         new Header({
-          page: 'cart',
           additionalLinkClasses: [],
           additionalMenuClasses: [],
         }),
       ],
-      classes: ['page'],
+      classes: ['cart-page'],
     })
   }
 }

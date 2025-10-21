@@ -106,3 +106,20 @@ export type PriceData = {
   price: number
   discountPrice: number
 }
+
+export type InputProps = {
+  onUpdate: (value: string) => void
+  classes: Array<string>
+  name: string
+  type: string
+}
+
+export type RegistrationResponse = {
+  login: string
+  password: string
+  confirmPassword: string
+  city: string
+  street: string
+  houseNumber: number
+  paymentMethod: 'card' | 'cash'
+}
