@@ -112,6 +112,7 @@ export type InputProps = {
   classes: Array<string>
   name: string
   type: string
+  min?: string
 }
 
 export type RegistrationResponse = {
@@ -122,4 +123,58 @@ export type RegistrationResponse = {
   street: string
   houseNumber: number
   paymentMethod: 'card' | 'cash'
+}
+
+export type City = 'New York' | 'San Francisco' | 'Chicago'
+export const cities = ['New York', 'San Francisco', 'Chicago']
+
+export type Street = Record<City, Array<string>>
+export const streets: Street = {
+  'New York': [
+    'Broadway',
+    'Fifth Avenue',
+    'Madison Avenue',
+    'Wall Street',
+    'Park Avenue',
+    'Lexington Avenue',
+    'Canal Street',
+    'Bowery',
+    'Houston Street',
+    '42nd Street',
+  ],
+  'San Francisco': [
+    'Lombard Street',
+    'Market Street',
+    'Mission Street',
+    'Haight Street',
+    'Castro Street',
+    'Van Ness Avenue',
+    'Divisadero Street',
+    'Geary Boulevard',
+    'Embarcadero',
+    'Folsom Street',
+  ],
+  Chicago: [
+    'Michigan Avenue',
+    'State Street',
+    'Lake Shore Drive',
+    'Wacker Drive',
+    'Clark Street',
+    'LaSalle Street',
+    'Halsted Street',
+    'Roosevelt Road',
+    'Division Street',
+    'Ashland Avenue',
+  ],
+}
+
+export type CitySelectProps = {
+  name: 'city'
+  CityOnChange: (city: City) => void
+}
+
+export type StreetSelectProps = {
+  name: 'street'
+  nameOfCity: City
+  StreetOnChange: (street: string) => void
 }

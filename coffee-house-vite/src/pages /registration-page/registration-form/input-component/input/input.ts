@@ -43,6 +43,10 @@ export class Input extends HtmlElementComponent<'input'> {
           name: 'required',
           value: '',
         },
+        {
+          name: 'min',
+          value: props.min ?? '',
+        },
       ],
       classes: ['registration__form_input', ...props.classes],
     })

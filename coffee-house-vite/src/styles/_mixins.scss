@@ -78,6 +78,12 @@
     }
   }
 
+  @if ($breakpoint == xx3-tablet) {
+    @media only screen and (width <= 1340px) {
+      @content;
+    }
+  }
+
   @if ($breakpoint == xxx-tablet) {
     @media only screen and (width <= 1300px) {
       @content;

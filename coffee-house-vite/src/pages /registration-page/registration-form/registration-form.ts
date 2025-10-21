@@ -1,7 +1,8 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
 import { InputContainerComponent } from './input-component/input-component.ts'
 import { RadioComponent } from './radio-component/radio-component.ts'
-import type { RegistrationResponse } from '../../../typing/types.ts'
+import type { City, RegistrationResponse } from '../../../typing/types.ts'
+import { SelectComponent } from './select-component/select-component.ts'
 
 export default class RegistrationForm extends HtmlElementComponent<'form'> {
   private submitButton: HtmlElementComponent<'button'> = this.createSubmitButton()
@@ -23,11 +24,21 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     name: 'Confirm Password',
     type: 'password',
   })
+  private cityInput: SelectComponent = new SelectComponent({
+    name: 'city',
+    CityOnChange: (city: City) => this.getCityValue(city),
+  })
+  private streetInput: SelectComponent = new SelectComponent({
+    name: 'street',
+    nameOfCity: 'New York',
+    StreetOnChange: (street: string) => this.getStreetValue(street),
+  })
   private houseNumberInput: InputContainerComponent = new InputContainerComponent({
-    onUpdate: (value: string) => this.houseNumberValidation(value),
+    onUpdate: (value: string) => this.getHouseNumber(value),
     classes: ['registration__form_input_small'],
     name: 'House Number',
     type: 'number',
+    min: '2',
   })
   private payBuyInput: RadioComponent = new RadioComponent((value: 'card' | 'cash') => this.getPaymentMethod(value))
 
@@ -61,8 +72,17 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     console.log(value)
   }
 
-  private houseNumberValidation(value: string): void {
-    console.log(value)
+  private getCityValue(city: City): void {
+    this.formData.city = city
+    this.streetInput.changeOptions(city)
+  }
+
+  private getStreetValue(street: string): void {
+    this.formData.street = street
+  }
+
+  private getHouseNumber(value: string): void {
+    this.formData.houseNumber = +value
   }
 
   private getPaymentMethod(value: 'card' | 'cash'): void {
@@ -96,7 +116,7 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
   private createLowRowForm(): HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'div'>({
       tag: 'div',
-      children: [this.houseNumberInput, this.payBuyInput],
+      children: [this.cityInput, this.streetInput, this.houseNumberInput, this.payBuyInput],
       classes: ['registration__form__low-row'],
     })
   }

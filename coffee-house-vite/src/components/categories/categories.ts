@@ -42,7 +42,6 @@ export default class Categories extends HtmlElementComponent<'section'> {
       })
     })
     window.addEventListener('resize', () => this.checkNumberAndRenderCards())
-    this.loadButton.handleEvent('click', () => this.renderAllCards())
 
     this.on(eventType.fetchProductData, (id: string) => this.handleFetchProductData(id))
   }
@@ -74,6 +73,12 @@ export default class Categories extends HtmlElementComponent<'section'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
       classes: ['menu__load-button'],
+      listeners: [
+        {
+          type: 'click',
+          value: (): void => this.renderAllCards(),
+        },
+      ],
       children: [
         new SvgElementComponent<'svg'>({
           tag: 'svg',

@@ -15,6 +15,10 @@
 
   &__container {
     padding-right: 56px;
+
+    @include mix.respond(xx3-tablet) {
+      padding-right: 40px;
+    }
   }
 
   &__title {
@@ -38,6 +42,15 @@
       gap: 24px;
       justify-content: flex-end;
       width: 100%;
+
+      @include mix.respond(xx3-tablet) {
+        justify-content: center;
+      }
+
+      @include mix.respond(x5-tablet) {
+        flex-direction: column;
+        align-items: center;
+      }
     }
 
     &__low-row {
@@ -45,6 +58,20 @@
       flex-direction: row;
       gap: 24px;
       justify-content: flex-start;
+      width: 100%;
+
+      @include mix.respond(xx3-tablet) {
+        justify-content: center;
+      }
+
+      @include mix.respond(x4-tablet) {
+        flex-wrap: wrap;
+      }
+
+      @include mix.respond(x5-tablet) {
+        flex-direction: column;
+        align-content: center;
+      }
     }
 
     &_fieldset {
@@ -152,6 +179,10 @@
       }
 
       &_small {
+        width: 260px;
+      }
+
+      @include mix.respond(xx3-tablet) {
         width: 260px;
       }
     }

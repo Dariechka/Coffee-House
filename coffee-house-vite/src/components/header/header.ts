@@ -30,7 +30,6 @@ export default class Header extends HtmlElementComponent<'header'> {
         [this.createLogo(props.additionalLinkClasses), this.navigation, this.burgerButton, this.leftContainer]
       )
     )
-    this.burgerButton.handleEvent('click', () => this.openBurgerMenu())
     window.matchMedia('(max-width: 768px)').addEventListener('change', (event) => {
       if (!event.matches) {
         this.closeBurgerMenu()
@@ -118,6 +117,12 @@ export default class Header extends HtmlElementComponent<'header'> {
     return new HtmlElementComponent<'button'>({
       tag: 'button',
       classes: ['header__burger-menu'],
+      listeners: [
+        {
+          type: 'click',
+          value: () => this.openBurgerMenu(),
+        },
+      ],
       children: [
         new HtmlElementComponent<'span'>({
           tag: 'span',

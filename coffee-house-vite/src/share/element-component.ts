@@ -57,6 +57,10 @@ export class ElementComponent<E extends Element> {
     }
   }
 
+  public unmountChildren(): void {
+    this.children.forEach((child) => child.unmount())
+  }
+
   public prependChildren(...children: Array<ElementComponent<Element>>): void {
     for (const child of children) {
       this.children.unshift(child)
