@@ -5,3 +5,29 @@
   width: 100%;
   background-color: vars.$beige;
 }
+
+.sign-in {
+  &__container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0 100px;
+
+    @include mix.center(40px);
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__form {
+    @include mix.center(24px);
+
+    flex-direction: column;
+    justify-content: center;
+  }
+}

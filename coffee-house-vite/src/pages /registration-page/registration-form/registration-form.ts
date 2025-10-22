@@ -1,7 +1,7 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
 import { InputContainerComponent } from './input-component/input-component.ts'
 import { RadioComponent } from './radio-component/radio-component.ts'
-import { type City, type RegistrationResponse } from '../../../typing/types.ts'
+import { type City, type RegistrationRequest } from '../../../typing/types.ts'
 import { SelectComponent } from './select-component/select-component.ts'
 
 export default class RegistrationForm extends HtmlElementComponent<'form'> {
@@ -45,7 +45,7 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
   private password: string = ''
   private confirmPassword: string = ''
 
-  private formData: RegistrationResponse = {
+  private formData: RegistrationRequest = {
     login: '',
     password: '',
     confirmPassword: '',

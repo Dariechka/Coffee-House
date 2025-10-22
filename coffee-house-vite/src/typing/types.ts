@@ -118,7 +118,7 @@ export type InputProps = {
 
 export type InputComponentProps = Omit<InputProps, 'addClassToParent'>
 
-export type RegistrationResponse = {
+export type RegistrationRequest = {
   login: string
   password: string
   confirmPassword: string
@@ -127,6 +127,8 @@ export type RegistrationResponse = {
   houseNumber: number
   paymentMethod: 'card' | 'cash'
 }
+
+export type SignInRequest = Pick<RegistrationRequest, 'login' | 'password'>
 
 export type City = 'New York' | 'San Francisco' | 'Chicago'
 export const cities = ['New York', 'San Francisco', 'Chicago']
