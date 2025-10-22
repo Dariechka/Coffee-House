@@ -108,12 +108,15 @@ export type PriceData = {
 }
 
 export type InputProps = {
-  onUpdate: (value: string) => void
+  onUpdate: (value: string) => undefined | string
+  addClassToParent: (name: string, flag: boolean, text?: string) => void
   classes: Array<string>
   name: string
   type: string
   min?: string
 }
+
+export type InputComponentProps = Omit<InputProps, 'addClassToParent'>
 
 export type RegistrationResponse = {
   login: string

@@ -1,12 +1,12 @@
 import { Input } from './input/input.ts'
 import { HtmlElementComponent } from '../../../../share/html-element-component.ts'
-import type { InputProps } from '../../../../typing/types.ts'
+import type { InputComponentProps } from '../../../../typing/types.ts'
 import { SvgElementComponent } from '../../../../share/svg-element-component.ts'
 
 export class InputContainerComponent extends HtmlElementComponent<'div'> {
   private readonly input: Input
 
-  constructor(props: InputProps) {
+  constructor(props: InputComponentProps) {
     super({
       tag: 'div',
       children: [
@@ -83,21 +83,37 @@ export class InputContainerComponent extends HtmlElementComponent<'div'> {
       classes: ['registration__form_item'],
     })
 
-    this.input = new Input(props)
+    this.input = new Input({
+      ...props,
+      addClassToParent: (value: string, flag: boolean = true, text?: string): void =>
+        this.changeClass(value, flag, text),
+    })
     this.mountChildren(this.input)
   }
 
-  public getInputValue(): string {
-    return this.input.getValue()
+  public changeClass(name: string, flag: boolean, text?: string): void {
+    if (flag) {
+      this.element.classList.remove('registration__form_item_error')
+      this.element.classList.remove('registration__form_item_correct')
+      if (name === '') {
+        return
+      }
+      this.element.classList.add(name)
+      this.mountChildren(this.createErrorMessage(text ?? ''))
+    } else {
+      this.element.classList.remove('registration__form_item_error')
+      this.element.classList.remove('registration__form_item_correct')
+      this.element.classList.add(name)
+      this.mountChildren(this.createErrorMessage(text ?? ''))
+      this.input.checkErrors(text)
+    }
   }
 
-  public setInputClass(name: string, inputName: string): void {
-    this.input.setClass(inputName)
-    this.element.classList.add(name)
-  }
-
-  public removeClass(name: string, inputName: string): void {
-    this.input.removeClass(inputName)
-    this.element.classList.remove(name)
+  private createErrorMessage(text: string): HtmlElementComponent<'p'> {
+    return new HtmlElementComponent<'p'>({
+      tag: 'p',
+      text: text,
+      classes: ['registration__form_item_error-message'],
+    })
   }
 }

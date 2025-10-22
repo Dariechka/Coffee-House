@@ -1,7 +1,7 @@
 import { HtmlElementComponent } from '../../../share/html-element-component.ts'
 import { InputContainerComponent } from './input-component/input-component.ts'
 import { RadioComponent } from './radio-component/radio-component.ts'
-import type { City, RegistrationResponse } from '../../../typing/types.ts'
+import { type City, type RegistrationResponse } from '../../../typing/types.ts'
 import { SelectComponent } from './select-component/select-component.ts'
 
 export default class RegistrationForm extends HtmlElementComponent<'form'> {
@@ -34,13 +34,16 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     StreetOnChange: (street: string) => this.getStreetValue(street),
   })
   private houseNumberInput: InputContainerComponent = new InputContainerComponent({
-    onUpdate: (value: string) => this.getHouseNumber(value),
+    onUpdate: (value: string): string | undefined => this.getHouseNumber(value),
     classes: ['registration__form_input_small'],
     name: 'House Number',
     type: 'number',
-    min: '2',
+    min: '0',
   })
   private payBuyInput: RadioComponent = new RadioComponent((value: 'card' | 'cash') => this.getPaymentMethod(value))
+
+  private password: string = ''
+  private confirmPassword: string = ''
 
   private formData: RegistrationResponse = {
     login: '',
@@ -60,33 +63,71 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     this.mountChildren(this.createTopRowForm(), this.createLowRowForm(), this.submitButton)
   }
 
-  private loginValidation(value: string): void {
-    console.log(value)
+  private loginValidation(value: string): string | undefined {
+    this.formData.login = ''
+    const pattern = /^[A-Za-z][A-Za-z0-9-\s]{2,}$/
+    if (pattern.test(value)) {
+      this.formData.login = value
+      this.checkFormForValid()
+    } else {
+      return 'At least 3 characters, start with a letter, only English letters'
+    }
   }
-
-  private confirmPasswordValidation(value: string): void {
-    console.log(value)
+  private confirmPasswordValidation(value?: string): string | undefined {
+    if (value) {
+      this.confirmPassword = value
+    }
+    if (this.password === this.confirmPassword && this.confirmPassword !== '') {
+      this.formData.confirmPassword = this.confirmPassword
+      this.checkFormForValid()
+    } else {
+      const text = 'Password and Confirm Password must match'
+      this.confirmPasswordInput.changeClass('registration__form_item_error', false, text)
+      return text
+    }
   }
-
-  private passwordValidation(value: string): void {
-    console.log(value)
+  private passwordValidation(value: string): string | undefined {
+    this.formData.password = ''
+    this.password = value
+    this.confirmPasswordValidation()
+    const pattern = /^(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~])[A-Za-z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]{6,}$/
+    if (pattern.test(value)) {
+      this.formData.password = value
+      this.checkFormForValid()
+    } else {
+      return 'At least 6 characters and at least 1 special character'
+    }
   }
-
   private getCityValue(city: City): void {
+    this.formData.street = ''
     this.formData.city = city
     this.streetInput.changeOptions(city)
+    this.checkFormForValid()
   }
-
   private getStreetValue(street: string): void {
     this.formData.street = street
+    this.checkFormForValid()
   }
-
-  private getHouseNumber(value: string): void {
-    this.formData.houseNumber = +value
+  private getHouseNumber(value: string): string | undefined {
+    this.formData.houseNumber = 0
+    if (+value > 1) {
+      this.formData.houseNumber = +value
+      this.checkFormForValid()
+    } else {
+      return 'Value must be greater than 1'
+    }
   }
-
   private getPaymentMethod(value: 'card' | 'cash'): void {
     this.formData.paymentMethod = value
+  }
+
+  private checkFormForValid(): void {
+    if (
+      Object.keys(this.formData).filter((key) => key === '0').length === 0 &&
+      Object.keys(this.formData).filter((key) => key === '').length === 0
+    ) {
+      this.submitButton.removeAttribute('disabled')
+    }
   }
 
   private createSubmitButton(): HtmlElementComponent<'button'> {

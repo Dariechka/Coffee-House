@@ -3,6 +3,8 @@ import { cities, type City, type CitySelectProps, streets, type StreetSelectProp
 import { isCity, isCitySelectProps, isStreetSelectProps } from '../../../../utils/guards.ts'
 
 export class SelectComponent extends HtmlElementComponent<'div'> {
+  private readonly citySelect: HtmlElementComponent<'select'> | undefined
+  private streetSelect: HtmlElementComponent<'select'> | undefined
   constructor(private props: CitySelectProps | StreetSelectProps) {
     super({
       tag: 'div',
@@ -26,14 +28,17 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
     })
 
     if (isCitySelectProps(this.props)) {
-      this.mountChildren(this.createCitySelectInput())
+      this.citySelect = this.createCitySelectInput()
+      this.mountChildren(this.citySelect)
     } else if (isStreetSelectProps(this.props)) {
-      this.mountChildren(this.createStreetSelectInput(this.props.nameOfCity))
+      this.streetSelect = this.createStreetSelectInput(this.props.nameOfCity)
+      this.mountChildren(this.streetSelect)
     }
   }
 
   public changeOptions(city: City): void {
     this.unmountChildren()
+    this.streetSelect = this.createStreetSelectInput(city)
     this.mountChildren(
       new HtmlElementComponent<'label'>({
         tag: 'label',
@@ -49,7 +54,7 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
           .join(''),
         classes: ['registration__form_label'],
       }),
-      this.createStreetSelectInput(city)
+      this.streetSelect
     )
   }
   private createCitySelectInput(): HtmlElementComponent<'select'> {
@@ -74,6 +79,7 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
             if (target instanceof HTMLSelectElement) {
               if (isCity(target.value) && isCitySelectProps(this.props)) {
                 this.props.CityOnChange(target.value)
+                this.citySelect?.addClassToElement('registration__form_input_correct')
               }
             } else {
               throw new Error(`Unexpected type of target ${target}`)
@@ -106,6 +112,7 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
             if (target instanceof HTMLSelectElement) {
               if (isStreetSelectProps(this.props)) {
                 this.props.StreetOnChange(target.value)
+                this.streetSelect?.addClassToElement('registration__form_input_correct')
               }
             } else {
               throw new Error(`Unexpected type of target ${target}`)

@@ -49,4 +49,8 @@ export class HtmlElementComponent<K extends keyof HTMLElementTagNameMap> extends
   public hasAttribute(attributeName: string): boolean {
     return this.element.hasAttribute(attributeName)
   }
+
+  public addClassToElement(name: string): void {
+    this.element.classList.add(name)
+  }
 }

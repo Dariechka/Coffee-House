@@ -1,17 +1,38 @@
 import { HtmlElementComponent } from '../../../../../share/html-element-component.ts'
-import type { InputProps } from '../../../../../typing/types.ts'
+import { type InputProps } from '../../../../../typing/types.ts'
 
 export class Input extends HtmlElementComponent<'input'> {
-  constructor(props: InputProps) {
+  constructor(private props: InputProps) {
     super({
       tag: 'input',
       listeners: [
         {
-          type: 'input',
+          type: 'blur',
           value: (event: Event): void => {
             const target = event.target
             if (target instanceof HTMLInputElement) {
-              props.onUpdate(target.value)
+              const result = props.onUpdate(target.value)
+              this.checkErrors(result)
+            }
+          },
+        },
+        {
+          type: 'focus',
+          value: (event: Event): void => {
+            const target = event.target
+            if (target instanceof HTMLInputElement) {
+              this.changeClass('')
+              props.addClassToParent('', true)
+            }
+          },
+        },
+        {
+          type: 'change',
+          value: (event: Event): void => {
+            const target = event.target
+            if (target instanceof HTMLInputElement) {
+              const result = props.onUpdate(target.value)
+              this.checkErrors(result)
             } else {
               throw new Error(`Unexpected type of target ${target}`)
             }
@@ -56,11 +77,20 @@ export class Input extends HtmlElementComponent<'input'> {
     return this.element.value
   }
 
-  public setClass(name: string): void {
+  public changeClass(name: string): void {
+    this.element.classList.remove('registration__form_input_error')
+    this.element.classList.remove('registration__form_input_correct')
+    if (name === '') return
     this.element.classList.add(name)
   }
 
-  public removeClass(name: string): void {
-    this.element.classList.remove(name)
+  public checkErrors(result?: string): void {
+    if (result) {
+      this.changeClass('registration__form_input_error')
+      this.props.addClassToParent('registration__form_item_error', true, result)
+    } else {
+      this.changeClass('registration__form_input_correct')
+      this.props.addClassToParent('registration__form_item_correct', true)
+    }
   }
 }

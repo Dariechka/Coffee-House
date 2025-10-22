@@ -109,6 +109,19 @@
         display: block;
       }
 
+      &_error-message {
+        position: absolute;
+        top: 105%;
+
+        @include mix.text('Inter', normal, vars.$red, 10px, 100%, 400, 0);
+
+        display: none;
+      }
+
+      &_error > .registration__form_item_error-message {
+        display: block;
+      }
+
       &_radio {
         @include mix.center(12px);
 
