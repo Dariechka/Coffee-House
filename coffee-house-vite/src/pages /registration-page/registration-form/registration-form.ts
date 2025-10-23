@@ -6,6 +6,7 @@ import { SelectComponent } from './select-component/select-component.ts'
 import { userRegistration } from '../../../share/api.ts'
 import ErrorMessage from '../../../components/error-message/error-message.ts'
 import { router } from '../../../app.ts'
+import { Page } from '../../../router/pages.ts'
 
 export default class RegistrationForm extends HtmlElementComponent<'form'> {
   private submitButton: HtmlElementComponent<'button'> = this.createSubmitButton()
@@ -136,7 +137,7 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     this.formData.paymentMethod = value
   }
 
-  private checkForValidFirm(): boolean {
+  private checkForValidForm(): boolean {
     return (
       Object.values(this.formData).filter((value) => value === 0).length === 0 &&
       Object.values(this.formData).filter((value) => value === '').length === 0
@@ -144,7 +145,7 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
   }
 
   private makeButtonAvailable(): void {
-    if (this.checkForValidFirm()) {
+    if (this.checkForValidForm()) {
       this.submitButton.removeAttribute('disabled')
     } else {
       this.submitButton.addAttribute('disabled', '')
@@ -153,14 +154,14 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
 
   private async sendDataToServer(event: Event): Promise<void> {
     event.preventDefault()
-    if (!this.checkForValidFirm()) {
+    if (!this.checkForValidForm()) {
       return
     }
     const response = await userRegistration(this.formData)
     if (typeof response === 'string') {
       this.mountChildren(new ErrorMessage(response))
     } else {
-      router.navigate('sign-in')
+      router.navigate(Page.SIGN_IN)
     }
   }
 

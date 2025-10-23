@@ -1,4 +1,10 @@
-import type { ExtendedProductResponse, ProductResponse, RegistrationRequest, UserResponse } from '../typing/types.ts'
+import type {
+  ExtendedProductResponse,
+  ProductResponse,
+  RegistrationRequest,
+  SignInRequest,
+  UserResponse,
+} from '../typing/types.ts'
 import { isErrorResponse } from '../utils/guards.ts'
 
 const baseUrl = 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com'
@@ -39,7 +45,20 @@ export async function userRegistration(data: RegistrationRequest): Promise<UserR
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Accept: 'application/json',
+      accept: 'application/json',
+    },
+    body: JSON.stringify(data),
+  })
+  return await parse(response)
+}
+
+export async function userLogin(data: SignInRequest): Promise<UserResponse | string> {
+  const url = new URL('/auth/login', baseUrl)
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      accept: 'application/json',
     },
     body: JSON.stringify(data),
   })

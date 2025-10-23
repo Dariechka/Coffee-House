@@ -1,5 +1,11 @@
 import { HtmlElementComponent } from '../../share/html-element-component.ts'
-import { eventType, type ExtendedProduct, type PriceData, type PricesHolder } from '../../typing/types.ts'
+import {
+  eventType,
+  type ExtendedProduct,
+  type PriceData,
+  type PricesHolder,
+  type StateItemToCart,
+} from '../../typing/types.ts'
 import './modal.scss'
 import Loader from '../loader/loader.ts'
 import ErrorMessage from '../error-message/error-message.ts'
@@ -7,6 +13,7 @@ import ModalSizeButton from './modal-size-button/modal-size-button.ts'
 import ModalAdditiveButton from './modal-additive-button/modal-additive-button.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
 import { topOffset } from '../../utils/calcDelta.ts'
+import { state } from '../../state/state.ts'
 
 export default class Modal extends HtmlElementComponent<'div'> {
   private isSignIn: boolean = true
@@ -17,6 +24,14 @@ export default class Modal extends HtmlElementComponent<'div'> {
     sizeDiscountPrice: 0,
     additivePrice: 0,
     additiveDiscountPrice: 0,
+  }
+  private dataToOrder: StateItemToCart = {
+    productId: 0,
+    size: 's',
+    additives: [],
+    quantity: 1,
+    price: 0,
+    unloggedPrice: 0,
   }
 
   private totalPrice: number = 0
@@ -61,15 +76,16 @@ export default class Modal extends HtmlElementComponent<'div'> {
     })
   }
 
-  public changeBySize(data: PriceData): void {
+  public changeBySize(data: PriceData, size: string): void {
+    this.dataToOrder.size = size
     this.price.sizePrice = data.price
     this.price.sizeDiscountPrice = data.discountPrice === 0 ? data.price : data.discountPrice
     this.sizeButtonsContainer.forEach((button) => button.removeActiveClass())
     this.rerenderPrice()
   }
-
-  public changeByAdditive(data: PriceData, twice: boolean): void {
+  public changeByAdditive(data: PriceData, twice: boolean, name: string): void {
     if (twice) {
+      this.dataToOrder.additives.splice(this.dataToOrder.additives.indexOf(name), 1)
       if (data.discountPrice > 0) {
         this.price.additivePrice -= data.price
         this.price.additiveDiscountPrice -= data.discountPrice
@@ -78,6 +94,7 @@ export default class Modal extends HtmlElementComponent<'div'> {
         this.price.additiveDiscountPrice -= data.price
       }
     } else {
+      this.dataToOrder.additives.push(name)
       if (data.discountPrice > 0) {
         this.price.additivePrice += data.price
         this.price.additiveDiscountPrice += data.discountPrice
@@ -102,8 +119,13 @@ export default class Modal extends HtmlElementComponent<'div'> {
     this.changeTopValue(topOffset)
     this.mountChildren(new ErrorMessage('Something went wrong. Please, try again'))
   }
+
   public renderProduct(product: ExtendedProduct): void {
     this.isErrorRendered = false
+    this.dataToOrder.productId = product.id
+    this.dataToOrder.size = product.sizes.s.size
+    this.dataToOrder.unloggedPrice = +product.sizes.s.price
+    this.dataToOrder.price = product.sizes.s.discountPrice ? +product.sizes.s.discountPrice : +product.sizes.s.price
     this.price.sizePrice = +product.sizes.s.price
     this.price.sizeDiscountPrice = product.sizes.s.discountPrice
       ? +product.sizes.s.discountPrice
@@ -112,7 +134,7 @@ export default class Modal extends HtmlElementComponent<'div'> {
       ...Object.entries(product.sizes).map((entry) => {
         const button = new ModalSizeButton(
           { size: entry[1], typeSize: entry[0] },
-          (data: PriceData) => this.changeBySize(data),
+          (data: PriceData, size: string) => this.changeBySize(data, size),
           this.isSignIn
         )
         if (entry[0] === 's') {
@@ -126,7 +148,7 @@ export default class Modal extends HtmlElementComponent<'div'> {
         (additive, index) =>
           new ModalAdditiveButton(
             { additive, index },
-            (data: PriceData, twice: boolean) => this.changeByAdditive(data, twice),
+            (data: PriceData, twice: boolean, name: string) => this.changeByAdditive(data, twice, name),
             this.isSignIn
           )
       ),
@@ -143,10 +165,9 @@ export default class Modal extends HtmlElementComponent<'div'> {
     this.unmount()
   }
   private addToCart(): void {
-    this.emit(
-      eventType.addToCart,
-      JSON.stringify({ totalPrise: this.totalPrice, totalDiscount: this.totalDiscountPrice })
-    )
+    this.dataToOrder.price = this.totalDiscountPrice
+    this.dataToOrder.unloggedPrice = this.totalPrice
+    state.addItemToCart(this.dataToOrder, this.totalPrice, this.totalDiscountPrice)
     this.closeModal()
   }
 

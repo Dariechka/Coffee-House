@@ -4,6 +4,7 @@ import { router } from '../../app.ts'
 import Header from '../../components/header/header.ts'
 import Container from '../../components/container/container.ts'
 import ContactSection from '../../components/contact-section/contact-section.ts'
+import { Page } from '../../router/pages.ts'
 
 export default class NotFoundPage extends HtmlElementComponent<'section'> {
   constructor() {
@@ -11,7 +12,6 @@ export default class NotFoundPage extends HtmlElementComponent<'section'> {
       tag: 'section',
       children: [
         new Header({
-          page: 'not-found',
           additionalLinkClasses: [],
           additionalMenuClasses: [],
         }),
@@ -29,7 +29,7 @@ export default class NotFoundPage extends HtmlElementComponent<'section'> {
               listeners: [
                 {
                   type: 'click',
-                  value: (): void => router.navigate('main'),
+                  value: (): void => router.navigate(Page.MAIN),
                 },
               ],
               classes: ['not-found-page__button'],

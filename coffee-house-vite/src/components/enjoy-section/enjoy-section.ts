@@ -4,6 +4,7 @@ import Container from '../container/container.ts'
 import { SvgElementComponent } from '../../share/svg-element-component.ts'
 import EnjoyVideoHtmlComponent from '../enjoy-video-component/enjoy-video-component.ts'
 import { router } from '../../app.ts'
+import { Page } from '../../router/pages.ts'
 
 export default class EnjoySection extends HtmlElementComponent<'section'> {
   constructor() {
@@ -50,7 +51,7 @@ export default class EnjoySection extends HtmlElementComponent<'section'> {
               listeners: [
                 {
                   type: 'click',
-                  value: () => router.navigate('menu'),
+                  value: () => router.navigate(Page.MENU),
                 },
               ],
               classes: ['enjoy__text__link'],

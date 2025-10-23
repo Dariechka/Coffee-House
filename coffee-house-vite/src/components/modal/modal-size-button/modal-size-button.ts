@@ -10,7 +10,7 @@ export type SizeButtonProps = {
 export default class ModalSizeButton extends HtmlElementComponent<'button'> {
   private readonly size: Size
   private readonly tooltip: Tooltip
-  constructor(props: SizeButtonProps, callBack: (data: PriceData) => void, isSignIn: boolean) {
+  constructor(props: SizeButtonProps, callBack: (data: PriceData, size: string) => void, isSignIn: boolean) {
     super({
       tag: 'button',
       listeners: [
@@ -20,7 +20,7 @@ export default class ModalSizeButton extends HtmlElementComponent<'button'> {
             if (this.containsActiveClass()) {
               return
             }
-            callBack(this.getPriceData())
+            callBack(this.getPriceData(), props.size.size)
             this.addActiveClass()
           },
         },

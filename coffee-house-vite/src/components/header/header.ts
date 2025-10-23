@@ -11,7 +11,7 @@ export type HeaderProps = {
 
 export default class Header extends HtmlElementComponent<'header'> {
   private readonly itemsInCart: HtmlElementComponent<'p'>
-  private readonly leftContainer: HtmlElementComponent<'div'>
+  private readonly rightContainer: HtmlElementComponent<'div'>
   private readonly burgerButton: HtmlElementComponent<'button'>
   private readonly navigation: Navigation
   constructor(props: HeaderProps) {
@@ -20,14 +20,14 @@ export default class Header extends HtmlElementComponent<'header'> {
       classes: ['header'],
     })
     this.itemsInCart = this.createItemsInCart()
-    this.leftContainer = this.createLeftContainer(props.additionalMenuClasses)
+    this.rightContainer = this.createRightContainer(props.additionalMenuClasses)
     this.burgerButton = this.createBurgerMenuButton()
     this.navigation = new Navigation(() => this.closeBurgerMenu())
 
     this.mountChildren(
       new Container(
         ['header__container'],
-        [this.createLogo(props.additionalLinkClasses), this.navigation, this.burgerButton, this.leftContainer]
+        [this.createLogo(props.additionalLinkClasses), this.navigation, this.burgerButton, this.rightContainer]
       )
     )
     window.matchMedia('(max-width: 768px)').addEventListener('change', (event) => {
@@ -42,7 +42,7 @@ export default class Header extends HtmlElementComponent<'header'> {
       this.closeBurgerMenu()
     } else {
       document.body.classList.add('no-scroll')
-      this.leftContainer.addAttribute('data-open', '')
+      this.rightContainer.addAttribute('data-open', '')
       this.burgerButton.addAttribute('data-open', '')
       this.navigation.addAttribute('data-open', '')
     }
@@ -50,7 +50,7 @@ export default class Header extends HtmlElementComponent<'header'> {
 
   private closeBurgerMenu(): void {
     document.body.classList.remove('no-scroll')
-    this.leftContainer.removeAttribute('data-open')
+    this.rightContainer.removeAttribute('data-open')
     this.burgerButton.removeAttribute('data-open')
     this.navigation.removeAttribute('data-open')
   }
@@ -136,7 +136,7 @@ export default class Header extends HtmlElementComponent<'header'> {
     })
   }
 
-  private createLeftContainer(additionalMenuClasses: Array<string>): HtmlElementComponent<'div'> {
+  private createRightContainer(additionalMenuClasses: Array<string>): HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'div'>({
       tag: 'div',
       classes: ['header__left-container'],

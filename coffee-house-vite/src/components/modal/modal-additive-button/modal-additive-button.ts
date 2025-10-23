@@ -10,7 +10,11 @@ export type AdditiveButtonProps = {
 export default class ModalAdditiveButton extends HtmlElementComponent<'button'> {
   private readonly additive: Additive
   private readonly tooltip: Tooltip
-  constructor(props: AdditiveButtonProps, callBack: (data: PriceData, twice: boolean) => void, isSignIn: boolean) {
+  constructor(
+    props: AdditiveButtonProps,
+    callBack: (data: PriceData, twice: boolean, name: string) => void,
+    isSignIn: boolean
+  ) {
     super({
       tag: 'button',
       listeners: [
@@ -18,9 +22,9 @@ export default class ModalAdditiveButton extends HtmlElementComponent<'button'> 
           type: 'click',
           value: (): void => {
             if (!this.containsActiveClass()) {
-              callBack(this.getPriceData(), false)
+              callBack(this.getPriceData(), false, props.additive.name)
             } else {
-              callBack(this.getPriceData(), true)
+              callBack(this.getPriceData(), true, props.additive.name)
             }
             this.toggleActiveClass()
           },

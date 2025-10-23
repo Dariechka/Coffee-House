@@ -4,11 +4,8 @@ import ContactSection from '../../components/contact-section/contact-section.ts'
 import './sign-in-page.scss'
 import SignInForm from './sign-in-form/sign-in-form.ts'
 import Container from '../../components/container/container.ts'
-import type { SignInRequest } from '../../typing/types.ts'
 
 export default class SignInPage extends HtmlElementComponent<'section'> {
-  private submitButton: HtmlElementComponent<'button'> = this.createSubmitButton()
-
   constructor() {
     super({
       tag: 'section',
@@ -29,8 +26,7 @@ export default class SignInPage extends HtmlElementComponent<'section'> {
             text: 'Sign in',
             classes: ['sign-in__title'],
           }),
-          new SignInForm((data: SignInRequest) => this.checkFormForValid(data)),
-          this.submitButton,
+          new SignInForm(),
         ]
       ),
       new HtmlElementComponent<'footer'>({
@@ -38,28 +34,5 @@ export default class SignInPage extends HtmlElementComponent<'section'> {
         children: [new ContactSection()],
       })
     )
-  }
-
-  private checkFormForValid(formData: SignInRequest): void {
-    if (Object.keys(formData).filter((key) => key === '').length === 0) {
-      this.submitButton.removeAttribute('disabled')
-    }
-  }
-  private createSubmitButton(): HtmlElementComponent<'button'> {
-    return new HtmlElementComponent<'button'>({
-      tag: 'button',
-      text: 'Sign in',
-      attributes: [
-        {
-          name: 'type',
-          value: 'submit',
-        },
-        {
-          name: 'disabled',
-          value: '',
-        },
-      ],
-      classes: ['registration__submit'],
-    })
   }
 }

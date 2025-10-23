@@ -4,7 +4,6 @@ export const eventType = {
   fetchProductData: 'fetchProductData',
   openBackground: 'openBackground',
   closeBackground: 'closeBackground',
-  addToCart: 'addToCart',
 }
 
 export type ElementParameters = {
@@ -55,8 +54,8 @@ export type Size = {
 
 export type Additive = {
   name: string
-  price: string
-  discountPrice: string | null
+  price: number
+  discountPrice: number | null
 }
 
 export type ExtendedProduct = Product & {
@@ -82,14 +81,6 @@ export type ExtendedProductResponse = {
   error: string
 }
 
-export type User = {
-  id: number
-  createdAt: string
-  login: string
-  city: string
-  street: string
-}
-
 export type UserResponse = {
   data: {
     access_token: string
@@ -109,15 +100,6 @@ export type UserResponse = {
 
 export type ErrorResponse = {
   error: string
-}
-
-export type DataToCart = {
-  id: number
-  name: string
-  totalPrise: number
-  totalDiscount: number
-  size: string
-  additives: Array<string>
 }
 
 export type PricesHolder = {
@@ -207,4 +189,25 @@ export type StreetSelectProps = {
   name: 'street'
   nameOfCity: City
   StreetOnChange: (street: string) => void
+}
+
+export type StateItemToCart = {
+  productId: number
+  size: string
+  additives: Array<string>
+  quantity: number
+  price: number
+  unloggedPrice: number
+}
+
+export type StateOrder = {
+  items: Array<StateItemToCart>
+  totalPrice: number
+  totalUnloggedPrice: number
+}
+
+export type StateData = {
+  accessToken: string | null
+  userId: number | null
+  order: StateOrder
 }
