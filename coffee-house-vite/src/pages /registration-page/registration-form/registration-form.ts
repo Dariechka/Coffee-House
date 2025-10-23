@@ -3,6 +3,9 @@ import { InputContainerComponent } from './input-component/input-component.ts'
 import { RadioComponent } from './radio-component/radio-component.ts'
 import { type City, type RegistrationRequest } from '../../../typing/types.ts'
 import { SelectComponent } from './select-component/select-component.ts'
+import { userRegistration } from '../../../share/api.ts'
+import ErrorMessage from '../../../components/error-message/error-message.ts'
+import { router } from '../../../app.ts'
 
 export default class RegistrationForm extends HtmlElementComponent<'form'> {
   private submitButton: HtmlElementComponent<'button'> = this.createSubmitButton()
@@ -58,18 +61,25 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
   constructor() {
     super({
       tag: 'form',
+      listeners: [
+        {
+          type: 'submit',
+          value: async (event: Event): Promise<void> => this.sendDataToServer(event),
+        },
+      ],
       classes: ['registration__form'],
     })
     this.mountChildren(this.createTopRowForm(), this.createLowRowForm(), this.submitButton)
   }
 
   private loginValidation(value: string): string | undefined {
-    this.formData.login = ''
     const pattern = /^[A-Za-z][A-Za-z0-9-\s]{2,}$/
     if (pattern.test(value)) {
       this.formData.login = value
-      this.checkFormForValid()
+      this.makeButtonAvailable()
     } else {
+      this.formData.login = ''
+      this.makeButtonAvailable()
       return 'At least 3 characters, start with a letter, only English letters'
     }
   }
@@ -79,22 +89,25 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     }
     if (this.password === this.confirmPassword && this.confirmPassword !== '') {
       this.formData.confirmPassword = this.confirmPassword
-      this.checkFormForValid()
+      this.makeButtonAvailable()
     } else {
+      this.formData.confirmPassword = ''
+      this.makeButtonAvailable()
       const text = 'Password and Confirm Password must match'
       this.confirmPasswordInput.changeClass('registration__form_item_error', false, text)
       return text
     }
   }
   private passwordValidation(value: string): string | undefined {
-    this.formData.password = ''
     this.password = value
     this.confirmPasswordValidation()
     const pattern = /^(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~])[A-Za-z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?`~]{6,}$/
     if (pattern.test(value)) {
       this.formData.password = value
-      this.checkFormForValid()
+      this.makeButtonAvailable()
     } else {
+      this.formData.password = ''
+      this.makeButtonAvailable()
       return 'At least 6 characters and at least 1 special character'
     }
   }
@@ -102,18 +115,20 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     this.formData.street = ''
     this.formData.city = city
     this.streetInput.changeOptions(city)
-    this.checkFormForValid()
+    this.makeButtonAvailable()
   }
   private getStreetValue(street: string): void {
     this.formData.street = street
-    this.checkFormForValid()
+    this.makeButtonAvailable()
   }
   private getHouseNumber(value: string): string | undefined {
     this.formData.houseNumber = 0
     if (+value > 1) {
       this.formData.houseNumber = +value
-      this.checkFormForValid()
+      this.makeButtonAvailable()
     } else {
+      this.formData.houseNumber = 0
+      this.makeButtonAvailable()
       return 'Value must be greater than 1'
     }
   }
@@ -121,12 +136,31 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     this.formData.paymentMethod = value
   }
 
-  private checkFormForValid(): void {
-    if (
-      Object.keys(this.formData).filter((key) => key === '0').length === 0 &&
-      Object.keys(this.formData).filter((key) => key === '').length === 0
-    ) {
+  private checkForValidFirm(): boolean {
+    return (
+      Object.values(this.formData).filter((value) => value === 0).length === 0 &&
+      Object.values(this.formData).filter((value) => value === '').length === 0
+    )
+  }
+
+  private makeButtonAvailable(): void {
+    if (this.checkForValidFirm()) {
       this.submitButton.removeAttribute('disabled')
+    } else {
+      this.submitButton.addAttribute('disabled', '')
+    }
+  }
+
+  private async sendDataToServer(event: Event): Promise<void> {
+    event.preventDefault()
+    if (!this.checkForValidFirm()) {
+      return
+    }
+    const response = await userRegistration(this.formData)
+    if (typeof response === 'string') {
+      this.mountChildren(new ErrorMessage(response))
+    } else {
+      router.navigate('sign-in')
     }
   }
 

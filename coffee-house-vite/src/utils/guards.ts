@@ -1,6 +1,7 @@
 import { cities, type City, type CitySelectProps, type ErrorResponse, type StreetSelectProps } from '../typing/types.ts'
 
 export function isErrorResponse(response: unknown): response is ErrorResponse {
+  console.dir(response)
   return typeof response === 'object' && response !== null && 'error' in response
 }
 

@@ -82,6 +82,31 @@ export type ExtendedProductResponse = {
   error: string
 }
 
+export type User = {
+  id: number
+  createdAt: string
+  login: string
+  city: string
+  street: string
+}
+
+export type UserResponse = {
+  data: {
+    access_token: string
+    user: {
+      login: string
+      city: string
+      street: string
+      houseNumber: string
+      paymentMethod: string
+      id: number
+      createdAt: string
+    }
+  }
+  message: string
+  error: string
+}
+
 export type ErrorResponse = {
   error: string
 }
