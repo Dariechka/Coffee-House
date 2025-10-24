@@ -20,7 +20,6 @@ export default class MenuPage extends HtmlElementComponent<'section'> {
     this.mountChildren(
       this.background,
       new Header({
-        page: 'menu',
         additionalLinkClasses: [],
         additionalMenuClasses: ['header__menu_active'],
       }),

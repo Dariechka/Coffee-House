@@ -16,7 +16,7 @@ import { topOffset } from '../../utils/calcDelta.ts'
 import { state } from '../../state/state.ts'
 
 export default class Modal extends HtmlElementComponent<'div'> {
-  private isSignIn: boolean = true
+  private isSignIn: boolean = state.isLoggedIn()
   private isErrorRendered: boolean = false
 
   private price: PricesHolder = {
@@ -27,6 +27,7 @@ export default class Modal extends HtmlElementComponent<'div'> {
   }
   private dataToOrder: StateItemToCart = {
     productId: 0,
+    productName: '',
     size: 's',
     additives: [],
     quantity: 1,
@@ -123,6 +124,7 @@ export default class Modal extends HtmlElementComponent<'div'> {
   public renderProduct(product: ExtendedProduct): void {
     this.isErrorRendered = false
     this.dataToOrder.productId = product.id
+    this.dataToOrder.productName = product.name
     this.dataToOrder.size = product.sizes.s.size
     this.dataToOrder.unloggedPrice = +product.sizes.s.price
     this.dataToOrder.price = product.sizes.s.discountPrice ? +product.sizes.s.discountPrice : +product.sizes.s.price
@@ -167,7 +169,8 @@ export default class Modal extends HtmlElementComponent<'div'> {
   private addToCart(): void {
     this.dataToOrder.price = this.totalDiscountPrice
     this.dataToOrder.unloggedPrice = this.totalPrice
-    state.addItemToCart(this.dataToOrder, this.totalPrice, this.totalDiscountPrice)
+    state.addItemToCart(this.dataToOrder)
+    this.emit(eventType.addItemToCart)
     this.closeModal()
   }
 

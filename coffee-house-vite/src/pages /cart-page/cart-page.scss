@@ -5,3 +5,124 @@
   width: 100%;
   background-color: vars.$beige;
 }
+
+.cart {
+  &__container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 40px 100px 0;
+
+    @include mix.center(40px);
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  &__button {
+    cursor: pointer;
+    margin-top: 16px;
+    transition: 0.5s ease-out;
+
+    &[disabled] {
+      cursor: auto;
+
+      @media (hover: hover) {
+        &:hover {
+          color: vars.$black;
+          background-color: transparent;
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: vars.$beige;
+        background-color: vars.$gray;
+      }
+    }
+
+    @include mix.button(44px, transparent, vars.$gray);
+    @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+  }
+
+  &__total-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding-left: 48px;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__text {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &_block {
+        @include mix.center(20px);
+      }
+
+      &_svg {
+        cursor: pointer;
+      }
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &_title {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+        }
+
+        &_text {
+          @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+        }
+      }
+    }
+  }
+
+  &__img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s ease-out;
+
+    @media (hover: hover) {
+      &:hover {
+        background-size: 100%;
+      }
+    }
+  }
+}

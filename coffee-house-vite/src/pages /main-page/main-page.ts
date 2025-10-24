@@ -15,9 +15,9 @@ export default class MainPage extends HtmlElementComponent<'section'> {
     })
     this.mountChildren(
       new Header({
-        page: 'main',
         additionalLinkClasses: ['header__logo_active'],
         additionalMenuClasses: [],
+        additionalCartClasses: ['cart-invisible'],
       }),
       new EnjoySection(),
       new FavoriteSection(),

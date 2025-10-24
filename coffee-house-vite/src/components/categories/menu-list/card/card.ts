@@ -1,8 +1,9 @@
 import { HtmlElementComponent } from '../../../../share/html-element-component.ts'
 import { eventType, type Product } from '../../../../typing/types.ts'
+import { state } from '../../../../state/state.ts'
 
 export default class Card extends HtmlElementComponent<'div'> {
-  private isSignIn: boolean = true
+  private isSignIn: boolean = state.isLoggedIn()
 
   constructor(private product: Product) {
     super({

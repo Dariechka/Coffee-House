@@ -9,6 +9,8 @@ export const transitionTime = 100
 export const unmountChildTime = 600
 export const numberOfCards = 4
 export const topOffset = 60
+export const decimals = 100
+export const fixed = 2
 
 export function calcDelta(): number {
   return window.innerWidth > borderWindowWidth ? largeRibbonWidth : smallRibbonWidth

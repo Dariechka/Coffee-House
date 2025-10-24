@@ -4,6 +4,8 @@ export const eventType = {
   fetchProductData: 'fetchProductData',
   openBackground: 'openBackground',
   closeBackground: 'closeBackground',
+  addItemToCart: 'addItemToCart',
+  removeItemToCart: 'removeItemToCart',
 }
 
 export type ElementParameters = {
@@ -193,6 +195,7 @@ export type StreetSelectProps = {
 
 export type StateItemToCart = {
   productId: number
+  productName: string
   size: string
   additives: Array<string>
   quantity: number
