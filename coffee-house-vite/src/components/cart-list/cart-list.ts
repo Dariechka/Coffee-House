@@ -15,6 +15,16 @@ export default class CartList extends HtmlElementComponent<'div'> {
     this.children.splice(0, this.children.length).forEach((child): void => child.unmount())
   }
 
+  public renderSuccess(message: string): void {
+    this.mountChildren(
+      new HtmlElementComponent<'p'>({
+        tag: 'p',
+        text: message,
+        classes: ['cart__list__success'],
+      })
+    )
+  }
+
   public renderItems(): void {
     this.clearList()
     for (const item of state.getOrders()) {

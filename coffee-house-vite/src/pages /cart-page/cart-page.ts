@@ -7,10 +7,11 @@ import { router } from '../../app.ts'
 import { Page } from '../../router/pages.ts'
 import { state } from '../../state/state.ts'
 import CartList from '../../components/cart-list/cart-list.ts'
-import { eventType, type UserProfileResponse } from '../../typing/types.ts'
-import { decimals, fixed } from '../../utils/calcDelta.ts'
-import { getUserData } from '../../share/api.ts'
+import { eventType, type ItemToCart, type Order } from '../../typing/types.ts'
+import { decimals, fixed, timerDelayValue } from '../../utils/calcDelta.ts'
+import { confirmOrder, getUserData } from '../../share/api.ts'
 import ErrorMessage from '../../components/error-message/error-message.ts'
+import Loader from '../../components/loader/loader.ts'
 
 export default class CartPage extends HtmlElementComponent<'section'> {
   private isLoggedIn = state.isLoggedIn()
@@ -20,6 +21,7 @@ export default class CartPage extends HtmlElementComponent<'section'> {
   private readonly totalPriceInCart: HtmlElementComponent<'p'>
   private readonly totalDiscountPriceInCart: HtmlElementComponent<'p'>
   private readonly cartList: CartList = new CartList()
+  private readonly errorMessage: ErrorMessage = new ErrorMessage('Something went wrong. Please, try again')
 
   constructor() {
     super({
@@ -147,7 +149,13 @@ export default class CartPage extends HtmlElementComponent<'section'> {
       attributes: [
         {
           name: 'type',
-          value: 'submit',
+          value: 'button',
+        },
+      ],
+      listeners: [
+        {
+          type: 'click',
+          value: async (): Promise<void> => this.confirmOrder(),
         },
       ],
       classes: ['cart__button'],
@@ -178,86 +186,110 @@ export default class CartPage extends HtmlElementComponent<'section'> {
     })
   }
 
-  private async getUserData(): Promise<UserProfileResponse | string | undefined> {
+  private async createTotalUserData(): Promise<void> {
     const userToken = state.getUserToken()
-    if (userToken === null) {
+    if (!this.isLoggedIn || !userToken) {
       return
     }
-    const response = await getUserData(userToken)
-    if (typeof response === 'string') {
-      this.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
-    } else {
-      return response
-    }
+    this.totalBlock.mountChildren(new Loader())
+    setTimeout(async () => {
+      const user = await getUserData(userToken)
+      if (!user || typeof user === 'string') {
+        this.totalBlock.unmountLastChild()
+        this.totalBlock.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
+      } else {
+        const userHTML = [
+          new HtmlElementComponent<'div'>({
+            tag: 'div',
+            classes: ['cart__total-block__item'],
+            children: [
+              new HtmlElementComponent<'p'>({
+                tag: 'p',
+                text: 'Address:',
+                classes: ['cart__total-block__item__text'],
+              }),
+              new HtmlElementComponent<'div'>({
+                tag: 'div',
+                classes: ['cart__list__item_block'],
+                children: [
+                  new HtmlElementComponent<'p'>({
+                    tag: 'p',
+                    text: user.data.city + ',',
+                    classes: ['cart__total-block__item__text'],
+                  }),
+                  new HtmlElementComponent<'p'>({
+                    tag: 'p',
+                    text: user.data.street + ',',
+                    classes: ['cart__total-block__item__text'],
+                  }),
+                  new HtmlElementComponent<'p'>({
+                    tag: 'p',
+                    text: user.data.houseNumber,
+                    classes: ['cart__total-block__item__text'],
+                  }),
+                ],
+              }),
+            ],
+          }),
+          new HtmlElementComponent<'div'>({
+            tag: 'div',
+            classes: ['cart__total-block__item'],
+            children: [
+              new HtmlElementComponent<'p'>({
+                tag: 'p',
+                text: 'Pay by:',
+                classes: ['cart__total-block__item__text'],
+              }),
+              new HtmlElementComponent<'div'>({
+                tag: 'div',
+                classes: ['cart__list__item_block'],
+                children: [
+                  new HtmlElementComponent<'p'>({
+                    tag: 'p',
+                    text: user.data.paymentMethod
+                      .split('')
+                      .map((letter, index) => (index === 0 ? letter.toUpperCase() : letter))
+                      .join(''),
+                    classes: ['cart__total-block__item__text'],
+                  }),
+                ],
+              }),
+            ],
+          }),
+        ]
+        this.totalBlock.unmountLastChild()
+        this.totalBlock.mountChildren(...userHTML)
+      }
+    }, timerDelayValue)
   }
-  private async createTotalUserData(): Promise<Array<HtmlElementComponent<'div'>> | void> {
-    if (!this.isLoggedIn) {
-      return
-    }
-    const user = await this.getUserData()
-    if (!user || typeof user === 'string') {
-      return
-    }
-    const userHTML = [
-      new HtmlElementComponent<'div'>({
-        tag: 'div',
-        classes: ['cart__total-block__item'],
-        children: [
-          new HtmlElementComponent<'p'>({
-            tag: 'p',
-            text: 'Address:',
-            classes: ['cart__total-block__item__text'],
-          }),
-          new HtmlElementComponent<'div'>({
-            tag: 'div',
-            classes: ['cart__list__item_block'],
-            children: [
-              new HtmlElementComponent<'p'>({
-                tag: 'p',
-                text: user.data.city + ',',
-                classes: ['cart__total-block__item__text'],
-              }),
-              new HtmlElementComponent<'p'>({
-                tag: 'p',
-                text: user.data.street + ',',
-                classes: ['cart__total-block__item__text'],
-              }),
-              new HtmlElementComponent<'p'>({
-                tag: 'p',
-                text: user.data.houseNumber,
-                classes: ['cart__total-block__item__text'],
-              }),
-            ],
-          }),
-        ],
-      }),
-      new HtmlElementComponent<'div'>({
-        tag: 'div',
-        classes: ['cart__total-block__item'],
-        children: [
-          new HtmlElementComponent<'p'>({
-            tag: 'p',
-            text: 'Pay by:',
-            classes: ['cart__total-block__item__text'],
-          }),
-          new HtmlElementComponent<'div'>({
-            tag: 'div',
-            classes: ['cart__list__item_block'],
-            children: [
-              new HtmlElementComponent<'p'>({
-                tag: 'p',
-                text: user.data.paymentMethod
-                  .split('')
-                  .map((letter, index) => (index === 0 ? letter.toUpperCase() : letter))
-                  .join(''),
-                classes: ['cart__total-block__item__text'],
-              }),
-            ],
-          }),
-        ],
-      }),
-    ]
-    this.totalBlock.mountChildren(...userHTML)
+  private async confirmOrder(): Promise<void> {
+    this.totalBlock.mountChildren(new Loader())
+    setTimeout(async () => {
+      const itemsToCart: Array<ItemToCart> = state.getOrders().map((item) => {
+        return {
+          productId: item.productId,
+          size: item.size,
+          additives: item.additives,
+          quantity: item.quantity,
+        }
+      })
+      const totalPrice = this.isLoggedIn ? state.getPrice().discountPrice : state.getPrice().price
+      const order: Order = {
+        items: itemsToCart,
+        totalPrice: totalPrice,
+      }
+      const response = await confirmOrder(order)
+      this.totalBlock.unmountLastChild()
+      if (typeof response === 'string') {
+        this.prependChildren(this.errorMessage)
+      } else {
+        this.errorMessage.unmount()
+        this.cartList.clearList()
+        this.cartList.renderSuccess('Thank you for your order! Our manager will contact you shortly.')
+        state.clearOrders()
+        this.emit(eventType.removeItemToCart)
+      }
+    }, timerDelayValue)
   }
   private createTotalPrice(): HtmlElementComponent<'p'> {
     return new HtmlElementComponent<'p'>({

@@ -54,6 +54,12 @@
     white-space: nowrap;
     transition: 0.5s ease-out;
 
+    &:disabled {
+      cursor: pointer;
+      border-color: vars.$beige2;
+      background-color: transparent;
+    }
+
     &_circle {
       justify-content: center;
       width: 34px;
@@ -212,5 +218,11 @@
 
   & > .menu__button_text {
     color: vars.$beige;
+  }
+
+  &:disabled {
+    cursor: pointer;
+    border-color: vars.$beige2;
+    background-color: transparent;
   }
 }

@@ -57,4 +57,12 @@ export default class CategoryButton extends HtmlElementComponent<'button'> {
       .map((letter, index) => (index === 0 ? letter.toLowerCase() : letter))
       .join('')
   }
+
+  public makeDisable(): void {
+    this.element.classList.add('disabled')
+  }
+
+  public makeActive(): void {
+    this.element.classList.remove('disabled')
+  }
 }

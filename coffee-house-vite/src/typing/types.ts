@@ -114,6 +114,15 @@ export type UserProfileResponse = {
   error: string
 }
 
+export type ConfirmOrderResponse = {
+  data: {
+    message: string
+    orderId: string
+  }
+  message: string
+  error: string
+}
+
 export type ErrorResponse = {
   error: string
 }
@@ -221,6 +230,18 @@ export type StateOrder = {
   items: Array<StateItemToCart>
   totalPrice: number
   totalUnloggedPrice: number
+}
+
+export type ItemToCart = {
+  productId: number
+  size: string
+  additives: Array<string>
+  quantity: number
+}
+
+export type Order = {
+  items: Array<ItemToCart>
+  totalPrice: number
 }
 
 export type StateData = {

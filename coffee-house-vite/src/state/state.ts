@@ -33,6 +33,15 @@ export class State {
     return stateData.accessToken !== null
   }
 
+  public clearOrders(): void {
+    const stateData = this.getStateData()
+    stateData.order.items = []
+    stateData.order.totalPrice = 0
+    stateData.order.totalUnloggedPrice = 0
+    this.stateData = stateData
+    this.saveStateData()
+  }
+
   public removeItemFromCart(item: StateItemToCart): void {
     const stateData = this.getStateData()
     const index = stateData.order.items.indexOf(item)

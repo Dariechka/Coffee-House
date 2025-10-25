@@ -114,7 +114,9 @@ export default class Categories extends HtmlElementComponent<'section'> {
       if (typeof response === 'string') {
         this.menuList.clearList()
         this.menuList.mountChildren(new ErrorMessage('Something went wrong. Please, refresh the page'))
+        this.buttonContainer.forEach((button): void => button.makeDisable())
       } else {
+        this.buttonContainer.forEach((button): void => button.makeActive())
         this.products = response.data
         this.activeCategory = this.categories[0]
         this.buttonContainer

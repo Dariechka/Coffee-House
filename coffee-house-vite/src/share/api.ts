@@ -1,5 +1,7 @@
 import type {
+  ConfirmOrderResponse,
   ExtendedProductResponse,
+  Order,
   ProductResponse,
   RegistrationRequest,
   SignInRequest,
@@ -73,6 +75,19 @@ export async function getUserData(token: string): Promise<UserProfileResponse | 
       accept: 'application/json',
       Authorization: `Bearer ${token}`,
     },
+  })
+  return await parse(response)
+}
+
+export async function confirmOrder(data: Order): Promise<ConfirmOrderResponse | string> {
+  const url = new URL('/orders/confirm', baseUrl)
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      accept: 'application/json',
+    },
+    body: JSON.stringify(data),
   })
   return await parse(response)
 }
