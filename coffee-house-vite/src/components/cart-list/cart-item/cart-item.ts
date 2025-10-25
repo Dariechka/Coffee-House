@@ -87,7 +87,6 @@ export default class CartItem extends HtmlElementComponent<'div'> {
       ],
     })
   }
-
   private createPriceBlock(): HtmlElementComponent<'div'> {
     return new HtmlElementComponent<'div'>({
       tag: 'div',
@@ -99,13 +98,15 @@ export default class CartItem extends HtmlElementComponent<'div'> {
             ? ''
             : this.item.price === this.item.unloggedPrice
               ? ''
-              : '$' + this.item.unloggedPrice.toFixed(fixed),
-          classes: ['menu__card__text_large_price'],
+              : '$' + (this.item.unloggedPrice * this.item.quantity).toFixed(fixed),
+          classes: ['cart__list__item_block_price'],
         }),
         new HtmlElementComponent<'p'>({
           tag: 'p',
-          text: !this.isLoggedIn ? '$' + this.item.unloggedPrice.toFixed(fixed) : '$' + this.item.price.toFixed(fixed),
-          classes: ['menu__card__text_large'],
+          text: !this.isLoggedIn
+            ? '$' + (this.item.unloggedPrice * this.item.quantity).toFixed(fixed)
+            : '$' + (this.item.price * this.item.quantity).toFixed(fixed),
+          classes: ['cart__list__item_block_large'],
         }),
       ],
     })

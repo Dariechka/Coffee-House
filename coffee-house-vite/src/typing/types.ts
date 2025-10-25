@@ -87,14 +87,28 @@ export type UserResponse = {
   data: {
     access_token: string
     user: {
+      id: number
       login: string
       city: string
       street: string
       houseNumber: string
       paymentMethod: string
-      id: number
       createdAt: string
     }
+  }
+  message: string
+  error: string
+}
+
+export type UserProfileResponse = {
+  data: {
+    id: number
+    login: string
+    city: string
+    street: string
+    houseNumber: string
+    paymentMethod: string
+    createdAt: string
   }
   message: string
   error: string

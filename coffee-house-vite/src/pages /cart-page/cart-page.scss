@@ -13,6 +13,10 @@
     padding: 20px 40px 100px 0;
 
     @include mix.center(40px);
+
+    @include mix.respond(xx-mobile) {
+      padding: 20px 10px 60px 0;
+    }
   }
 
   &__title {
@@ -64,6 +68,10 @@
     width: 100%;
     padding-left: 48px;
 
+    @include mix.respond(xx-mobile) {
+      padding-left: 5px;
+    }
+
     &__item {
       display: flex;
       align-items: center;
@@ -71,6 +79,10 @@
 
       &__text {
         @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+        @include mix.respond(xx-mobile) {
+          font-size: 16px;
+        }
       }
     }
   }
@@ -88,6 +100,29 @@
 
       &_block {
         @include mix.center(20px);
+
+        @include mix.respond(xx-mobile) {
+          gap: 6px;
+        }
+
+        &_price {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          text-decoration-line: line-through;
+          opacity: 0.5;
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        &_large {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
       }
 
       &_svg {
@@ -101,10 +136,18 @@
 
         &_title {
           @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
         }
 
         &_text {
           @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+        }
+
+        @include mix.respond(xx-mobile) {
+          gap: 4px;
         }
       }
     }
@@ -123,6 +166,11 @@
       &:hover {
         background-size: 100%;
       }
+    }
+
+    @include mix.respond(xx-mobile) {
+      width: 70px;
+      height: 70px;
     }
   }
 }

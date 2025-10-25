@@ -3,6 +3,7 @@ import type {
   ProductResponse,
   RegistrationRequest,
   SignInRequest,
+  UserProfileResponse,
   UserResponse,
 } from '../typing/types.ts'
 import { isErrorResponse } from '../utils/guards.ts'
@@ -51,7 +52,6 @@ export async function userRegistration(data: RegistrationRequest): Promise<UserR
   })
   return await parse(response)
 }
-
 export async function userLogin(data: SignInRequest): Promise<UserResponse | string> {
   const url = new URL('/auth/login', baseUrl)
   const response = await fetch(url, {
@@ -61,6 +61,18 @@ export async function userLogin(data: SignInRequest): Promise<UserResponse | str
       accept: 'application/json',
     },
     body: JSON.stringify(data),
+  })
+  return await parse(response)
+}
+
+export async function getUserData(token: string): Promise<UserProfileResponse | string> {
+  const url = new URL(`/auth/profile`, baseUrl)
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      accept: 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
   })
   return await parse(response)
 }
