@@ -89,8 +89,14 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
           value: (event: Event): void => {
             const target = event.target
             if (target instanceof HTMLSelectElement) {
+              if (target.value === '') {
+                this.citySelect?.removeClassToElement('registration__form_input_correct')
+                this.citySelect?.addClassToElement('registration__form_input_error')
+                return
+              }
               if (isCity(target.value) && isCitySelectProps(this.props)) {
                 this.props.CityOnChange(target.value)
+                this.citySelect?.removeClassToElement('registration__form_input_error')
                 this.citySelect?.addClassToElement('registration__form_input_correct')
               }
             } else {
@@ -134,8 +140,14 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
           value: (event: Event): void => {
             const target = event.target
             if (target instanceof HTMLSelectElement) {
+              if (target.value === '') {
+                this.streetSelect?.removeClassToElement('registration__form_input_correct')
+                this.streetSelect?.addClassToElement('registration__form_input_error')
+                return
+              }
               if (isStreetSelectProps(this.props)) {
                 this.props.StreetOnChange(target.value)
+                this.streetSelect?.removeClassToElement('registration__form_input_error')
                 this.streetSelect?.addClassToElement('registration__form_input_correct')
               }
             } else {

@@ -53,4 +53,8 @@ export class HtmlElementComponent<K extends keyof HTMLElementTagNameMap> extends
   public addClassToElement(name: string): void {
     this.element.classList.add(name)
   }
+
+  public removeClassToElement(name: string): void {
+    this.element.classList.remove(name)
+  }
 }
