@@ -9,4 +9,8 @@ export default class ErrorMessage extends HtmlElementComponent<'p'> {
       classes: ['error-message'],
     })
   }
+
+  public changeMessage(name: string): void {
+    this.changeTextContent(name)
+  }
 }

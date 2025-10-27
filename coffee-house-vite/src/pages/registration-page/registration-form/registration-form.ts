@@ -9,6 +9,7 @@ import { router } from '../../../app.ts'
 import { Page } from '../../../router/pages.ts'
 
 export default class RegistrationForm extends HtmlElementComponent<'form'> {
+  private readonly errorMessage: ErrorMessage = new ErrorMessage('')
   private submitButton: HtmlElementComponent<'button'> = this.createSubmitButton()
   private loginInput: InputContainerComponent = new InputContainerComponent({
     onUpdate: (value: string) => this.loginValidation(value),
@@ -157,9 +158,11 @@ export default class RegistrationForm extends HtmlElementComponent<'form'> {
     if (!this.checkForValidForm()) {
       return
     }
+    this.errorMessage.unmount()
     const response = await userRegistration(this.formData)
     if (typeof response === 'string') {
-      this.mountChildren(new ErrorMessage(response))
+      this.errorMessage.changeMessage(response)
+      this.mountChildren(this.errorMessage)
     } else {
       router.navigate(Page.SIGN_IN)
     }

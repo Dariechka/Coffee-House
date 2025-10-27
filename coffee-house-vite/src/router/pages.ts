@@ -1,11 +1,11 @@
-import { type Route } from './router.ts'
-import MainPage from '../pages /main-page/main-page.ts'
-import RegistrationPage from '../pages /registration-page/registration-page.ts'
-import SignInPage from '../pages /sign-in-page/sign-in-page.ts'
-import MenuPage from '../pages /menu-page/menu-page.ts'
-import CartPage from '../pages /cart-page/cart-page.ts'
-import NotFoundPage from '../pages /not-found-page/not-found-page.ts'
+import type { Route } from './router.ts'
 import { root } from '../app.ts'
+import MainPage from '../pages/main-page/main-page.ts'
+import RegistrationPage from '../pages/registration-page/registration-page.ts'
+import SignInPage from '../pages/sign-in-page/sign-in-page.ts'
+import MenuPage from '../pages/menu-page/menu-page.ts'
+import CartPage from '../pages/cart-page/cart-page.ts'
+import NotFoundPage from '../pages/not-found-page/not-found-page.ts'
 
 export enum Page {
   HOME = '',

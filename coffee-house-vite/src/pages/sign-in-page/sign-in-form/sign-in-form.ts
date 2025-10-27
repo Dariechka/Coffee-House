@@ -8,6 +8,7 @@ import { Page } from '../../../router/pages.ts'
 import { state } from '../../../state/state.ts'
 
 export default class SignInForm extends HtmlElementComponent<'form'> {
+  private readonly errorMessage: ErrorMessage = new ErrorMessage('Incorrect login or password')
   private loginInput: InputContainerComponent = new InputContainerComponent({
     onUpdate: (value: string) => this.loginValidation(value),
     classes: [],
@@ -80,12 +81,13 @@ export default class SignInForm extends HtmlElementComponent<'form'> {
     if (!this.checkFormForValid()) {
       return
     }
+    this.errorMessage.unmount()
     const response = await userLogin(this.formData)
     if (typeof response === 'string') {
-      this.mountChildren(new ErrorMessage('Incorrect login or password'))
+      this.mountChildren(this.errorMessage)
     } else {
       state.login(response.data.access_token, response.data.user.id)
-      router.navigate(Page.MAIN)
+      router.navigate(Page.MENU)
     }
   }
 

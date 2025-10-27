@@ -64,7 +64,19 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
     }
     return new HtmlElementComponent<'select'>({
       tag: 'select',
-      children: [...citiesHtml],
+      children: [
+        new HtmlElementComponent<'option'>({
+          tag: 'option',
+          attributes: [
+            {
+              name: 'value',
+              value: '',
+            },
+          ],
+          text: 'Select city',
+        }),
+        ...citiesHtml,
+      ],
       attributes: [
         {
           name: 'id',
@@ -103,7 +115,19 @@ export class SelectComponent extends HtmlElementComponent<'div'> {
           value: this.props.name,
         },
       ],
-      children: [...streetsHtml],
+      children: [
+        new HtmlElementComponent<'option'>({
+          tag: 'option',
+          attributes: [
+            {
+              name: 'value',
+              value: '',
+            },
+          ],
+          text: 'Select street',
+        }),
+        ...streetsHtml,
+      ],
       listeners: [
         {
           type: 'change',
