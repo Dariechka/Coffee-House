@@ -10,8 +10,6 @@ import type {
 } from '../typing/types.ts'
 import { isErrorResponse } from '../utils/guards.ts'
 
-const baseUrl = 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com'
-
 async function parse<T>(response: Response): Promise<T | string> {
   if (response.ok) {
     return response.json()
@@ -25,25 +23,25 @@ async function parse<T>(response: Response): Promise<T | string> {
 }
 
 export async function fetchFavoriteProducts(): Promise<ProductResponse | string> {
-  const url = new URL('/products/favorites', baseUrl)
+  const url = new URL('/products/favorites', document.location.origin)
   const response = await fetch(url)
   return await parse(response)
 }
 
 export async function fetchProducts(): Promise<ProductResponse | string> {
-  const url = new URL('/products', baseUrl)
+  const url = new URL('/products', document.location.origin)
   const response = await fetch(url)
   return await parse(response)
 }
 
 export async function fetchProduct(id: string): Promise<ExtendedProductResponse | string> {
-  const url = new URL(`/products/${id}`, baseUrl)
+  const url = new URL(`/products/${id}`, document.location.origin)
   const response = await fetch(url)
   return await parse(response)
 }
 
 export async function userRegistration(data: RegistrationRequest): Promise<UserResponse | string> {
-  const url = new URL('/auth/register', baseUrl)
+  const url = new URL('/auth/register', document.location.origin)
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -55,7 +53,7 @@ export async function userRegistration(data: RegistrationRequest): Promise<UserR
   return await parse(response)
 }
 export async function userLogin(data: SignInRequest): Promise<UserResponse | string> {
-  const url = new URL('/auth/login', baseUrl)
+  const url = new URL('/auth/login', document.location.origin)
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -68,7 +66,7 @@ export async function userLogin(data: SignInRequest): Promise<UserResponse | str
 }
 
 export async function getUserData(token: string): Promise<UserProfileResponse | string> {
-  const url = new URL(`/auth/profile`, baseUrl)
+  const url = new URL(`/auth/profile`, document.location.origin)
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -80,7 +78,7 @@ export async function getUserData(token: string): Promise<UserProfileResponse | 
 }
 
 export async function confirmOrder(data: Order): Promise<ConfirmOrderResponse | string> {
-  const url = new URL('/orders/confirm', baseUrl)
+  const url = new URL('/orders/confirm', document.location.origin)
   const response = await fetch(url, {
     method: 'POST',
     headers: {
