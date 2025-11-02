@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IconComponent } from '@/app/shared/icon/icon.component';
 
 @Component({
@@ -6,5 +6,6 @@ import { IconComponent } from '@/app/shared/icon/icon.component';
   imports: [IconComponent],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {}

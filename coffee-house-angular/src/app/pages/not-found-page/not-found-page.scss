@@ -1,0 +1,46 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.not-found-page {
+  width: 100%;
+  background-color: vars.$beige;
+
+  &__container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 200px 0;
+    background-color: vars.$beige;
+
+    @include mix.center(40px);
+  }
+
+  &__text {
+    text-align: center;
+
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+    @include mix.italic;
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    justify-content: center;
+    text-decoration: none;
+    transition: 0.5s ease-out;
+
+    @include mix.center(0);
+    @include mix.button(64px, transparent, vars.$gray);
+    @include mix.text('Inter', normal, vars.$black, 16px, 148%, 600, 0);
+
+    @media (hover: hover) {
+      &:hover {
+        color: vars.$beige;
+        background-color: vars.$gray;
+      }
+    }
+  }
+}

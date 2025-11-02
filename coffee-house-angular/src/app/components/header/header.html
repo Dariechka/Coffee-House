@@ -1,6 +1,6 @@
 <header class="header">
   <div class="container header__container">
-    <a href="#" class="header__logo header__logo_active">
+    <a [routerLink]="['main']" class="header__logo header__logo_active">
       <app-icon name="logo" customClass="header__logo_svg"></app-icon>
       <div class="header__logo_circle"></div>
       <h2 class="header__logo_text">COFFEE HOUSE</h2>
@@ -16,14 +16,14 @@
       <a href="#contact-us" class="header__navigation_item">Contact us</a>
     </nav>
     <div class="header__left-container">
-      <a href="./cart.html" class="header__menu">
+      <a [routerLink]="['cart']" class="header__menu">
         <h2 class="header__menu_text header__menu_text_cart">Cart</h2>
         <app-icon name="cart" customClass="header__menu_svg"></app-icon>
         <p class="header__cart-number"></p>
         <p class="header__icon-price"></p>
         <p class="header__icon-discount-price"></p>
       </a>
-      <a href="./menu.html" class="header__menu">
+      <a [routerLink]="['menu']" class="header__menu">
         <h2 class="header__menu_text">Menu</h2>
         <app-icon name="cup" customClass="header__menu_svg"></app-icon>
       </a>
