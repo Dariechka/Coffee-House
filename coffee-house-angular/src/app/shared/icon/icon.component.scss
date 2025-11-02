@@ -1,0 +1,19 @@
+@use 'variables' as vars;
+
+.contact__info__list_item_svg{
+  fill: none;
+  width: 20px;
+  height: 20px;
+  align-self: flex-start;
+}
+
+.contact__social-media__button__svg {
+  fill: none;
+  width: 24px;
+  height: 24px;
+  & use {
+    stroke: vars.$beige;
+  }
+}
+
+

@@ -1,39 +1,34 @@
-@use "mixins" as mix;
-@use "variables" as vars;
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
 
 html,
 body {
-  // overflow: auto;
-  overflow-x: clip;
-  height: 100%;
-  background-color: vars.$color-black;
-}
-
-* {
   scroll-behavior: smooth;
-  box-sizing: border-box;
-  margin: 0;
+  background-color: vars.$beige;
 }
 
-tui-root[tuiTheme="dark"] .sign-up {
-  @include mix.background("/assets/img/signup-dark.jpg");
-
-  height: 100vh;
-
-  // margin: 0 -2rem;
-  background-position: center;
+body {
+  margin: 0 auto;
 }
 
-tui-root[tuiTheme="dark"] .sign-in {
-  @include mix.background("/assets/img/signin-dark.jpg");
-
-  height: 100vh;
-
-  // margin: 0 -2rem;
-  background-position: center;
+.container {
+  max-width: vars.$large;
+  padding: 0 2.5rem;
+  overflow: hidden;
+  margin: 0 auto;
+  @include mix.respond(mobile) {
+    padding: 0 1rem;
+  }
 }
 
-main[tuinavigationmain] {
-  padding-top: 48px;
-  border: 0;
+@media (hover: hover) {
+  .contact__social-media__button:hover app-icon .contact__social-media__button__svg use {
+    stroke: vars.$black;
+  }
 }
