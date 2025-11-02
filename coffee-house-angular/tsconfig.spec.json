@@ -10,8 +10,5 @@
     "allowSyntheticDefaultImports": true,
     "importHelpers": true
   },
-  "include": [
-    "src/**/*.spec.ts",
-    "src/**/*.d.ts",
-  ]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
 }

@@ -1,19 +1,39 @@
 @use 'variables' as vars;
+@use 'mixins' as mix;
 
-.contact__info__list_item_svg{
-  fill: none;
+.contact__info__list_item_svg {
+  align-self: flex-start;
   width: 20px;
   height: 20px;
-  align-self: flex-start;
+  fill: none;
 }
 
 .contact__social-media__button__svg {
-  fill: none;
   width: 24px;
   height: 24px;
+  fill: none;
+
   & use {
     stroke: vars.$beige;
   }
 }
 
+.header__logo_svg {
+  position: absolute;
+  z-index: 1;
+  top: 20%;
+  right: 8%;
+  width: 93px;
+  height: 23px;
+  fill: none;
+}
 
+.header__menu_svg {
+  width: 20px;
+  height: 20px;
+
+  @include mix.respond(tablet) {
+    width: 40px;
+    height: 40px;
+  }
+}

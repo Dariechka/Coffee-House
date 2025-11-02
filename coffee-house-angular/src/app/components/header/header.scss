@@ -1,0 +1,299 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.header {
+  background-color: vars.$beige;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  &__logo {
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    width: 6.25rem;
+    height: 100%;
+    text-decoration: none;
+
+    @include mix.center(1px);
+
+    &_active {
+      cursor: auto;
+    }
+
+    &_circle {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: vars.$light-brown;
+    }
+
+    &_text {
+      @include mix.text('Inter', normal, vars.$black, 9px, 9px, 400, 0);
+
+      margin-top: 2.5px;
+      margin-left: 1px;
+    }
+  }
+
+  &__left-container {
+    @include mix.center(32px);
+
+    @include mix.respond(tablet) {
+      position: fixed;
+      z-index: 10;
+      top: 500px;
+      right: -100vw;
+      transform: translateX(0);
+      flex-direction: column-reverse;
+      gap: 60px;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 300px;
+      background-color: vars.$beige;
+      transition: transform 0.4s linear;
+
+      &[data-open] {
+        transform: translateX(-100vw);
+      }
+    }
+  }
+
+  &__cart-number {
+    @include mix.text('Inter', normal, vars.$black, 14px, 100%, 400, 0);
+
+    align-self: flex-end;
+  }
+
+  &__menu {
+    cursor: pointer;
+    position: relative;
+    text-decoration: none;
+    transition: 0.5s ease-out;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 97%;
+      bottom: 99%;
+      transform: scaleX(0);
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: vars.$black;
+      transition: 0.5s ease-out;
+
+      @include mix.respond(tablet) {
+        top: 40px;
+        width: 140px;
+      }
+    }
+
+    &_text {
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+
+      @include mix.respond(tablet) {
+        @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 1px);
+
+        margin-right: 2px;
+      }
+
+      &_cart {
+        display: none;
+
+        @include mix.respond(tablet) {
+          display: flex;
+        }
+      }
+    }
+
+    &_active {
+      cursor: auto;
+    }
+
+    &_active::after {
+      transform: scaleX(1);
+    }
+
+    &_active:hover::after {
+      animation: none;
+    }
+
+    @media (hover: hover) {
+      &:hover::after {
+        animation: go 250ms linear;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    @include mix.center(0.5rem);
+
+    @keyframes go {
+      0% {
+        transform: scaleX(0);
+      }
+
+      100% {
+        transform: scaleX(1);
+      }
+    }
+  }
+
+  &__navigation {
+    @include mix.center(2.5rem);
+
+    scroll-behavior: smooth;
+    justify-content: space-between;
+
+    &_item {
+      cursor: pointer;
+      text-decoration: none;
+      transition: 0.5s ease-out;
+
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+
+      &::after {
+        content: '';
+        position: relative;
+        top: 1%;
+        transform: scaleX(0);
+        display: block;
+        height: 2px;
+        background-color: vars.$black;
+        transition: 0.5s ease-out;
+      }
+
+      @keyframes go {
+        0% {
+          transform: scaleX(0);
+        }
+
+        100% {
+          transform: scaleX(1);
+        }
+      }
+
+      @media (hover: hover) {
+        &:hover::after {
+          animation: go 250ms linear;
+          animation-fill-mode: forwards;
+        }
+      }
+
+      @include mix.respond(tablet) {
+        @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 1px);
+      }
+    }
+
+    @include mix.respond(x-tablet) {
+      gap: 1rem;
+    }
+
+    @include mix.respond(tablet) {
+      position: fixed;
+      z-index: 10;
+      top: 100px;
+      right: -100vw;
+      transform: translateX(0);
+      display: flex;
+      flex-flow: column wrap;
+      gap: 40px;
+      place-content: center space-between;
+      width: 100vw;
+      height: 400px;
+      padding-top: 60px;
+      background-color: vars.$beige;
+      transition: transform 0.4s linear;
+
+      &[data-open] {
+        transform: translateX(-100vw);
+      }
+    }
+  }
+
+  &__burger-menu {
+    cursor: pointer;
+    display: none;
+    margin-bottom: 2px;
+
+    &_line {
+      width: 16.5px;
+      height: 1.5px;
+      background-color: vars.$black;
+    }
+
+    @include mix.respond(tablet) {
+      flex-direction: column;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid vars.$black;
+      border-radius: 50%;
+      background-color: transparent;
+
+      @include mix.center(6px);
+    }
+
+    & .up {
+      transition: transform 0.5s ease-out;
+    }
+
+    &[data-open] .up {
+      transform-origin: 8px;
+      transform: rotate(45deg) translateY(4px);
+      width: 19px;
+      margin-left: 7px;
+      transition: transform 0.5s ease-out;
+    }
+
+    & .down {
+      transition: transform 0.5s ease-out;
+    }
+
+    &[data-open] .down {
+      transform-origin: 8px;
+      transform: rotate(-45deg) translateY(-4px);
+      width: 19px;
+      margin-left: 7px;
+      transition: transform 0.5s ease-out;
+    }
+  }
+
+  &__icon-price {
+    position: absolute;
+    bottom: 75%;
+    left: 40%;
+
+    @include mix.text('Inter', normal, vars.$black, 10px, 100%, 500, 0);
+
+    text-decoration-line: line-through;
+    opacity: 0.5;
+
+    @include mix.respond(tablet) {
+      left: 78%;
+    }
+  }
+
+  &__icon-discount-price {
+    position: absolute;
+    bottom: 75%;
+    left: 100%;
+
+    @include mix.text('Inter', normal, vars.$black, 10px, 100%, 500, 0);
+  }
+}
+
+.cart-invisible {
+  display: none;
+
+  @include mix.respond(tablet) {
+    display: flex;
+  }
+}
