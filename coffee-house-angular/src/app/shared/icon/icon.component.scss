@@ -37,3 +37,29 @@
     height: 40px;
   }
 }
+
+.app__text__button__svg {
+  width: 36px;
+  height: 36px;
+  fill: vars.$black;
+}
+
+.enjoy__text__link_svg {
+  display: none;
+  width: 20px;
+  height: 20px;
+  transition: 0.5s ease-out;
+}
+
+.favorite__slider__button_svg {
+  width: 14px;
+  height: 14px;
+  stroke: vars.$black;
+}
+
+.menu__load-button_svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: vars.$black;
+}

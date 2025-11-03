@@ -1,1 +1,34 @@
-<p>sign-in-page works!</p>
+<section class="sign-in sign-in__container">
+  <h2 class="sign-in__title">Sign In</h2>
+  <form [formGroup]="signInForm" class="sign-in__form">
+    <div class="sign-in__form_item">
+      <label for="login" class="sign-in__form_label">Login</label>
+      <input
+        id="login"
+        name="login"
+        formControlName="login"
+        autocomplete="off"
+        placeholder="Login"
+        type="text"
+        class="sign-in__form_input"
+        required
+      />
+      <app-error formControlName="login"></app-error>
+    </div>
+    <div class="sign-in__form_item">
+      <label for="password" class="sign-in__form_label">Password</label>
+      <input
+        id="password"
+        name="password"
+        formControlName="password"
+        type="password"
+        autocomplete="off"
+        placeholder="Password"
+        class="sign-in__form_input"
+        required
+      />
+      <app-error formControlName="password"></app-error>
+    </div>
+    <button type="submit" class="sign-in__submit">Sign in</button>
+  </form>
+</section>

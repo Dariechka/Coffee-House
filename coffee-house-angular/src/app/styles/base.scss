@@ -32,4 +32,20 @@ body {
   .contact__social-media__button:hover app-icon .contact__social-media__button__svg use {
     stroke: vars.$black;
   }
+
+  .app__text__button:hover app-icon .app__text__button__svg use {
+    fill: vars.$beige;
+  }
+
+  .enjoy__text__link:hover .enjoy__text__link_svg {
+    display: flex;
+  }
+
+  .favorite__slider__button:hover app-icon .favorite__slider__button_svg {
+    stroke: vars.$beige;
+  }
+
+  .menu__load-button:hover app-icon .menu__load-button_svg use {
+    stroke: vars.$beige;
+  }
 }

@@ -1,0 +1,217 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.menu {
+  background-color: vars.$beige;
+
+  &__container {
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-bottom: 100px;
+
+    @include mix.center(40px);
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    max-width: 800px;
+    text-align: center;
+
+    &_italic {
+      @include mix.italic;
+
+      letter-spacing: 2.2px;
+
+      @include mix.respond(xx-mobile) {
+        letter-spacing: 1.5px;
+      }
+    }
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__buttons-container {
+    @include mix.center(8px);
+
+    @include mix.respond(xx-mobile) {
+      gap: 8px;
+    }
+  }
+
+  &__button {
+    @include mix.button(46px, transparent, vars.$beige2);
+    @include mix.center(8px);
+
+    cursor: pointer;
+    justify-content: flex-start;
+    width: 100%;
+    padding-right: 16px;
+    padding-left: 8px;
+    white-space: nowrap;
+    transition: 0.5s ease-out;
+
+    &:disabled {
+      cursor: pointer;
+      border-color: vars.$beige2;
+      background-color: transparent;
+    }
+
+    &_circle {
+      justify-content: center;
+      width: 34px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: vars.$beige2;
+
+      @include mix.center(0);
+    }
+
+    &_img {
+      width: 16px;
+      height: 16px;
+    }
+
+    &_text {
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    justify-content: space-between;
+    width: 100%;
+    transition: 0.5s ease-out;
+
+    @include mix.respond(x4-tablet) {
+      justify-content: center;
+    }
+
+    & > .error-message {
+      margin-left: 25%;
+      text-align: center;
+
+      @include mix.respond(xx-tablet) {
+        margin-left: 15%;
+      }
+
+      @include mix.respond(x3-tablet) {
+        margin-left: 0;
+      }
+    }
+
+    & > span {
+      margin-left: 50%;
+
+      @include mix.respond(x4-tablet) {
+        margin-left: 0;
+      }
+    }
+  }
+
+  &__card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    height: 506px;
+    border: 1px solid vars.$beige2;
+    border-radius: vars.$radius;
+
+    &__img {
+      width: 308px;
+      height: 310px;
+      border-radius: vars.$radius;
+      background-image: url('/images/card-2.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 110%;
+      transition: 0.5s ease-out;
+
+      @media (hover: hover) {
+        &:hover {
+          background-size: 100%;
+        }
+      }
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 196px;
+      padding: 20px;
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      &_large {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.5px);
+
+        &_price {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.5px);
+
+          text-decoration-line: line-through;
+          opacity: 0.5;
+        }
+      }
+
+      &_small {
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+
+        align-self: stretch;
+      }
+
+      &_price {
+        display: flex;
+        gap: 8px;
+      }
+    }
+  }
+
+  &__load-button {
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border: 1px solid vars.$gray;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: 0.5s ease-out;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: vars.$gray;
+      }
+    }
+  }
+}
+
+.active-button {
+  border-color: vars.$gray;
+  background-color: vars.$gray;
+
+  & > .menu__button_circle {
+    background-color: vars.$beige;
+  }
+
+  & > .menu__button_text {
+    color: vars.$beige;
+  }
+
+  &:disabled {
+    cursor: pointer;
+    border-color: vars.$beige2;
+    background-color: transparent;
+  }
+}
