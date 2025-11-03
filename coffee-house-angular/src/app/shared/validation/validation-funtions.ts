@@ -21,6 +21,32 @@ export function passwordValidation(): ValidatorFn {
       return null;
     }
     const isValid = pattern.test(value);
-    return !isValid ? { loginIsValid: builtInError.password } : null;
+    return !isValid ? { passwordIsValid: builtInError.password } : null;
+  };
+}
+
+export function createSamePasswordValidator(): ValidatorFn {
+  return (form: AbstractControl): ValidationErrors | null => {
+    const password = form.get('password');
+    const confirmPassword = form.get('confirmPassword');
+
+    if (password?.value === confirmPassword?.value) {
+      confirmPassword?.setErrors(null);
+      return null;
+    } else {
+      confirmPassword?.setErrors({ loginIsValid: builtInError.confirmPassword });
+      return { confirmPasswordIsValid: builtInError.confirmPassword };
+    }
+  };
+}
+
+export function houseNumberValidation(): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const value: string | null = control.value;
+    if (value === null) {
+      return null;
+    }
+    const isValid = +value > 1;
+    return !isValid ? { houseNumberIsValid: builtInError.house } : null;
   };
 }
