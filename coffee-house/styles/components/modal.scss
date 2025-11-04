@@ -1,0 +1,132 @@
+@use './../_variables' as vars;
+@use './../_mixins' as mix;
+
+.background {
+  z-index: 7;
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: rgba(64, 63, 61, 0.8);
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.modal {
+  z-index: 10;
+  width: 800px;
+  height: 504px;
+  padding: 16px;
+  background-color: vars.$beige;
+  border-radius: vars.$radius;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  @include mix.respond(x5-tablet) {
+    width: 688px;
+    height: 626px;
+  }
+  @include mix.respond(xxx-mobile) {
+    width: 450px;
+  }
+  @include mix.respond(x-mobile) {
+    width: 342px;
+  }
+  &__buttons {
+    @include mix.respond(x5-tablet) {
+      flex-wrap: wrap;
+    }
+  }
+  &__button {
+    @include mix.respond(x5-tablet) {
+      flex: 0 1 0;
+    }
+  }
+  &__img {
+    border-radius: vars.$radius;
+    width: 310px;
+    height: 310px;
+    background-image: url('./../../assets/images/irish.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s ease-out;
+    @media (hover: hover) {
+      &:hover {
+        background-size: 100%;
+      }
+    }
+    @include mix.respond(xxx-mobile) {
+      display: none;
+    }
+  }
+  &__info {
+    width: 458px;
+    padding-left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    @include mix.respond(x5-tablet) {
+      width: 346px;
+    }
+    @include mix.respond(x-mobile) {
+      padding-left: 0;
+    }
+    &__buttons-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    &__title {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    &__price-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    &__info-container {
+      width: 100%;
+      display: flex;
+      gap: 8px;
+      padding: 11px 0;
+      border-top: 1px solid vars.$beige2;
+      &_text {
+        @include mix.text('Inter', normal, vars.$black, 10px, 140%, 600, 0);
+      }
+    }
+    &__close {
+      cursor: pointer;
+      @include mix.button(44px, transparent, vars.$gray);
+      width: 100%;
+      transition: 0.5s ease-out;
+      @media (hover: hover) {
+        &:hover {
+          background-color: vars.$gray;
+          color: vars.$beige;
+        }
+      }
+    }
+  }
+}
+
+.menu__button_circle {
+  @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+}
+
+.letter-spacing {
+  letter-spacing: 0.1px;
+}
+
+.svg {
+  width: 16px;
+  height: 16px;
+}

@@ -1,0 +1,11 @@
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.menu-page {
+  width: 100%;
+  background-color: vars.$beige;
+}
+
+.no-scroll {
+  overflow: hidden;
+}

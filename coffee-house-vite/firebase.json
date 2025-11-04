@@ -1,0 +1,44 @@
+{
+  "hosting": {
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "/products",
+        "run": {
+          "serviceId": "backend",
+          "region": "europe-west4"
+        }
+      },
+      {
+        "source": "/products/**",
+        "run": {
+          "serviceId": "backend",
+          "region": "europe-west4"
+        }
+      },
+      {
+        "source": "/auth/**",
+        "run": {
+          "serviceId": "backend",
+          "region": "europe-west4"
+        }
+      },
+      {
+        "source": "/orders/**",
+        "run": {
+          "serviceId": "backend",
+          "region": "europe-west4"
+        }
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
+  }
+}
