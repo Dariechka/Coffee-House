@@ -32,55 +32,9 @@
       gap: 4px;
       align-items: flex-start;
 
-      &_error > .registration__form_error-svg {
-        display: block;
-      }
-
-      &_correct > .registration__form_correct-svg {
-        display: block;
-      }
-
-      &_error-message {
-        position: absolute;
-        top: 105%;
-
-        @include mix.text('Inter', normal, vars.$red, 10px, 100%, 400, 0);
-
-        display: none;
-      }
-
-      &_error > .registration__form_item_error-message {
-        display: block;
-      }
-
-      &_radio {
-        @include mix.center(12px);
-
-        position: relative;
-        flex-direction: row-reverse;
-
-        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
-
-        &_state {
-          cursor: pointer;
-          position: relative;
-          width: 16px;
-          height: 16px;
-          border: 1px solid vars.$gray;
-          border-radius: 50%;
-        }
-
-        &_circle {
-          position: absolute;
-          z-index: 2;
-          top: 30%;
-          left: 28%;
-          display: none;
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background-color: vars.$beige;
-        }
+      & > app-icon {
+        width: 0;
+        height: 0;
       }
     }
 
@@ -106,20 +60,6 @@
       &:focus {
         border-color: vars.$beige2;
         outline: none;
-      }
-
-      &_error {
-        border-color: vars.$red;
-      }
-
-      &_correct {
-        border-color: vars.$green;
-      }
-
-      &_radio {
-        position: absolute;
-        left: -100vw;
-        opacity: 0;
       }
 
       &_small {
@@ -157,23 +97,5 @@
 
     @include mix.button(44px, transparent, vars.$gray);
     @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
-  }
-}
-
-.registration {
-  &__form {
-    &_error-svg {
-      position: absolute;
-      top: 57%;
-      left: 89.5%;
-      display: none;
-    }
-
-    &_correct-svg {
-      position: absolute;
-      top: 57%;
-      left: 89.5%;
-      display: none;
-    }
   }
 }

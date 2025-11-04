@@ -10,10 +10,10 @@
       <span class="header__burger-menu_line down"></span>
     </button>
     <nav class="header__navigation">
-      <a href="#favorite-coffee" class="header__navigation_item">Favorite coffee</a>
-      <a href="#about" class="header__navigation_item">About</a>
-      <a href="#mobile-app" class="header__navigation_item">Mobile app</a>
-      <a href="#contact-us" class="header__navigation_item">Contact us</a>
+      <a [routerLink]="['/main']" fragment="favorite-coffee" class="header__navigation_item">Favorite coffee</a>
+      <a [routerLink]="['/main']" fragment="about" class="header__navigation_item">About</a>
+      <a [routerLink]="['/main']" fragment="mobile-app" class="header__navigation_item">Mobile app</a>
+      <a [routerLink]="['/main']" fragment="contact-us" class="header__navigation_item">Contact us</a>
     </nav>
     <div class="header__left-container">
       <a [routerLink]="['cart']" class="header__menu">

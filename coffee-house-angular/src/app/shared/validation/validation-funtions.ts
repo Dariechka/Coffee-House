@@ -30,7 +30,7 @@ export function createSamePasswordValidator(): ValidatorFn {
     const password = form.get('password');
     const confirmPassword = form.get('confirmPassword');
 
-    if (password?.value === confirmPassword?.value) {
+    if (password?.value === confirmPassword?.value && password?.value !== '') {
       confirmPassword?.setErrors(null);
       return null;
     } else {

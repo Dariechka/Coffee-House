@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ErrorComponent } from '@/app/shared/error/error.component';
 
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,11 +10,15 @@ import {
 } from '@/app/shared/validation/validation-funtions';
 import { type City, streets } from '@/app/shared/types/types';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { isCity } from '@/app/shared/guards/guards';
+import { isCity, isUserResponse } from '@/app/shared/guards/guards';
+import { IconComponent } from '@/app/shared/icon/icon.component';
+import { Router } from '@angular/router';
+import { ApiService } from '@/app/shared/service/api-service/api-service';
+import { Toggler } from '@/app/shared/server-error-message/server-error-message';
 
 @Component({
   selector: 'app-registration-page',
-  imports: [ErrorComponent, FormsModule, ReactiveFormsModule],
+  imports: [ErrorComponent, FormsModule, ReactiveFormsModule, IconComponent, Toggler],
   templateUrl: './registration-page.html',
   styleUrl: './registration-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +26,9 @@ import { isCity } from '@/app/shared/guards/guards';
 export class RegistrationPage {
   protected fb = inject(NonNullableFormBuilder);
   protected City: Array<City> = ['New York', 'San Francisco', 'Chicago'];
+  protected serverError = signal<string>('');
+  protected readonly api = inject(ApiService);
+  protected readonly router = inject(Router);
 
   protected registrationForm = this.fb.group(
     {
@@ -43,12 +50,16 @@ export class RegistrationPage {
       houseNumber: this.fb.control('', {
         validators: [Validators.required, houseNumberValidation()],
       }),
-      payment: this.fb.control<'cash' | 'card'>('cash'),
+      paymentMethod: this.fb.control<'cash' | 'card'>('cash'),
     },
     {
       validators: [createSamePasswordValidator()],
     }
   );
+
+  protected formStatus = toSignal(this.registrationForm.statusChanges, {
+    initialValue: this.registrationForm.status,
+  });
 
   protected selectedCity = toSignal(this.registrationForm.controls.city.valueChanges, {
     initialValue: this.registrationForm.controls.city.value,
@@ -61,4 +72,32 @@ export class RegistrationPage {
     }
     return [];
   });
+
+  protected disabledButton = computed(() => {
+    return this.formStatus() !== 'VALID';
+  });
+
+  protected signUp(): void {
+    this.registrationForm.markAllAsTouched();
+    if (this.registrationForm.invalid) {
+      return;
+    }
+
+    const data = {
+      ...this.registrationForm.getRawValue(),
+      houseNumber: parseInt(this.registrationForm.controls.houseNumber.getRawValue(), 10),
+    };
+
+    this.api.userRegistration(data).subscribe((result) => {
+      if (isUserResponse(result)) {
+        this.goToSignInPage();
+      } else {
+        this.serverError.set(result);
+      }
+    });
+  }
+
+  private goToSignInPage(): void {
+    this.router.navigate(['/sign-in']).then();
+  }
 }

@@ -1,6 +1,6 @@
 <section class="sign-in container sign-in__container">
   <h2 class="sign-in__title">Sign In</h2>
-  <form [formGroup]="signInForm" class="sign-in__form">
+  <form [formGroup]="signInForm" class="sign-in__form" (submit)="signIn()">
     <div class="sign-in__form_item">
       <label for="login" class="sign-in__form_label">Login</label>
       <input
@@ -13,6 +13,8 @@
         class="sign-in__form_input"
         required
       />
+      <app-icon name="error" customClass="error-svg"></app-icon>
+      <app-icon name="correct" customClass="correct-svg"></app-icon>
       <app-error formControlName="login"></app-error>
     </div>
     <div class="sign-in__form_item">
@@ -27,8 +29,13 @@
         class="sign-in__form_input"
         required
       />
+      <app-icon name="error" customClass="error-svg"></app-icon>
+      <app-icon name="correct" customClass="correct-svg"></app-icon>
       <app-error formControlName="password"></app-error>
     </div>
-    <button type="submit" class="sign-in__submit">Sign in</button>
+    <button type="submit" class="sign-in__submit" [disabled]="disabledButton()">Sign in</button>
+    @if (serverError() !== '') {
+      <app-server-error [message]="serverError()"></app-server-error>
+    }
   </form>
 </section>

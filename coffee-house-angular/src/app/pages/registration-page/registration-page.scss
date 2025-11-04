@@ -75,20 +75,6 @@
       border: none;
     }
 
-    &_error-svg {
-      position: absolute;
-      top: 57%;
-      left: 89.5%;
-      display: none;
-    }
-
-    &_correct-svg {
-      position: absolute;
-      top: 57%;
-      left: 89.5%;
-      display: none;
-    }
-
     &_item {
       position: relative;
       display: flex;
@@ -96,25 +82,9 @@
       gap: 4px;
       align-items: flex-start;
 
-      &_error > .registration__form_error-svg {
-        display: block;
-      }
-
-      &_correct > .registration__form_correct-svg {
-        display: block;
-      }
-
-      &_error-message {
-        position: absolute;
-        top: 105%;
-
-        @include mix.text('Inter', normal, vars.$red, 10px, 100%, 400, 0);
-
-        display: none;
-      }
-
-      &_error > .registration__form_item_error-message {
-        display: block;
+      & > app-icon {
+        width: 0;
+        height: 0;
       }
 
       &_radio {
@@ -172,14 +142,6 @@
         outline: none;
       }
 
-      &_error {
-        border-color: vars.$red;
-      }
-
-      &_correct {
-        border-color: vars.$green;
-      }
-
       &_radio {
         position: absolute;
         left: -100vw;
@@ -234,7 +196,7 @@
 
 .error {
   position: absolute;
-  top: 103%;
+  top: 100%;
 
   @include mix.text('Inter', normal, vars.$red, 11px, 100%, 400, 0);
 }

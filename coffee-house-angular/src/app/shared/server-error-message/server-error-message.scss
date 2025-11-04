@@ -1,0 +1,23 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.server-error {
+  align-self: center;
+  padding: 0.5rem;
+  text-align: center;
+  animation: surface 5s ease forwards;
+
+  @include mix.text('Inter', italic, vars.$light-brown, 28px, 125%, 600, 1px);
+}
+
+@keyframes surface {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

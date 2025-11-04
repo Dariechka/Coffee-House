@@ -63,3 +63,21 @@
   fill: none;
   stroke: vars.$black;
 }
+
+.error-svg {
+  position: absolute;
+  top: 50%;
+  left: 90%;
+  display: none;
+  width: 16px;
+  height: 16px;
+}
+
+.correct-svg {
+  position: absolute;
+  top: 50%;
+  left: 90%;
+  display: none;
+  width: 16px;
+  height: 16px;
+}

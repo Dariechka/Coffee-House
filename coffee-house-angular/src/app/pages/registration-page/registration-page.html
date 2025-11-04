@@ -1,6 +1,6 @@
 <section class="registration container registration__container">
   <h2 class="registration__title">Registration</h2>
-  <form [formGroup]="registrationForm" class="registration__form">
+  <form [formGroup]="registrationForm" class="registration__form" (submit)="signUp()">
     <div class="registration__form__top-row">
       <div class="registration__form_item">
         <label for="login" class="registration__form_label">Login</label>
@@ -14,6 +14,8 @@
           class="registration__form_input"
           required
         />
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
         <app-error formControlName="login"></app-error>
       </div>
       <div class="registration__form_item">
@@ -28,10 +30,12 @@
           class="registration__form_input"
           required
         />
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
         <app-error formControlName="password"></app-error>
       </div>
       <div class="registration__form_item">
-        <label for="confirmPassword" class="registration__form_label">Password</label>
+        <label for="confirmPassword" class="registration__form_label">Confirm Password</label>
         <input
           id="confirmPassword"
           name="confirmPassword"
@@ -48,6 +52,8 @@
         ) {
           <div class="error">{{ registrationForm.getError('confirmPasswordIsValid') }}</div>
         }
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
       </div>
     </div>
     <div class="registration__form__low-row">
@@ -92,6 +98,8 @@
           class="registration__form_input registration__form_input_small"
           required
         />
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
         <app-error formControlName="houseNumber"></app-error>
       </div>
       <fieldset class="registration__form_fieldset">
@@ -99,10 +107,10 @@
         <label class="registration__form_item_radio">
           Cash
           <input
-            formControlName="payment"
+            formControlName="paymentMethod"
             class="registration__form_input_radio"
             type="radio"
-            name="payment"
+            name="paymentMethod"
             value="cash"
             checked=""
           />
@@ -113,10 +121,10 @@
         <label class="registration__form_item_radio">
           Card
           <input
-            formControlName="payment"
+            formControlName="paymentMethod"
             class="registration__form_input_radio"
             type="radio"
-            name="payment"
+            name="paymentMethod"
             value="card"
           />
           <span class="registration__form_item_radio_state">
@@ -125,6 +133,9 @@
         </label>
       </fieldset>
     </div>
-    <button type="submit" class="registration__submit">Sign in</button>
+    <button type="submit" class="registration__submit" [disabled]="disabledButton()">Registration</button>
+    @if (serverError() !== '') {
+      <app-server-error [message]="serverError()"></app-server-error>
+    }
   </form>
 </section>

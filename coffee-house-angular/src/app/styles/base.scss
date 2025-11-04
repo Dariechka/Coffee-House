@@ -49,3 +49,27 @@ body {
     stroke: vars.$beige;
   }
 }
+
+input.ng-invalid.ng-touched {
+  border-color: vars.$red;
+}
+
+select.ng-invalid.ng-touched {
+  border-color: vars.$red;
+}
+
+input.ng-invalid.ng-touched ~ app-icon .error-svg {
+  display: flex;
+}
+
+input.ng-valid.ng-touched ~ app-icon .correct-svg {
+  display: flex;
+}
+
+input.ng-valid.ng-touched {
+  border-color: vars.$green;
+}
+
+select.ng-valid.ng-touched {
+  border-color: vars.$green;
+}
