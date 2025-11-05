@@ -9,22 +9,17 @@ import {
 import { IconComponent } from '@/app/shared/icon/icon.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { ApiService } from '@/app/shared/service/api-service/api-service';
-import { Loader } from '@/app/shared/loader/loader';
-import { Toggler } from '@/app/shared/server-error-message/server-error-message';
-import { AddDollarPipePipe } from '@/app/shared/pipe/add-dollar-pipe-pipe';
+import { Slider } from '@/app/components/slider/slider';
 
 @Component({
   selector: 'app-main-page',
-  imports: [IconComponent, RouterLink, Loader, Toggler, AddDollarPipePipe],
+  imports: [IconComponent, RouterLink, Slider],
   templateUrl: './main-page.html',
   styleUrl: './main-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPage implements AfterViewInit {
   @ViewChild('bgVideo') protected bgVideo!: ElementRef<HTMLVideoElement>;
-  protected readonly api = inject(ApiService);
   private route = inject(ActivatedRoute);
   private viewportScroller = inject(ViewportScroller);
 
@@ -36,8 +31,4 @@ export class MainPage implements AfterViewInit {
       }
     });
   }
-
-  protected favorites = rxResource({
-    stream: () => this.api.fetchFavoriteProducts(),
-  });
 }

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, effect, inject, Renderer2, signal }
 import { IconComponent } from '@/app/shared/icon/icon.component';
 import { Router } from '@angular/router';
 import { RouterLink } from '@angular/router';
+import { closingBurgerMenu } from '@/app/shared/constants/constants';
 
 @Component({
   selector: 'app-header',
@@ -51,6 +52,6 @@ export class Header {
 
     setTimeout(() => {
       this.router.navigate([path], { fragment });
-    }, 500);
+    }, closingBurgerMenu);
   }
 }

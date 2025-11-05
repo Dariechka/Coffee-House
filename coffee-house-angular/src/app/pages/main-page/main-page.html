@@ -24,45 +24,7 @@
 <section id="favorite-coffee" class="favorite">
   <div class="container favorite__container">
     <h2 class="favorite__title">Choose your <span class="favorite__title_italic">favorite</span> coffee</h2>
-    <div class="favorite__slider">
-      <button class="favorite__slider__button left">
-        <app-icon name="left" customClass="favorite__slider__button_svg"></app-icon>
-      </button>
-      <div class="favorite__slider__ribbon">
-        @switch (favorites.status()) {
-          @case ('loading') {
-            <app-loader></app-loader>
-          }
-          @case ('error') {
-            <app-server-error [message]="favorites.error()?.message ?? ''"></app-server-error>
-          }
-          @case ('resolved') {
-            @for (product of favorites.value()?.data; track product.id) {
-              <div class="favorite__slider__card ribbon_scroll">
-                <div class="favorite__slider__card__image">
-                  <img
-                    class="favorite__slider__card__image_img"
-                    alt="coffee"
-                    [src]="'./images/' + product.id + '.png'"
-                  />
-                </div>
-                <h4 class="favorite__slider__card__title">{{ product.name }}</h4>
-                <p class="favorite__slider__card__text">{{ product.description }}</p>
-                <h4 class="favorite__slider__card__title">{{ product.price | addDollarPipe }}</h4>
-              </div>
-            }
-          }
-        }
-      </div>
-      <button class="favorite__slider__button right">
-        <app-icon name="right" customClass="favorite__slider__button_svg"></app-icon>
-      </button>
-    </div>
-    <div class="favorite__pointers">
-      <div class="favorite__pointers_pointer"></div>
-      <div class="favorite__pointers_pointer"></div>
-      <div class="favorite__pointers_pointer"></div>
-    </div>
+    <app-slider></app-slider>
   </div>
 </section>
 <section id="about" class="about">

@@ -1,0 +1,45 @@
+<div class="favorite__slider">
+  <button class="favorite__slider__button left" (click)="slide('left')">
+    <app-icon name="left" customClass="favorite__slider__button_svg"></app-icon>
+  </button>
+  <div class="favorite__slider__ribbon">
+    @switch (favorites.status()) {
+      @case ('loading') {
+        <app-loader></app-loader>
+      }
+      @case ('error') {
+        <app-server-error [message]="favorites.error()?.message ?? ''"></app-server-error>
+      }
+      @case ('resolved') {
+        @for (product of currentTriad(); track product.id; let idx = $index) {
+          <div class="favorite__slider__card" [class.ribbon_scroll]="!immediateTranslation()" [style.transform]="'translateX('+ translationPx() + 'px)'" (transitionend)="idx === 0 ? transitioned() : null">
+            <div class="favorite__slider__card__image">
+              <img
+                class="favorite__slider__card__image_img"
+                alt="coffee"
+                [src]="'./images/' + product.id + '.png'"
+              />
+            </div>
+            <h4 class="favorite__slider__card__title">{{ product.name }}</h4>
+            <p class="favorite__slider__card__text">{{ product.description }}</p>
+            <h4 class="favorite__slider__card__title">{{ product.price | addDollarPipe }}</h4>
+          </div>
+        }
+      }
+    }
+  </div>
+  <button class="favorite__slider__button right" (click)="slide('right')">
+    <app-icon name="right" customClass="favorite__slider__button_svg"></app-icon>
+  </button>
+</div>
+<div class="favorite__pointers">
+  <div class="favorite__pointers_pointer"
+       [style.background-position]="currentIndex() === 0 ? 'left' : 'right'">
+  </div>
+  <div class="favorite__pointers_pointer"
+       [style.background-position]="currentIndex() === 1 ? 'left' : 'right'">
+  </div>
+  <div class="favorite__pointers_pointer"
+       [style.background-position]="currentIndex() === 2 ? 'left' : 'right'">
+  </div>
+</div>

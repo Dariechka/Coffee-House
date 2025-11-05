@@ -33,7 +33,7 @@ export default [
 
     rules: {
       'max-len': ['error', 180],
-      '@typescript-eslint/no-magic-numbers': 'off',
+      '@typescript-eslint/no-magic-numbers': ['error', { ignore: [0, 1, -1, 2], ignoreReadonlyClassProperties: true }],
       'prettier/prettier': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',

@@ -1,5 +1,5 @@
 {
-  "src/**/*.ts": ["prettier --check", "eslint --fix"],
-  "src/**/*.{test,spec}.ts": ["prettier --check", "eslint --fix"],
-  "*.{css,scss}": ["prettier --write", "stylelint --fix"]
+  "src/**/*.ts": ["format", "lint:fix"],
+  "src/**/*.{test,spec}.ts": ["format", "lint:fix"],
+  "*.{css,scss}": ["format", "lint:scss:fix"]
 }
