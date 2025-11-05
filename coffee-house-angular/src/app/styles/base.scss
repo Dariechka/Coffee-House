@@ -17,6 +17,10 @@ body {
   margin: 0 auto;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
 .container {
   overflow: hidden;
   max-width: vars.$large;
@@ -72,4 +76,11 @@ input.ng-valid.ng-touched {
 
 select.ng-valid.ng-touched {
   border-color: vars.$green;
+}
+
+@media only screen and (width <= 768px) {
+  .header__menu_svg_big {
+    display: flex;
+    align-items: center;
+  }
 }

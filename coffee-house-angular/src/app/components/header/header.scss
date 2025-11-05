@@ -23,10 +23,6 @@
 
     @include mix.center(1px);
 
-    &_active {
-      cursor: auto;
-    }
-
     &_circle {
       width: 38px;
       height: 38px;
@@ -60,7 +56,7 @@
       background-color: vars.$beige;
       transition: transform 0.4s linear;
 
-      &[data-open] {
+      &[data-open='true'] {
         transform: translateX(-100vw);
       }
     }
@@ -101,8 +97,6 @@
 
       @include mix.respond(tablet) {
         @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 1px);
-
-        margin-right: 2px;
       }
 
       &_cart {
@@ -112,10 +106,6 @@
           display: flex;
         }
       }
-    }
-
-    &_active {
-      cursor: auto;
     }
 
     &_active::after {
@@ -212,7 +202,7 @@
       background-color: vars.$beige;
       transition: transform 0.4s linear;
 
-      &[data-open] {
+      &[data-open='true'] {
         transform: translateX(-100vw);
       }
     }
@@ -245,7 +235,7 @@
       transition: transform 0.5s ease-out;
     }
 
-    &[data-open] .up {
+    &[data-open='true'] .up {
       transform-origin: 8px;
       transform: rotate(45deg) translateY(4px);
       width: 19px;
@@ -257,7 +247,7 @@
       transition: transform 0.5s ease-out;
     }
 
-    &[data-open] .down {
+    &[data-open='true'] .down {
       transform-origin: 8px;
       transform: rotate(-45deg) translateY(-4px);
       width: 19px;

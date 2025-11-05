@@ -1,24 +1,34 @@
 <header class="header">
   <div class="container header__container">
-    <a [routerLink]="['main']" class="header__logo header__logo_active">
+    <a [routerLink]="['main']" class="header__logo">
       <app-icon name="logo" customClass="header__logo_svg"></app-icon>
       <div class="header__logo_circle"></div>
       <h2 class="header__logo_text">COFFEE HOUSE</h2>
     </a>
-    <button class="header__burger-menu">
+    <button class="header__burger-menu" [attr.data-open]="isOpen()" (click)="toggleOpen()">
       <span class="header__burger-menu_line up"></span>
       <span class="header__burger-menu_line down"></span>
     </button>
-    <nav class="header__navigation">
-      <a [routerLink]="['/main']" fragment="favorite-coffee" class="header__navigation_item">Favorite coffee</a>
-      <a [routerLink]="['/main']" fragment="about" class="header__navigation_item">About</a>
-      <a [routerLink]="['/main']" fragment="mobile-app" class="header__navigation_item">Mobile app</a>
-      <a [routerLink]="['/main']" fragment="contact-us" class="header__navigation_item">Contact us</a>
+    <nav class="header__navigation" [attr.data-open]="isOpen()">
+      <a (click)="navigateWithDelay('/main', 'favorite-coffee', $event)" class="header__navigation_item"
+        >Favorite coffee</a
+      >
+      <a (click)="navigateWithDelay('/main', 'about', $event)" class="header__navigation_item">About</a>
+      <a
+        (click)="navigateWithDelay('/main', 'mobile-app', $event)"
+        [routerLink]="['/main']"
+        class="header__navigation_item"
+        >Mobile app</a
+      >
+      <a (click)="navigateWithDelay(getCurrentPage(), 'contact-us', $event)" class="header__navigation_item"
+        >Contact us</a
+      >
     </nav>
-    <div class="header__left-container">
+    <div class="header__left-container" [attr.data-open]="isOpen()">
       <a [routerLink]="['cart']" class="header__menu">
         <h2 class="header__menu_text header__menu_text_cart">Cart</h2>
         <app-icon name="cart" customClass="header__menu_svg"></app-icon>
+        <app-icon name="bigCart" customClass="header__menu_svg_big"></app-icon>
         <p class="header__cart-number"></p>
         <p class="header__icon-price"></p>
         <p class="header__icon-discount-price"></p>
@@ -26,6 +36,7 @@
       <a [routerLink]="['menu']" class="header__menu">
         <h2 class="header__menu_text">Menu</h2>
         <app-icon name="cup" customClass="header__menu_svg"></app-icon>
+        <app-icon name="bigCup" customClass="header__menu_svg_big"></app-icon>
       </a>
     </div>
   </div>

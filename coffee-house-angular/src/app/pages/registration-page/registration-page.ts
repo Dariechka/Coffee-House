@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { type AfterViewInit, ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ErrorComponent } from '@/app/shared/error/error.component';
 
 import { FormsModule, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -12,9 +12,10 @@ import { type City, streets } from '@/app/shared/types/types';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { isCity, isUserResponse } from '@/app/shared/guards/guards';
 import { IconComponent } from '@/app/shared/icon/icon.component';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '@/app/shared/service/api-service/api-service';
 import { Toggler } from '@/app/shared/server-error-message/server-error-message';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-registration-page',
@@ -23,7 +24,9 @@ import { Toggler } from '@/app/shared/server-error-message/server-error-message'
   styleUrl: './registration-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RegistrationPage {
+export class RegistrationPage implements AfterViewInit {
+  protected route = inject(ActivatedRoute);
+  protected viewportScroller = inject(ViewportScroller);
   protected fb = inject(NonNullableFormBuilder);
   protected City: Array<City> = ['New York', 'San Francisco', 'Chicago'];
   protected serverError = signal<string>('');
@@ -56,6 +59,14 @@ export class RegistrationPage {
       validators: [createSamePasswordValidator()],
     }
   );
+
+  public ngAfterViewInit(): void {
+    this.route.fragment.subscribe((fragment) => {
+      if (fragment !== null) {
+        this.viewportScroller.scrollToAnchor(fragment);
+      }
+    });
+  }
 
   protected formStatus = toSignal(this.registrationForm.statusChanges, {
     initialValue: this.registrationForm.status,
