@@ -29,7 +29,7 @@ export async function fetchFavoriteProducts(): Promise<ProductResponse | string>
 }
 
 export async function fetchProducts(): Promise<ProductResponse | string> {
-  const url = new URL('/products', document.location.origin)
+  const url = new URL('/products', 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url)
   return await parse(response)
 }

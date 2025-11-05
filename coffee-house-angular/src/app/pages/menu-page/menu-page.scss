@@ -92,8 +92,8 @@
       justify-content: center;
     }
 
-    & > .error-message {
-      margin-left: 25%;
+    & > app-server-error {
+      margin-left: 30%;
       text-align: center;
 
       @include mix.respond(xx-tablet) {
@@ -105,7 +105,7 @@
       }
     }
 
-    & > span {
+    & > app-loader {
       margin-left: 50%;
 
       @include mix.respond(x4-tablet) {

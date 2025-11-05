@@ -1,4 +1,4 @@
-export const baseUrl = 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/';
+export const baseUrl = `http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/`;
 export const LOCAL_STORAGE_STATE_KEY = 'SHORT_TRACK_LOCAL_STORAGE_STATE_DATA_KEY';
 export const builtInError = {
   required: 'This field is required',
