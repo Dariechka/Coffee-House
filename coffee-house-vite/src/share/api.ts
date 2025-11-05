@@ -23,7 +23,7 @@ async function parse<T>(response: Response): Promise<T | string> {
 }
 
 export async function fetchFavoriteProducts(): Promise<ProductResponse | string> {
-  const url = new URL('/products/favorites', document.location.origin)
+  const url = new URL('/products/favorites', 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url)
   return await parse(response)
 }

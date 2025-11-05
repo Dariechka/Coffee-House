@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import type { ErrorResponse, ExtendedProductResponse, ProductResponse } from '@/app/shared/types/types';
+import { inject, Injectable } from '@angular/core'
+import { HttpClient } from '@angular/common/http'
+import type { ErrorResponse, ExtendedProductResponse, ProductResponse } from '@/app/shared/types/types'
 import {
   type ConfirmOrderResponse,
   type Order,
@@ -8,11 +8,10 @@ import {
   type SignInRequest,
   type UserProfileResponse,
   type UserResponse,
-} from '@/app/shared/types/types';
-import type { Observable } from 'rxjs';
-import { catchError, of } from 'rxjs';
-import { baseUrl } from '@/app/shared/constants/constants';
-import { isErrorResponse } from '@/app/shared/guards/guards';
+} from '@/app/shared/types/types'
+import { catchError, type Observable, of } from 'rxjs'
+import { baseUrl } from '@/app/shared/constants/constants'
+import { isErrorResponse } from '@/app/shared/guards/guards'
 
 @Injectable({
   providedIn: 'root',
@@ -20,8 +19,16 @@ import { isErrorResponse } from '@/app/shared/guards/guards';
 export class ApiService {
   private http: HttpClient = inject(HttpClient);
 
-  public fetchFavoriteProducts(): Observable<ProductResponse | ErrorResponse> {
-    return this.http.get<ProductResponse | ErrorResponse>(`${baseUrl}products/favorites`);
+  public fetchFavoriteProducts(): Observable<ProductResponse> {
+    return this.http.get<ProductResponse>(`${baseUrl}products/favorites`).pipe(
+      catchError((error) => {
+        if (isErrorResponse(error.error)) {
+          throw new Error(error.error.error);
+        } else {
+          throw new Error(error.message);
+        }
+      })
+    )
   }
 
   public fetchProducts(): Observable<ProductResponse | ErrorResponse> {
@@ -49,7 +56,7 @@ export class ApiService {
           return of(error.message);
         }
       })
-    );
+    )
   }
 
   public userLogin(data: SignInRequest): Observable<UserResponse | string> {

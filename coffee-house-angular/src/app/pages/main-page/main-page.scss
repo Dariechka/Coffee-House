@@ -450,6 +450,10 @@
       @include mix.respond(xx-mobile) {
         width: 348px;
       }
+
+      & > app-loader {
+        margin-left: 35%;
+      }
     }
 
     &__card {

@@ -1,0 +1,37 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.loader {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 48px;
+  height: 50px;
+  border-top: 4px solid vars.$light-brown;
+  border-right: 4px solid transparent;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  border-bottom: 4px solid transparent;
+  border-left: 4px solid vars.$black;
+  border-radius: 50%;
+  animation: rotation 0.5s linear infinite reverse;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

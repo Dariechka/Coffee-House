@@ -29,17 +29,25 @@
         <app-icon name="left" customClass="favorite__slider__button_svg"></app-icon>
       </button>
       <div class="favorite__slider__ribbon">
-        <div class="favorite__slider__card">
-          <div class="favorite__slider__card__image">
-            <img src="./images/0-large.png" alt="coffee" class="favorite__slider__card__image_img" />
-          </div>
-          <h4 class="favorite__slider__card__title">S&rsquo;mores Frappuccino</h4>
-          <p class="favorite__slider__card__text">
-            This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat
-            milk.
-          </p>
-          <h4 class="favorite__slider__card__title">$5.50</h4>
-        </div>
+        @switch (favorites.status()) {
+          @case ('loading') {
+            <app-loader></app-loader>
+          }
+          @case ('error') {
+            <app-server-error [message]="favorites.error()?.message ?? ''"></app-server-error>
+          }
+          @case ('resolved') {
+            {{ favorites.value() | json }}
+            <div class="favorite__slider__card ribbon_scroll">
+              <div class="favorite__slider__card__image">
+                <img class="favorite__slider__card__image_img" alt="coffee" src="./images/3.png">
+              </div>
+              <h4 class="favorite__slider__card__title">{{ favorites.value()?.data?.at(0)?.name ?? '' }}</h4>
+              <p class="favorite__slider__card__text">Espresso with frothed milk, cream and aromatic honey</p>
+              <h4 class="favorite__slider__card__title">$5.50</h4>
+            </div>
+          }
+        }
       </div>
       <button class="favorite__slider__button right">
         <app-icon name="right" customClass="favorite__slider__button_svg"></app-icon>
