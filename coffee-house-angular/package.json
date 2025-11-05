@@ -14,7 +14,7 @@
     "lint:fix": "npm run lint -- --fix",
     "lint:scss": "stylelint '**/*.{css,scss}'",
     "lint:scss:fix": "stylelint '**/*.{css,scss}' --fix",
-    "prepare": "husky"
+    "prepare": "cd .. && husky coffee-house-angular/.husky"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +51,8 @@
     "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-unicorn": "^58.0.0",
     "husky": "^9.1.7",
+    "commitlint": "^20.1.0",
+    "@commitlint/config-conventional": "^20.0.0",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

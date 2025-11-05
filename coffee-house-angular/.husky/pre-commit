@@ -1,1 +1,2 @@
+cd coffee-house-angular
 npx lint-staged
