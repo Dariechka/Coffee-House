@@ -1,132 +1,132 @@
-export type Category = 'coffee' | 'tea' | 'dessert';
+export type Category = 'coffee' | 'tea' | 'dessert'
 
 export type Product = {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  discountPrice: string | null;
-  category: Category;
-};
+  id: number
+  name: string
+  description: string
+  price: string
+  discountPrice: string | null
+  category: Category
+}
 
 export type Size = {
-  size: string;
-  price: string;
-  discountPrice: string | null;
-};
+  size: string
+  price: string
+  discountPrice: string | null
+}
 
 export type Additive = {
-  name: string;
-  price: number;
-  discountPrice: number | null;
-};
+  name: string
+  price: number
+  discountPrice: number | null
+}
 
 export type ExtendedProduct = Product & {
   sizes: {
-    s: Size;
-    m: Size;
-    l: Size;
-    xl: Size;
-    xxl: Size;
-  };
-  additives: Array<Additive>;
-};
+    s: Size
+    m: Size
+    l: Size
+    xl: Size
+    xxl: Size
+  }
+  additives: Array<Additive>
+}
 
 export type ProductResponse = {
-  data: Array<Product>;
-  message: string;
-  error: string;
-};
+  data: Array<Product>
+  message: string
+  error: string
+}
 
 export type ExtendedProductResponse = {
-  data: ExtendedProduct;
-  message: string;
-  error: string;
-};
+  data: ExtendedProduct
+  message: string
+  error: string
+}
 
 export type UserResponse = {
   data: {
-    access_token: string;
+    access_token: string
     user: {
-      id: number;
-      login: string;
-      city: string;
-      street: string;
-      houseNumber: string;
-      paymentMethod: string;
-      createdAt: string;
-    };
-  };
-  message: string;
-  error: string;
-};
+      id: number
+      login: string
+      city: string
+      street: string
+      houseNumber: string
+      paymentMethod: string
+      createdAt: string
+    }
+  }
+  message: string
+  error: string
+}
 
 export type UserProfileResponse = {
   data: {
-    id: number;
-    login: string;
-    city: string;
-    street: string;
-    houseNumber: string;
-    paymentMethod: string;
-    createdAt: string;
-  };
-  message: string;
-  error: string;
-};
+    id: number
+    login: string
+    city: string
+    street: string
+    houseNumber: string
+    paymentMethod: string
+    createdAt: string
+  }
+  message: string
+  error: string
+}
 
 export type ConfirmOrderResponse = {
   data: {
-    message: string;
-    orderId: string;
-  };
-  message: string;
-  error: string;
-};
+    message: string
+    orderId: string
+  }
+  message: string
+  error: string
+}
 
 export type ErrorResponse = {
-  error: string;
-};
+  error: string
+}
 
 export type PricesHolder = {
-  sizePrice: number;
-  sizeDiscountPrice: number;
-  additivePrice: number;
-  additiveDiscountPrice: number;
-};
+  sizePrice: number
+  sizeDiscountPrice: number
+  additivePrice: number
+  additiveDiscountPrice: number
+}
 
 export type PriceData = {
-  price: number;
-  discountPrice: number;
-};
+  price: number
+  discountPrice: number
+}
 
 export type InputProps = {
-  onUpdate: (value: string) => undefined | string;
-  addClassToParent: (name: string, flag: boolean, text?: string) => void;
-  classes: Array<string>;
-  name: string;
-  type: string;
-  min?: string;
-};
+  onUpdate: (value: string) => undefined | string
+  addClassToParent: (name: string, flag: boolean, text?: string) => void
+  classes: Array<string>
+  name: string
+  type: string
+  min?: string
+}
 
-export type InputComponentProps = Omit<InputProps, 'addClassToParent'>;
+export type InputComponentProps = Omit<InputProps, 'addClassToParent'>
 
 export type RegistrationRequest = {
-  login: string;
-  password: string;
-  confirmPassword: string;
-  city: string;
-  street: string;
-  houseNumber: number;
-  paymentMethod: 'card' | 'cash';
-};
+  login: string
+  password: string
+  confirmPassword: string
+  city: string
+  street: string
+  houseNumber: number
+  paymentMethod: 'card' | 'cash'
+}
 
-export type SignInRequest = Pick<RegistrationRequest, 'login' | 'password'>;
+export type SignInRequest = Pick<RegistrationRequest, 'login' | 'password'>
 
-export type City = 'New York' | 'San Francisco' | 'Chicago';
-export const cities = ['New York', 'San Francisco', 'Chicago'];
+export type City = 'New York' | 'San Francisco' | 'Chicago'
+export const cities = ['New York', 'San Francisco', 'Chicago']
 
-export type Street = Record<City, Array<string>>;
+export type Street = Record<City, Array<string>>
 export const streets: Street = {
   'New York': [
     'Broadway',
@@ -164,49 +164,49 @@ export const streets: Street = {
     'Division Street',
     'Ashland Avenue',
   ],
-};
+}
 
 export type CitySelectProps = {
-  name: 'city';
-  CityOnChange: (city: City) => void;
-};
+  name: 'city'
+  CityOnChange: (city: City) => void
+}
 
 export type StreetSelectProps = {
-  name: 'street';
-  nameOfCity: City;
-  StreetOnChange: (street: string) => void;
-};
+  name: 'street'
+  nameOfCity: City
+  StreetOnChange: (street: string) => void
+}
 
 export type StateItemToCart = {
-  productId: number;
-  productName: string;
-  size: string;
-  additives: Array<string>;
-  quantity: number;
-  price: number;
-  unloggedPrice: number;
-};
+  productId: number
+  productName: string
+  size: string
+  additives: Array<string>
+  quantity: number
+  price: number
+  unloggedPrice: number
+}
 
 export type StateOrder = {
-  items: Array<StateItemToCart>;
-  totalPrice: number;
-  totalUnloggedPrice: number;
-};
+  items: Array<StateItemToCart>
+  totalPrice: number
+  totalUnloggedPrice: number
+}
 
 export type ItemToCart = {
-  productId: number;
-  size: string;
-  additives: Array<string>;
-  quantity: number;
-};
+  productId: number
+  size: string
+  additives: Array<string>
+  quantity: number
+}
 
 export type Order = {
-  items: Array<ItemToCart>;
-  totalPrice: number;
-};
+  items: Array<ItemToCart>
+  totalPrice: number
+}
 
 export type StateData = {
-  accessToken: string | null;
-  userId: number | null;
-  order: StateOrder;
-};
+  accessToken: string | null
+  userId: number | null
+  order: StateOrder
+}

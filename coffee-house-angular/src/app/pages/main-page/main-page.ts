@@ -5,11 +5,11 @@ import {
   type ElementRef,
   inject,
   ViewChild,
-} from '@angular/core';
-import { IconComponent } from '@/app/shared/icon/icon.component';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { ViewportScroller } from '@angular/common';
-import { Slider } from '@/app/components/slider/slider';
+} from '@angular/core'
+import { IconComponent } from '@/app/shared/icon/icon.component'
+import { ActivatedRoute, RouterLink } from '@angular/router'
+import { ViewportScroller } from '@angular/common'
+import { Slider } from '@/app/components/slider/slider'
 
 @Component({
   selector: 'app-main-page',
@@ -19,16 +19,16 @@ import { Slider } from '@/app/components/slider/slider';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainPage implements AfterViewInit {
-  @ViewChild('bgVideo') protected bgVideo!: ElementRef<HTMLVideoElement>;
-  private route = inject(ActivatedRoute);
-  private viewportScroller = inject(ViewportScroller);
+  @ViewChild('bgVideo') protected bgVideo!: ElementRef<HTMLVideoElement>
+  private route = inject(ActivatedRoute)
+  private viewportScroller = inject(ViewportScroller)
 
   public ngAfterViewInit(): void {
-    this.bgVideo.nativeElement.muted = true;
+    this.bgVideo.nativeElement.muted = true
     this.route.fragment.subscribe((fragment) => {
       if (fragment !== null) {
-        this.viewportScroller.scrollToAnchor(fragment);
+        this.viewportScroller.scrollToAnchor(fragment)
       }
-    });
+    })
   }
 }

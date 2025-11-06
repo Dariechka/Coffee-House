@@ -1,23 +1,23 @@
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
-import { MainPage } from './main-page';
+import { MainPage } from './main-page'
 
 describe('MainPage', () => {
-  let component: MainPage;
-  let fixture: ComponentFixture<MainPage>;
+  let component: MainPage
+  let fixture: ComponentFixture<MainPage>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MainPage],
-    }).compileComponents();
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(MainPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(MainPage)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

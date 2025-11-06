@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { IconComponent } from '@/app/shared/icon/icon.component';
+import { ChangeDetectionStrategy, Component } from '@angular/core'
+import { IconComponent } from '@/app/shared/icon/icon.component'
 
 @Component({
   selector: 'app-footer',

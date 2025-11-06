@@ -3,6 +3,7 @@ const config = {
   tabWidth: 2,
   useTabs: false,
   singleQuote: true,
+  semi: false,
   printWidth: 120,
   overrides: [
     {
@@ -12,6 +13,6 @@ const config = {
       },
     },
   ],
-};
+}
 
-export default config;
+export default config

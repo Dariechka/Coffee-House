@@ -1,4 +1,4 @@
-import type { Routes } from '@angular/router';
+import type { Routes } from '@angular/router'
 
 export const routes: Routes = [
   {
@@ -37,4 +37,4 @@ export const routes: Routes = [
     title: 'Not found Page',
     loadComponent: () => import('./pages/not-found-page/not-found-page').then((m) => m.NotFoundPage),
   },
-];
+]

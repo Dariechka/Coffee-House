@@ -1,23 +1,23 @@
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
-import { SignInPage } from './sign-in-page';
+import { SignInPage } from './sign-in-page'
 
 describe('SignInPage', () => {
-  let component: SignInPage;
-  let fixture: ComponentFixture<SignInPage>;
+  let component: SignInPage
+  let fixture: ComponentFixture<SignInPage>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SignInPage],
-    }).compileComponents();
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(SignInPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(SignInPage)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

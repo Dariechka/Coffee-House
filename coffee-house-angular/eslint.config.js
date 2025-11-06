@@ -1,9 +1,9 @@
-import tseslint from 'typescript-eslint';
-import angular from '@angular-eslint/eslint-plugin';
-import prettierPlugin from 'eslint-plugin-prettier';
-import eslintPluginUnicorn from 'eslint-plugin-unicorn';
-import angularTemplateParser from '@angular-eslint/template-parser';
-import angularTemplate from '@angular-eslint/eslint-plugin-template';
+import tseslint from 'typescript-eslint'
+import angular from '@angular-eslint/eslint-plugin'
+import prettierPlugin from 'eslint-plugin-prettier'
+import eslintPluginUnicorn from 'eslint-plugin-unicorn'
+import angularTemplateParser from '@angular-eslint/template-parser'
+import angularTemplate from '@angular-eslint/eslint-plugin-template'
 
 export default [
   {
@@ -118,4 +118,4 @@ export default [
       '@angular-eslint/template/elements-content': 'off',
     },
   },
-];
+]

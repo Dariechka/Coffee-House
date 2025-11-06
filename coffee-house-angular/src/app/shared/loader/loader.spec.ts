@@ -1,23 +1,23 @@
-import type { ComponentFixture } from '@angular/core/testing';
-import { TestBed } from '@angular/core/testing';
+import type { ComponentFixture } from '@angular/core/testing'
+import { TestBed } from '@angular/core/testing'
 
-import { Loader } from './loader';
+import { Loader } from './loader'
 
 describe('Loader', () => {
-  let component: Loader;
-  let fixture: ComponentFixture<Loader>;
+  let component: Loader
+  let fixture: ComponentFixture<Loader>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Loader],
-    }).compileComponents();
+    }).compileComponents()
 
-    fixture = TestBed.createComponent(Loader);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(Loader)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

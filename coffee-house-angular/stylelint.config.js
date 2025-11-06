@@ -10,4 +10,4 @@ export default {
     'no-empty-source': null,
   },
   ignoreFiles: ['dist/**/*', 'node_modules/**/*', '.angular/**/*', '**/coverage/**', '**/lcov-report/**'],
-};
+}
