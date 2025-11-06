@@ -10,8 +10,8 @@
     "test": "ng test",
     "format": "prettier --write \"**/*\" --ignore-unknown",
     "format:check": "prettier --check \"**/*\" --ignore-unknown",
-    "lint": "ng lint",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "ng lint coffee-house",
+    "lint:fix": "npm run lint -- --fix --lint-file-patterns",
     "lint:scss": "stylelint '**/*.{css,scss}'",
     "lint:scss:fix": "stylelint '**/*.{css,scss}' --fix",
     "prepare": "cd .. && husky coffee-house-angular/.husky"

@@ -12,13 +12,14 @@
       }
       @case ('resolved') {
         @for (product of currentTriad(); track product.id; let idx = $index) {
-          <div class="favorite__slider__card" [class.ribbon_scroll]="!immediateTranslation()" [style.transform]="'translateX('+ translationPx() + 'px)'" (transitionend)="idx === 0 ? transitioned() : null">
+          <div
+            class="favorite__slider__card"
+            [class.ribbon_scroll]="!immediateTranslation()"
+            [style.transform]="'translateX(' + translationPx() + 'px)'"
+            (transitionend)="idx === 0 ? transitioned() : null"
+          >
             <div class="favorite__slider__card__image">
-              <img
-                class="favorite__slider__card__image_img"
-                alt="coffee"
-                [src]="'./images/' + product.id + '.png'"
-              />
+              <img class="favorite__slider__card__image_img" alt="coffee" [src]="'./images/' + product.id + '.png'" />
             </div>
             <h4 class="favorite__slider__card__title">{{ product.name }}</h4>
             <p class="favorite__slider__card__text">{{ product.description }}</p>
@@ -33,13 +34,7 @@
   </button>
 </div>
 <div class="favorite__pointers">
-  <div class="favorite__pointers_pointer"
-       [style.background-position]="currentIndex() === 0 ? 'left' : 'right'">
-  </div>
-  <div class="favorite__pointers_pointer"
-       [style.background-position]="currentIndex() === 1 ? 'left' : 'right'">
-  </div>
-  <div class="favorite__pointers_pointer"
-       [style.background-position]="currentIndex() === 2 ? 'left' : 'right'">
-  </div>
+  <div class="favorite__pointers_pointer" [style.background-position]="currentIndex() === 0 ? 'left' : 'right'"></div>
+  <div class="favorite__pointers_pointer" [style.background-position]="currentIndex() === 1 ? 'left' : 'right'"></div>
+  <div class="favorite__pointers_pointer" [style.background-position]="currentIndex() === 2 ? 'left' : 'right'"></div>
 </div>

@@ -15,29 +15,34 @@ import { ApiService } from '@/app/shared/service/api-service/api-service';
 import type { ProductResponse } from '@/app/shared/types/types';
 import { Loader } from '@/app/shared/loader/loader';
 import { Toggler } from '@/app/shared/server-error-message/server-error-message';
-import { LocalStorageService } from '@/app/shared/service/local-storage-service/local-storage-service';
-import { AddDollarPipePipe } from '@/app/shared/pipe/add-dollar-pipe-pipe';
+import { Card } from '@/app/components/card/card';
+import { borderWindowWidth, numberOfCards } from '@/app/shared/constants/constants';
 
 @Component({
   selector: 'app-menu-page',
-  imports: [IconComponent, Loader, Toggler, TitleCasePipe, AddDollarPipePipe],
+  imports: [IconComponent, Loader, Toggler, TitleCasePipe, Card],
   templateUrl: './menu-page.html',
   styleUrl: './menu-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MenuPage implements AfterViewInit {
   protected readonly api = inject(ApiService);
-  protected localStorageService = inject(LocalStorageService);
   protected route = inject(ActivatedRoute);
   protected viewportScroller = inject(ViewportScroller);
   protected categories: Array<string> = ['coffee', 'tea', 'dessert'];
   protected allCategories: ResourceRef<ProductResponse | undefined>;
   protected selectedCategory = signal<string>('coffee');
-  protected isSignIn: boolean = this.localStorageService.isLoggedIn();
+  protected viewportWidth = signal<number>(window.innerWidth);
+  protected loadButtonAvailable = signal<boolean>(false);
 
   constructor() {
     this.allCategories = rxResource({
       stream: () => this.api.fetchProducts(),
+    });
+
+    window.addEventListener('resize', () => {
+      this.viewportWidth.set(window.innerWidth);
+      this.loadButtonAvailable.set(false);
     });
   }
 
@@ -57,6 +62,17 @@ export class MenuPage implements AfterViewInit {
       return;
     }
 
-    return products.filter((p) => p.category === category);
+    if (this.loadButtonAvailable()) {
+      return products.filter((p) => p.category === category);
+    }
+
+    return this.viewportWidth() > borderWindowWidth
+      ? products.filter((p) => p.category === category)
+      : products.filter((p) => p.category === category).slice(0, numberOfCards);
   });
+
+  protected handleCategoryButtonClick(category: string): void {
+    this.selectedCategory.set(category);
+    this.loadButtonAvailable.set(false);
+  }
 }

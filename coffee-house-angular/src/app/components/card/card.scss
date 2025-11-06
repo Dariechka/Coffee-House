@@ -1,0 +1,67 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.menu {
+  &__card {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    width: 310px;
+    height: 506px;
+    border: 1px solid vars.$beige2;
+    border-radius: vars.$radius;
+
+    &__img {
+      width: 308px;
+      height: 310px;
+      border-radius: vars.$radius;
+      background-image: url('/images/card-2.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 110%;
+      transition: 0.5s ease-out;
+
+      @media (hover: hover) {
+        &:hover {
+          background-size: 100%;
+        }
+      }
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 196px;
+      padding: 20px;
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      &_large {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.5px);
+
+        &_price {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0.5px);
+
+          text-decoration-line: line-through;
+          opacity: 0.5;
+        }
+      }
+
+      &_small {
+        @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+
+        align-self: stretch;
+      }
+
+      &_price {
+        display: flex;
+        gap: 8px;
+      }
+    }
+  }
+}
