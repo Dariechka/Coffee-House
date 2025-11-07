@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core'
+import { Component, type ElementRef, input, output, ViewChild } from '@angular/core'
 import type { AdditiveButtonProps } from '@/app/shared/types/types'
 
 @Component({
@@ -8,5 +8,17 @@ import type { AdditiveButtonProps } from '@/app/shared/types/types'
   styleUrl: './modal-additive-button.scss',
 })
 export class ModalAdditiveButton {
+  @ViewChild('additiveButton') public buttonRef!: ElementRef<HTMLButtonElement>
   public additiveData = input.required<AdditiveButtonProps>()
+  public emitAdditiveData = output<{ data: AdditiveButtonProps; twice: boolean }>()
+
+  public getAdditivePriceData(): void {
+    if (this.buttonRef.nativeElement.classList.contains('active')) {
+      this.buttonRef.nativeElement.classList.remove('active')
+      this.emitAdditiveData.emit({ data: this.additiveData(), twice: true })
+    } else {
+      this.buttonRef.nativeElement.classList.add('active')
+      this.emitAdditiveData.emit({ data: this.additiveData(), twice: false })
+    }
+  }
 }

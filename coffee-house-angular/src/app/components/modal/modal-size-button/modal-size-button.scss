@@ -2,6 +2,9 @@
 @use 'mixins' as mix;
 
 .button {
+  @include mix.button(46px, transparent, vars.$beige2);
+  @include mix.center(8px);
+
   cursor: pointer;
   position: relative;
   flex: 0 1 0;
@@ -11,9 +14,6 @@
   padding-left: 8px;
   white-space: nowrap;
   transition: 0.5s ease-out;
-
-  @include mix.button(46px, transparent, vars.$beige2);
-  @include mix.center(8px);
 
   &_circle {
     justify-content: center;

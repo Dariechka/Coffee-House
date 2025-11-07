@@ -17,8 +17,12 @@
       <div class="modal__info__buttons-container">
         <p class="modal__info__title_small">Size</p>
         <div class="modal__buttons">
-          @for (size of calculateSizeData(); track $index) {
-            <app-modal-size-button [sizeData]="size" [activeClass]="$index === 0"></app-modal-size-button>
+          @for (size of buttonSizes; track $index) {
+            <app-modal-size-button
+              [sizeData]="size"
+              (emitSizeData)="updateSizePrice($event)"
+              [activeClass]="size.typeSize === dataToOrder().size"
+            ></app-modal-size-button>
           }
         </div>
       </div>
@@ -26,15 +30,36 @@
         <p class="modal__info__title_small">Additives</p>
         <div class="modal__buttons">
           @for (additive of calculateAdditiveData(); track $index) {
-            <app-modal-additive-button [additiveData]="additive"></app-modal-additive-button>
+            <app-modal-additive-button
+              (emitAdditiveData)="updateAdditivePrice($event)"
+              [additiveData]="additive"
+            ></app-modal-additive-button>
           }
         </div>
       </div>
       <div class="modal__info__price-container">
         <h3 class="modal__info__title_large">Total:</h3>
         <div class="modal__info__price-container_price">
-          <p class="modal__info__title_large_price">$9</p>
-          <p class="modal__info__title_large">$7</p>
+          <p class="modal__info__title_large_price">
+            {{
+              (!this.isSignIn
+                ? ''
+                : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
+                  ? totalPrice().price
+                  : ''
+              ) | addDollarPipe
+            }}
+          </p>
+          <p class="modal__info__title_large">
+            {{
+              (!this.isSignIn
+                ? totalPrice().price
+                : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
+                  ? totalPrice().discountPrice
+                  : totalPrice().price
+              ) | addDollarPipe
+            }}
+          </p>
         </div>
       </div>
       <button class="modal__info__add">Add to cart</button>

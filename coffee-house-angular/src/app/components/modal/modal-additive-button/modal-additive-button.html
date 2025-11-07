@@ -1,4 +1,4 @@
-<button class="button">
+<button #additiveButton class="button" (click)="getAdditivePriceData()">
   <span class="button_circle button_text">{{ additiveData().index }}</span>
   <span class="button_text">{{ additiveData().additive.name }}</span>
 </button>

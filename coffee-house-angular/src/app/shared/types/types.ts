@@ -9,12 +9,6 @@ export type Product = {
   category: Category
 }
 
-export type Size = {
-  size: string
-  price: string
-  discountPrice: string | null
-}
-
 export type Additive = {
   name: string
   price: number
@@ -169,6 +163,12 @@ export const streets: Street = {
 export type SizeButtonProps = {
   size: Size
   typeSize: string
+}
+
+export type Size = {
+  size: string
+  price: string
+  discountPrice: string | null
 }
 
 export type AdditiveButtonProps = {

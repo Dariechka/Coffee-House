@@ -2,6 +2,9 @@
 @use 'mixins' as mix;
 
 .button {
+  @include mix.button(46px, transparent, vars.$beige2);
+  @include mix.center(8px);
+
   cursor: pointer;
   position: relative;
   flex: 0 1 0;
@@ -44,7 +47,13 @@
       }
     }
   }
+}
 
-  @include mix.button(46px, transparent, vars.$beige2);
-  @include mix.center(8px);
+.active {
+  border-color: vars.$gray;
+  background-color: vars.$gray;
+
+  & > .button_circle {
+    background-color: vars.$beige;
+  }
 }
