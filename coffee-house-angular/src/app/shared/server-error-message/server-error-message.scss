@@ -7,12 +7,12 @@
   text-align: center;
   animation: surface 5s ease forwards;
 
-  @include mix.text('Inter', italic, vars.$light-brown, 28px, 125%, 600, 1px);
+  @include mix.text('Inter', italic, vars.$red, 28px, 125%, 600, 1px);
 }
 
 @keyframes surface {
   from {
-    transform: translateY(30px);
+    transform: translateY(20px);
     opacity: 0;
   }
 

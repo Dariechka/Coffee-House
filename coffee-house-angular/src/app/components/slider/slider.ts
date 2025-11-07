@@ -3,12 +3,12 @@ import { rxResource } from '@angular/core/rxjs-interop'
 import { ApiService } from '@/app/shared/service/api-service/api-service'
 import { IconComponent } from '@/app/shared/icon/icon.component'
 import { Loader } from '@/app/shared/loader/loader'
-import { Toggler } from '@/app/shared/server-error-message/server-error-message'
+import { ErrorServerMessage } from '@/app/shared/server-error-message/server-error-message'
 import { AddDollarPipePipe } from '@/app/shared/pipe/add-dollar-pipe-pipe'
 
 @Component({
   selector: 'app-slider',
-  imports: [IconComponent, Loader, Toggler, AddDollarPipePipe],
+  imports: [IconComponent, Loader, ErrorServerMessage, AddDollarPipePipe],
   templateUrl: './slider.html',
   styleUrl: './slider.scss',
 })

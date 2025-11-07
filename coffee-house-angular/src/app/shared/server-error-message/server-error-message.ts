@@ -7,6 +7,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'
   styleUrl: './server-error-message.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Toggler {
+export class ErrorServerMessage {
   public readonly message = input.required<string>()
 }

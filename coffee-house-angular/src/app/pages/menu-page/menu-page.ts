@@ -14,13 +14,13 @@ import { rxResource } from '@angular/core/rxjs-interop'
 import { ApiService } from '@/app/shared/service/api-service/api-service'
 import type { ProductResponse } from '@/app/shared/types/types'
 import { Loader } from '@/app/shared/loader/loader'
-import { Toggler } from '@/app/shared/server-error-message/server-error-message'
+import { ErrorServerMessage } from '@/app/shared/server-error-message/server-error-message'
 import { Card } from '@/app/components/card/card'
 import { borderWindowWidth, numberOfCards } from '@/app/shared/constants/constants'
 
 @Component({
   selector: 'app-menu-page',
-  imports: [IconComponent, Loader, Toggler, TitleCasePipe, Card],
+  imports: [IconComponent, Loader, ErrorServerMessage, TitleCasePipe, Card],
   templateUrl: './menu-page.html',
   styleUrl: './menu-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,10 +30,10 @@ export class MenuPage implements AfterViewInit {
   protected route = inject(ActivatedRoute)
   protected viewportScroller = inject(ViewportScroller)
   protected categories: Array<string> = ['coffee', 'tea', 'dessert']
-  protected allCategories: ResourceRef<ProductResponse | undefined>
   protected selectedCategory = signal<string>('coffee')
   protected viewportWidth = signal<number>(window.innerWidth)
   protected loadButtonAvailable = signal<boolean>(false)
+  protected allCategories: ResourceRef<ProductResponse | undefined>
 
   constructor() {
     this.allCategories = rxResource({

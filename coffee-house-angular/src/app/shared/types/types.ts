@@ -166,15 +166,14 @@ export const streets: Street = {
   ],
 }
 
-export type CitySelectProps = {
-  name: 'city'
-  CityOnChange: (city: City) => void
+export type SizeButtonProps = {
+  size: Size
+  typeSize: string
 }
 
-export type StreetSelectProps = {
-  name: 'street'
-  nameOfCity: City
-  StreetOnChange: (street: string) => void
+export type AdditiveButtonProps = {
+  additive: Additive
+  index: number
 }
 
 export type StateItemToCart = {

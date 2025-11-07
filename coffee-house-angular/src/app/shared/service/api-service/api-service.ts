@@ -43,8 +43,16 @@ export class ApiService {
     )
   }
 
-  public fetchProduct(id: string): Observable<ExtendedProductResponse | ErrorResponse> {
-    return this.http.get<ExtendedProductResponse | ErrorResponse>(`${baseUrl}products/${id}`)
+  public fetchProduct(id: number): Observable<ExtendedProductResponse | string> {
+    return this.http.get<ExtendedProductResponse | ErrorResponse>(`${baseUrl}products/${id}`).pipe(
+      catchError((error) => {
+        if (isErrorResponse(error.error)) {
+          return of(error.error.error)
+        } else {
+          return of(error.message)
+        }
+      })
+    )
   }
 
   public userRegistration(data: RegistrationRequest): Observable<UserResponse | string> {

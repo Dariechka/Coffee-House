@@ -35,7 +35,7 @@ export async function fetchProducts(): Promise<ProductResponse | string> {
 }
 
 export async function fetchProduct(id: string): Promise<ExtendedProductResponse | string> {
-  const url = new URL(`/products/${id}`, document.location.origin)
+  const url = new URL(`/products/${id}`, 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url)
   return await parse(response)
 }

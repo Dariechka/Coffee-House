@@ -3,7 +3,7 @@ import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angula
 import { loginIsValid, passwordValidation } from '@/app/shared/validation/validation-funtions'
 import { ErrorComponent } from '@/app/shared/error/error.component'
 import { IconComponent } from '@/app/shared/icon/icon.component'
-import { Toggler } from '@/app/shared/server-error-message/server-error-message'
+import { ErrorServerMessage } from '@/app/shared/server-error-message/server-error-message'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ApiService } from '@/app/shared/service/api-service/api-service'
 import { toSignal } from '@angular/core/rxjs-interop'
@@ -13,7 +13,7 @@ import { ViewportScroller } from '@angular/common'
 
 @Component({
   selector: 'app-sign-in-page',
-  imports: [ReactiveFormsModule, ErrorComponent, IconComponent, Toggler],
+  imports: [ReactiveFormsModule, ErrorComponent, IconComponent, ErrorServerMessage],
   templateUrl: './sign-in-page.html',
   styleUrl: './sign-in-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -14,12 +14,12 @@ import { isCity, isUserResponse } from '@/app/shared/guards/guards'
 import { IconComponent } from '@/app/shared/icon/icon.component'
 import { ActivatedRoute, Router } from '@angular/router'
 import { ApiService } from '@/app/shared/service/api-service/api-service'
-import { Toggler } from '@/app/shared/server-error-message/server-error-message'
+import { ErrorServerMessage } from '@/app/shared/server-error-message/server-error-message'
 import { ViewportScroller } from '@angular/common'
 
 @Component({
   selector: 'app-registration-page',
-  imports: [ErrorComponent, FormsModule, ReactiveFormsModule, IconComponent, Toggler],
+  imports: [ErrorComponent, FormsModule, ReactiveFormsModule, IconComponent, ErrorServerMessage],
   templateUrl: './registration-page.html',
   styleUrl: './registration-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
