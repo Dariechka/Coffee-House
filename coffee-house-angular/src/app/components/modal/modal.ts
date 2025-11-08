@@ -60,6 +60,11 @@ export class Modal implements OnInit {
     }))
   }
 
+  protected addToCart(): void {
+    this.localStorageService.addItemToCart(this.dataToOrder())
+    this.dialogRef.close()
+  }
+
   protected calculateSizeData(): Array<SizeButtonProps> {
     if (isExtendedProduct(this.data)) {
       return Object.entries(this.data.sizes).map((entry, index) => {
@@ -123,12 +128,14 @@ export class Modal implements OnInit {
             value.additiveDiscountPrice - +(data.data.additive.discountPrice ?? 0)
           ),
         }))
+        this.updateCartToOrderPrice()
       } else {
         this.price.update((value) => ({
           ...value,
           additivePrice: +this.ceilToDecimals(value.additivePrice - data.data.additive.price),
           additiveDiscountPrice: +this.ceilToDecimals(value.additiveDiscountPrice - data.data.additive.price),
         }))
+        this.updateCartToOrderPrice()
       }
     } else {
       this.dataToOrder().additives.push(data.data.additive.name)
@@ -140,17 +147,27 @@ export class Modal implements OnInit {
             value.additiveDiscountPrice + +(data.data.additive.discountPrice ?? 0)
           ),
         }))
+        this.updateCartToOrderPrice()
       } else {
         this.price.update((value) => ({
           ...value,
           additivePrice: +this.ceilToDecimals(value.additivePrice + +data.data.additive.price),
           additiveDiscountPrice: +this.ceilToDecimals(value.additiveDiscountPrice + +data.data.additive.price),
         }))
+        this.updateCartToOrderPrice()
       }
     }
   }
 
   private ceilToDecimals(number_: number): number {
     return Math.ceil(number_ * decimals) / decimals
+  }
+
+  private updateCartToOrderPrice(): void {
+    this.dataToOrder.update((value) => ({
+      ...value,
+      price: this.price().sizeDiscountPrice + this.price().additiveDiscountPrice,
+      unloggedPrice: this.price().sizePrice + this.price().additivePrice,
+    }))
   }
 }

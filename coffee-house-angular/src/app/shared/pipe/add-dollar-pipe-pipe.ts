@@ -7,8 +7,8 @@ import { fixed } from '@/app/shared/constants/constants'
   standalone: true,
 })
 export class AddDollarPipePipe implements PipeTransform {
-  public transform(value: number | string): string {
-    if (value == null || value === '') return ''
-    return typeof value === 'string' ? `$${parseInt(value).toFixed(fixed)}` : `$${value.toFixed(fixed)}`
+  public transform(value: number): string {
+    if (value == null || value === 0) return ''
+    return `$${value.toFixed(fixed)}`
   }
 }

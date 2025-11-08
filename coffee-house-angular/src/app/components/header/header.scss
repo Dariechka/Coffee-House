@@ -261,7 +261,7 @@
     bottom: 75%;
     left: 40%;
 
-    @include mix.text('Inter', normal, vars.$black, 10px, 100%, 500, 0);
+    @include mix.text('Inter', normal, vars.$black, 8px, 100%, 500, 0);
 
     text-decoration-line: line-through;
     opacity: 0.5;
@@ -276,7 +276,7 @@
     bottom: 75%;
     left: 100%;
 
-    @include mix.text('Inter', normal, vars.$black, 10px, 100%, 500, 0);
+    @include mix.text('Inter', normal, vars.$black, 8px, 100%, 500, 0);
   }
 }
 

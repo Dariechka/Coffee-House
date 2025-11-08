@@ -42,27 +42,25 @@
         <div class="modal__info__price-container_price">
           <p class="modal__info__title_large_price">
             {{
-              (!this.isSignIn
+              +(!this.isSignIn
                 ? ''
                 : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
                   ? totalPrice().price
-                  : ''
-              ) | addDollarPipe
+                  : '') | addDollarPipe
             }}
           </p>
           <p class="modal__info__title_large">
             {{
-              (!this.isSignIn
+              +(!this.isSignIn
                 ? totalPrice().price
                 : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
                   ? totalPrice().discountPrice
-                  : totalPrice().price
-              ) | addDollarPipe
+                  : totalPrice().price) | addDollarPipe
             }}
           </p>
         </div>
       </div>
-      <button class="modal__info__add">Add to cart</button>
+      <button class="modal__info__add" (click)="addToCart()">Add to cart</button>
     </div>
   </div>
 }

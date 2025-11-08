@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core'
 import type { PriceData, StateData, StateItemToCart } from '@/app/shared/types/types'
 import { LOCAL_STORAGE_STATE_KEY } from '@/app/shared/constants/constants'
+import { BehaviorSubject, type Observable } from 'rxjs'
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
   private stateData: StateData = this.getInitialStateData()
+  private readonly _cartData = new BehaviorSubject<{ data: PriceData; quantity: number }>(this.getPriceAndNumber())
+  public readonly cartData$: Observable<{ data: PriceData; quantity: number }> = this._cartData.asObservable()
 
   public getUserToken(): string | null {
     const stateData = this.getStateData()
@@ -18,11 +21,14 @@ export class LocalStorageService {
     return stateData.order.items.reduce((acc, item) => acc + item.quantity, 0)
   }
 
-  public getPrice(): PriceData {
+  public getPriceAndNumber(): { data: PriceData; quantity: number } {
     const stateData = this.getStateData()
     return {
-      price: stateData.order.totalUnloggedPrice,
-      discountPrice: stateData.order.totalPrice,
+      data: {
+        price: stateData.order.totalUnloggedPrice,
+        discountPrice: stateData.order.totalPrice,
+      },
+      quantity: this.getNumberOfItems(),
     }
   }
 
@@ -43,6 +49,8 @@ export class LocalStorageService {
     stateData.order.totalUnloggedPrice = 0
     this.stateData = stateData
     this.saveStateData()
+
+    this._cartData.next(this.getPriceAndNumber())
   }
 
   public removeItemFromCart(item: StateItemToCart): void {
@@ -53,6 +61,8 @@ export class LocalStorageService {
     stateData.order.totalUnloggedPrice -= item.unloggedPrice * item.quantity
     this.stateData = stateData
     this.saveStateData()
+
+    this._cartData.next(this.getPriceAndNumber())
   }
 
   public addItemToCart(item: StateItemToCart): void {
@@ -73,6 +83,8 @@ export class LocalStorageService {
     stateData.order.totalUnloggedPrice += item.unloggedPrice * item.quantity
     this.stateData = stateData
     this.saveStateData()
+
+    this._cartData.next(this.getPriceAndNumber())
   }
 
   public login(accessToken: string, id: number): void {

@@ -29,6 +29,10 @@
 
       text-transform: uppercase;
     }
+
+    &:hover app-tooltip {
+      display: block;
+    }
   }
 
   &_text {

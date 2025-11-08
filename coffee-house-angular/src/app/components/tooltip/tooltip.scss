@@ -2,6 +2,8 @@
 @use 'mixins' as mix;
 
 :host {
+  @include mix.center(5px);
+
   position: absolute;
   bottom: calc(100% + 10px);
   left: 73%;
@@ -15,8 +17,6 @@
   white-space: nowrap;
   background-color: vars.$white;
   transition: 0.5s ease-out;
-
-  @include mix.center(5px);
 }
 
 :host::before {

@@ -29,9 +29,31 @@
         <h2 class="header__menu_text header__menu_text_cart">Cart</h2>
         <app-icon name="cart" customClass="header__menu_svg"></app-icon>
         <app-icon name="bigCart" customClass="header__menu_svg_big"></app-icon>
-        <p class="header__cart-number"></p>
-        <p class="header__icon-price"></p>
-        <p class="header__icon-discount-price"></p>
+        <p class="header__cart-number">{{ cartData().quantity === 0 ? '' : cartData().quantity }}</p>
+        <p class="header__icon-price">
+          {{
+            +(!this.isSignIn
+              ? ''
+              : cartData().data.discountPrice !== cartData().data.price &&
+                  cartData().data.discountPrice !== 0 &&
+                  cartData().data.price !== 0
+                ? cartData().data.price
+                : '') | addDollarPipe
+          }}
+        </p>
+        <p class="header__icon-discount-price">
+          {{
+            +(!this.isSignIn
+              ? cartData().data.price !== 0
+                ? cartData().data.price
+                : ''
+              : cartData().data.discountPrice !== cartData().data.price && cartData().data.discountPrice !== 0
+                ? cartData().data.discountPrice
+                : cartData().data.price !== 0
+                  ? cartData().data.price
+                  : '') | addDollarPipe
+          }}
+        </p>
       </a>
       <a [routerLink]="['menu']" class="header__menu">
         <h2 class="header__menu_text">Menu</h2>

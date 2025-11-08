@@ -29,15 +29,6 @@
     @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
   }
 
-  &:active {
-    border-color: vars.$gray;
-    background-color: vars.$gray;
-
-    & > .button_circle {
-      background-color: vars.$beige;
-    }
-  }
-
   &:hover app-tooltip {
     display: block;
   }
