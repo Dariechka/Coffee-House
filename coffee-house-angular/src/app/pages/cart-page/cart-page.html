@@ -9,7 +9,7 @@
       </div>
     </div>
     @for (product of productsInCart(); track $index) {
-      <app-product-row [productsInCart]="product"></app-product-row>
+      <app-product-row [productsInCart]="product" (emitProductData)="deleteItem($event)"></app-product-row>
     }
   </div>
   <div class="cart__total-block">
