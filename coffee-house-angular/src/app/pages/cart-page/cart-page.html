@@ -1,29 +1,44 @@
 <div class="container cart__container">
   <h2 class="cart__title">Cart</h2>
   <div class="cart__list">
-    <div class="cart__list__item">
-      <div class="cart__list__item_block">
-        <svg class="cart__list__item_svg" width="24" height="24" viewBox="0 0 24 24">
-          <use class="" href="./icon.svg#bin"></use>
-        </svg>
-        <div class="cart__img" style="background-image: url('./images/card-19.png')"></div>
-        <div class="cart__list__item_text">
-          <h3 class="cart__list__item_text_title">Cheesecakes</h3>
-          <h3 class="cart__list__item_text_text">50 g,</h3>
-        </div>
-      </div>
-      <div class="cart__list__item_block">
-        <p class="cart__list__item_block_price"></p>
-        <p class="cart__list__item_block_large">$4.50</p>
+    <div class="cart__total-block__item">
+      <p class="cart__total-block__item__text"></p>
+      <div class="cart__list__item_block cart__list__item_block_header">
+        <p class="cart__total-block__item__text">Quantity</p>
+        <div class="cart__total-block__item__text">Price</div>
       </div>
     </div>
+    @for (product of productsInCart(); track $index) {
+      <app-product-row [productsInCart]="product"></app-product-row>
+    }
   </div>
   <div class="cart__total-block">
     <div class="cart__total-block__item">
       <p class="cart__total-block__item__text">Total:</p>
       <div class="cart__list__item_block">
-        <p class="cart__list__item_block_price"></p>
-        <p class="cart__list__item_block_large">$0.00</p>
+        <p class="cart__list__item_block_large">
+          {{ totalNumberOfProducts().quantity === 0 ? '' : totalNumberOfProducts().quantity }}
+        </p>
+        <div class="cart__list__item_block_info-block">
+          <p class="cart__list__item_block_price">
+            {{
+              +(!userToken
+                ? ''
+                : totalNumberOfProducts().data.discountPrice !== totalNumberOfProducts().data.price
+                  ? totalNumberOfProducts().data.price
+                  : '') | addDollarPipe
+            }}
+          </p>
+          <p class="cart__list__item_block_large">
+            {{
+              +(!userToken
+                ? totalNumberOfProducts().data.price
+                : totalNumberOfProducts().data.discountPrice !== totalNumberOfProducts().data.price
+                  ? totalNumberOfProducts().data.discountPrice
+                  : totalNumberOfProducts().data.price) | addDollarPipe
+            }}
+          </p>
+        </div>
       </div>
     </div>
     @if (userInfo) {
@@ -37,7 +52,7 @@
         @case ('resolved') {
           <div class="cart__total-block__item">
             <p class="cart__total-block__item__text">Address:</p>
-            <div class="cart__list__item_block">
+            <div class="cart__list__item_block_info-block">
               <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.city + ',' }}</p>
               <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.street + ',' }}</p>
               <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.houseNumber }}</p>
@@ -45,7 +60,7 @@
           </div>
           <div class="cart__total-block__item">
             <p class="cart__total-block__item__text">Pay by:</p>
-            <div class="cart__list__item_block">
+            <div class="cart__list__item_block_info-block">
               <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.paymentMethod | titlecase }}</p>
             </div>
           </div>

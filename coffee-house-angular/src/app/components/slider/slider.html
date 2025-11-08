@@ -23,7 +23,7 @@
             </div>
             <h4 class="favorite__slider__card__title">{{ product.name }}</h4>
             <p class="favorite__slider__card__text">{{ product.description }}</p>
-            <h4 class="favorite__slider__card__title">{{ product.price | addDollarPipe }}</h4>
+            <h4 class="favorite__slider__card__title">{{ +product.price | addDollarPipe }}</h4>
           </div>
         }
       }

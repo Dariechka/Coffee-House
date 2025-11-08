@@ -2,16 +2,18 @@ import { type AfterViewInit, ChangeDetectionStrategy, Component, inject, signal 
 import { ActivatedRoute, Router } from '@angular/router'
 import { TitleCasePipe, UpperCasePipe, ViewportScroller } from '@angular/common'
 import { LocalStorageService } from '@/app/shared/service/local-storage-service/local-storage-service'
-import type { StateItemToCart } from '@/app/shared/types/types'
+import type { PriceData, StateItemToCart } from '@/app/shared/types/types'
 import { rxResource } from '@angular/core/rxjs-interop'
 import { ApiService } from '@/app/shared/service/api-service/api-service'
 import { Card } from '@/app/components/card/card'
 import { ErrorServerMessage } from '@/app/shared/server-error-message/server-error-message'
 import { Loader } from '@/app/shared/loader/loader'
+import { AddDollarPipePipe } from '@/app/shared/pipe/add-dollar-pipe-pipe'
+import { ProductRow } from '@/app/pages/cart-page/product-row/product-row'
 
 @Component({
   selector: 'app-cart-page',
-  imports: [Card, ErrorServerMessage, Loader, UpperCasePipe, TitleCasePipe],
+  imports: [Card, ErrorServerMessage, Loader, UpperCasePipe, TitleCasePipe, AddDollarPipePipe, ProductRow],
   templateUrl: './cart-page.html',
   styleUrl: './cart-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,6 +28,9 @@ export class CartPage implements AfterViewInit {
   protected userInfo
 
   protected productsInCart = signal<StateItemToCart[]>(this.localStorageService.getOrders())
+  protected totalNumberOfProducts = signal<{ data: PriceData; quantity: number }>(
+    this.localStorageService.getPriceAndNumber()
+  )
 
   constructor() {
     if (this.userToken !== null) {
