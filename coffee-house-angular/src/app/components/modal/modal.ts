@@ -7,7 +7,7 @@ import { ModalAdditiveButton } from '@/app/components/modal/modal-additive-butto
 import { ModalSizeButton } from '@/app/components/modal/modal-size-button/modal-size-button'
 import { LocalStorageService } from '@/app/shared/service/local-storage-service/local-storage-service'
 import { AddDollarPipePipe } from '@/app/shared/pipe/add-dollar-pipe-pipe'
-import { decimals, fixed } from '@/app/shared/constants/constants'
+import { decimals } from '@/app/shared/constants/constants'
 
 @Component({
   selector: 'app-modal',
@@ -118,18 +118,16 @@ export class Modal implements OnInit {
       if (data.data.additive.discountPrice != null && data.data.additive.discountPrice > 0) {
         this.price.update((value) => ({
           ...value,
-          additivePrice: +this.ceilToDecimals(value.additivePrice - +data.data.additive.price).toFixed(fixed),
+          additivePrice: +this.ceilToDecimals(value.additivePrice - +data.data.additive.price),
           additiveDiscountPrice: +this.ceilToDecimals(
             value.additiveDiscountPrice - +(data.data.additive.discountPrice ?? 0)
-          ).toFixed(fixed),
+          ),
         }))
       } else {
         this.price.update((value) => ({
           ...value,
-          additivePrice: +this.ceilToDecimals(value.additivePrice - data.data.additive.price).toFixed(fixed),
-          additiveDiscountPrice: +this.ceilToDecimals(value.additiveDiscountPrice - data.data.additive.price).toFixed(
-            fixed
-          ),
+          additivePrice: +this.ceilToDecimals(value.additivePrice - data.data.additive.price),
+          additiveDiscountPrice: +this.ceilToDecimals(value.additiveDiscountPrice - data.data.additive.price),
         }))
       }
     } else {
@@ -137,18 +135,16 @@ export class Modal implements OnInit {
       if (data.data.additive.discountPrice != null && data.data.additive.discountPrice > 0) {
         this.price.update((value) => ({
           ...value,
-          additivePrice: +this.ceilToDecimals(value.additivePrice + +data.data.additive.price).toFixed(fixed),
+          additivePrice: +this.ceilToDecimals(value.additivePrice + +data.data.additive.price),
           additiveDiscountPrice: +this.ceilToDecimals(
             value.additiveDiscountPrice + +(data.data.additive.discountPrice ?? 0)
-          ).toFixed(fixed),
+          ),
         }))
       } else {
         this.price.update((value) => ({
           ...value,
-          additivePrice: +this.ceilToDecimals(value.additivePrice + +data.data.additive.price).toFixed(fixed),
-          additiveDiscountPrice: +this.ceilToDecimals(value.additiveDiscountPrice + +data.data.additive.price).toFixed(
-            fixed
-          ),
+          additivePrice: +this.ceilToDecimals(value.additivePrice + +data.data.additive.price),
+          additiveDiscountPrice: +this.ceilToDecimals(value.additiveDiscountPrice + +data.data.additive.price),
         }))
       }
     }

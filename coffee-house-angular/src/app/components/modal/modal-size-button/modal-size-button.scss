@@ -35,6 +35,10 @@
     @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
   }
 
+  &:hover app-tooltip {
+    display: block;
+  }
+
   @media (hover: hover) {
     &:hover {
       background-color: vars.$gray;

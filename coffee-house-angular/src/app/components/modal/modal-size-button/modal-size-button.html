@@ -1,4 +1,5 @@
 <button #sizeButton class="button" [class.active]="activeClass()" (click)="getSizePriceData()">
   <span class="button_circle button_circle_text">{{ sizeData().typeSize }}</span>
   <span class="button_text">{{ sizeData().size.size }}</span>
+  <app-tooltip [priceData]="tooltipPriceData()"></app-tooltip>
 </button>

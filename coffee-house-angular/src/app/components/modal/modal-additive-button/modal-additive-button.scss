@@ -38,6 +38,10 @@
     }
   }
 
+  &:hover app-tooltip {
+    display: block;
+  }
+
   @media (hover: hover) {
     &:hover {
       background-color: vars.$gray;
