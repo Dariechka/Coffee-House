@@ -78,4 +78,9 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   public ngOnDestroy(): void {
     this.cartSubscription?.unsubscribe()
   }
+
+  public changeNumberOfItem(prop: { data: StateItemToCart; flag: 'increment' | 'decrement' }): void {
+    this.localStorageService.changeNumberOfItem(prop)
+    this.productsInCart.set(this.localStorageService.getOrders())
+  }
 }

@@ -12,11 +12,11 @@
   </div>
   <div class="cart__list__item_block cart__list__item_block_quantity">
     <div class="cart__list__item_block_quantity_left">
-      <button class="cart__list__item_block__button">
+      <button class="cart__list__item_block__button" (click)="changeNumber('decrement')">
         <app-icon name="minus" customClass="cart__list__item_button-svg"></app-icon>
       </button>
       <p class="cart__list__item_block_large">{{ productsInCart().quantity }}</p>
-      <button class="cart__list__item_block__button">
+      <button class="cart__list__item_block__button" (click)="changeNumber('increment')">
         <app-icon name="plus" customClass="cart__list__item_button-svg"></app-icon>
       </button>
     </div>

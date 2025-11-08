@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import type { PriceData, StateData, StateItemToCart } from '@/app/shared/types/types'
-import { LOCAL_STORAGE_STATE_KEY } from '@/app/shared/constants/constants'
+import { fixed, LOCAL_STORAGE_STATE_KEY } from '@/app/shared/constants/constants'
 import { BehaviorSubject, type Observable } from 'rxjs'
 
 @Injectable({
@@ -9,7 +9,9 @@ import { BehaviorSubject, type Observable } from 'rxjs'
 export class LocalStorageService {
   private stateData: StateData = this.getInitialStateData()
   private readonly _cartData = new BehaviorSubject<{ data: PriceData; quantity: number }>(this.getPriceAndNumber())
+  private readonly _isLogged = new BehaviorSubject<boolean>(this.isLoggedIn())
   public readonly cartData$: Observable<{ data: PriceData; quantity: number }> = this._cartData.asObservable()
+  public readonly isLoggedData$: Observable<boolean> = this._isLogged.asObservable()
 
   public getUserToken(): string | null {
     const stateData = this.getStateData()
@@ -48,12 +50,46 @@ export class LocalStorageService {
     this._cartData.next(this.getPriceAndNumber())
   }
 
+  public changeNumberOfItem(prop: { data: StateItemToCart; flag: 'increment' | 'decrement' }): void {
+    const stateData = this.getStateData()
+    const equalProduct = stateData.order.items.find(
+      (product) =>
+        product.productId === prop.data.productId &&
+        product.size === prop.data.size &&
+        product.additives.length === prop.data.additives.length &&
+        product.additives.sort().every((additive, index) => additive === prop.data.additives.sort()[index])
+    )
+    if (!equalProduct) {
+      return
+    }
+    if (prop.flag === 'increment') {
+      equalProduct.quantity += 1
+      stateData.order.totalPrice = +(stateData.order.totalPrice + prop.data.price).toFixed(fixed)
+      stateData.order.totalUnloggedPrice = +(stateData.order.totalUnloggedPrice + prop.data.unloggedPrice).toFixed(
+        fixed
+      )
+    } else if (prop.flag === 'decrement') {
+      equalProduct.quantity -= 1
+      stateData.order.totalPrice = +(stateData.order.totalPrice - prop.data.price).toFixed(fixed)
+      stateData.order.totalUnloggedPrice = +(stateData.order.totalUnloggedPrice - prop.data.unloggedPrice).toFixed(
+        fixed
+      )
+    }
+
+    this.stateData = stateData
+    this.saveStateData()
+    this._cartData.next(this.getPriceAndNumber())
+  }
+
   public removeItemFromCart(item: StateItemToCart): void {
     const stateData = this.getStateData()
     const index = stateData.order.items.indexOf(item)
     stateData.order.items.splice(index, 1)
-    stateData.order.totalPrice -= item.price * item.quantity
-    stateData.order.totalUnloggedPrice -= item.unloggedPrice * item.quantity
+    stateData.order.totalPrice = +(stateData.order.totalPrice - item.price * item.quantity).toFixed(fixed)
+    stateData.order.totalUnloggedPrice = +(
+      stateData.order.totalUnloggedPrice -
+      item.unloggedPrice * item.quantity
+    ).toFixed(fixed)
     this.stateData = stateData
     this.saveStateData()
 
@@ -74,8 +110,11 @@ export class LocalStorageService {
     } else {
       stateData.order.items.push(item)
     }
-    stateData.order.totalPrice += item.price * item.quantity
-    stateData.order.totalUnloggedPrice += item.unloggedPrice * item.quantity
+    stateData.order.totalPrice = +(stateData.order.totalPrice + item.price * item.quantity).toFixed(fixed)
+    stateData.order.totalUnloggedPrice = +(
+      stateData.order.totalUnloggedPrice +
+      item.unloggedPrice * item.quantity
+    ).toFixed(fixed)
     this.stateData = stateData
     this.saveStateData()
 
@@ -87,6 +126,8 @@ export class LocalStorageService {
     stateData.userId = id
     stateData.accessToken = accessToken
     this.saveStateData()
+
+    this._isLogged.next(true)
   }
 
   private getNumberOfItems(): number {

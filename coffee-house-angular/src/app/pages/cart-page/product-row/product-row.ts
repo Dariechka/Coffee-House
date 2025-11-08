@@ -15,8 +15,14 @@ export class ProductRow {
   protected isSignIn: boolean = this.localStorageService.isLoggedIn()
   public productsInCart = input.required<StateItemToCart>()
   public emitProductData = output<StateItemToCart>()
+  public emitChangeProductNumber = output<{ data: StateItemToCart; flag: 'increment' | 'decrement' }>()
 
   public deleteItem(): void {
     this.emitProductData.emit(this.productsInCart())
+  }
+
+  public changeNumber(flag: 'increment' | 'decrement'): void {
+    if (flag === 'decrement' && this.productsInCart().quantity === 1) return
+    this.emitChangeProductNumber.emit({ data: this.productsInCart(), flag })
   }
 }

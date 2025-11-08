@@ -26,16 +26,20 @@ import type { Subscription } from 'rxjs'
 })
 export class Header implements OnInit, OnDestroy {
   protected localStorageService = inject(LocalStorageService)
-  protected isSignIn: boolean = this.localStorageService.isLoggedIn()
+  protected isSignIn = signal<boolean>(this.localStorageService.isLoggedIn())
   protected readonly router = inject(Router)
   protected readonly renderer = inject(Renderer2)
   protected isOpen = signal<boolean>(false)
   protected cartData = signal<{ data: PriceData; quantity: number }>(this.localStorageService.getPriceAndNumber())
   private cartSubscription: Subscription | undefined
+  protected isLoggedSubscription: Subscription | undefined
 
   public ngOnInit(): void {
     this.cartSubscription = this.localStorageService.cartData$.subscribe((data) => {
       this.cartData.set(data)
+    })
+    this.isLoggedSubscription = this.localStorageService.isLoggedData$.subscribe((data) => {
+      this.isSignIn.set(data)
     })
   }
 
@@ -80,5 +84,6 @@ export class Header implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.cartSubscription?.unsubscribe()
+    this.isLoggedSubscription?.unsubscribe()
   }
 }

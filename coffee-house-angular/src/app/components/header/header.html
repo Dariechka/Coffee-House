@@ -32,7 +32,7 @@
         <p class="header__cart-number">{{ cartData().quantity === 0 ? '' : cartData().quantity }}</p>
         <p class="header__icon-price">
           {{
-            +(!this.isSignIn
+            +(!this.isSignIn()
               ? ''
               : cartData().data.discountPrice !== cartData().data.price &&
                   cartData().data.discountPrice !== 0 &&
@@ -43,7 +43,7 @@
         </p>
         <p class="header__icon-discount-price">
           {{
-            +(!this.isSignIn
+            +(!this.isSignIn()
               ? cartData().data.price !== 0
                 ? cartData().data.price
                 : ''

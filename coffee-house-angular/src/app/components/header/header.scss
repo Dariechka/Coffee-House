@@ -259,7 +259,7 @@
   &__icon-price {
     position: absolute;
     bottom: 75%;
-    left: 40%;
+    left: 35%;
 
     @include mix.text('Inter', normal, vars.$black, 8px, 100%, 500, 0);
 
