@@ -16,11 +16,6 @@ export class LocalStorageService {
     return stateData.accessToken
   }
 
-  public getNumberOfItems(): number {
-    const stateData = this.getStateData()
-    return stateData.order.items.reduce((acc, item) => acc + item.quantity, 0)
-  }
-
   public getPriceAndNumber(): { data: PriceData; quantity: number } {
     const stateData = this.getStateData()
     return {
@@ -92,6 +87,11 @@ export class LocalStorageService {
     stateData.userId = id
     stateData.accessToken = accessToken
     this.saveStateData()
+  }
+
+  private getNumberOfItems(): number {
+    const stateData = this.getStateData()
+    return stateData.order.items.reduce((acc, item) => acc + item.quantity, 0)
   }
 
   private getStateData(): StateData {

@@ -1,1 +1,65 @@
-<p>cart-page works!</p>
+<div class="container cart__container">
+  <h2 class="cart__title">Cart</h2>
+  <div class="cart__list">
+    <div class="cart__list__item">
+      <div class="cart__list__item_block">
+        <svg class="cart__list__item_svg" width="24" height="24" viewBox="0 0 24 24">
+          <use class="" href="./icon.svg#bin"></use>
+        </svg>
+        <div class="cart__img" style="background-image: url('./images/card-19.png')"></div>
+        <div class="cart__list__item_text">
+          <h3 class="cart__list__item_text_title">Cheesecakes</h3>
+          <h3 class="cart__list__item_text_text">50 g,</h3>
+        </div>
+      </div>
+      <div class="cart__list__item_block">
+        <p class="cart__list__item_block_price"></p>
+        <p class="cart__list__item_block_large">$4.50</p>
+      </div>
+    </div>
+  </div>
+  <div class="cart__total-block">
+    <div class="cart__total-block__item">
+      <p class="cart__total-block__item__text">Total:</p>
+      <div class="cart__list__item_block">
+        <p class="cart__list__item_block_price"></p>
+        <p class="cart__list__item_block_large">$0.00</p>
+      </div>
+    </div>
+    @if (userInfo) {
+      @switch (userInfo?.status()) {
+        @case ('loading') {
+          <app-loader></app-loader>
+        }
+        @case ('error') {
+          <app-server-error [message]="userInfo?.error()?.message ?? ''"></app-server-error>
+        }
+        @case ('resolved') {
+          <div class="cart__total-block__item">
+            <p class="cart__total-block__item__text">Address:</p>
+            <div class="cart__list__item_block">
+              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.city + ',' }}</p>
+              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.street + ',' }}</p>
+              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.houseNumber }}</p>
+            </div>
+          </div>
+          <div class="cart__total-block__item">
+            <p class="cart__total-block__item__text">Pay by:</p>
+            <div class="cart__list__item_block">
+              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.paymentMethod | titlecase }}</p>
+            </div>
+          </div>
+        }
+      }
+    }
+  </div>
+  <div class="cart__button-container" style="display: flex">
+    @if (!userToken) {
+      <button class="cart__button" type="button" (click)="navigate('sign-in')">Sign in</button>
+      <button class="cart__button" type="button" (click)="navigate('registration')">Registration</button>
+    } @else if (productsInCart().length > 0) {
+      <button class="cart__button" type="button">Confirm</button>
+    }
+  </div>
+  <button class="cart__button" type="button" style="display: none">Confirm</button>
+</div>

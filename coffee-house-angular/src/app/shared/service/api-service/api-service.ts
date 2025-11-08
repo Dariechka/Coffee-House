@@ -44,7 +44,7 @@ export class ApiService {
   }
 
   public fetchProduct(id: number): Observable<ExtendedProductResponse | string> {
-    return this.http.get<ExtendedProductResponse | ErrorResponse>(`${baseUrl}products/${id}`).pipe(
+    return this.http.get<ExtendedProductResponse>(`${baseUrl}products/${id}`).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           return of(error.error.error)
@@ -64,7 +64,7 @@ export class ApiService {
       },
     }
     const body = JSON.stringify(data)
-    return this.http.post<UserResponse | ErrorResponse>(`${baseUrl}auth/register`, body, headers).pipe(
+    return this.http.post<UserResponse>(`${baseUrl}auth/register`, body, headers).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           return of(error.error.error)
@@ -81,7 +81,7 @@ export class ApiService {
       accept: 'application/json',
     }
     const body = JSON.stringify(data)
-    return this.http.post<UserResponse | ErrorResponse>(`${baseUrl}auth/login`, body, { headers }).pipe(
+    return this.http.post<UserResponse>(`${baseUrl}auth/login`, body, { headers }).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           return of(error.error.error)
@@ -92,12 +92,20 @@ export class ApiService {
     )
   }
 
-  public getUserData(token: string): Observable<UserProfileResponse | ErrorResponse> {
+  public getUserData(token: string): Observable<UserProfileResponse> {
     const headers = {
       accept: 'application/json',
       Authorization: `Bearer ${token}`,
     }
-    return this.http.get<UserProfileResponse | ErrorResponse>(`${baseUrl}auth/profile`, { headers })
+    return this.http.get<UserProfileResponse>(`${baseUrl}auth/profile`, { headers }).pipe(
+      catchError((error) => {
+        if (isErrorResponse(error.error)) {
+          throw new Error(error.error.error)
+        } else {
+          throw new Error(error.message)
+        }
+      })
+    )
   }
 
   public confirmOrder(data: Order): Observable<ConfirmOrderResponse | ErrorResponse> {

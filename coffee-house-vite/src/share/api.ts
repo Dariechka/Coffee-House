@@ -41,7 +41,7 @@ export async function fetchProduct(id: string): Promise<ExtendedProductResponse 
 }
 
 export async function userRegistration(data: RegistrationRequest): Promise<UserResponse | string> {
-  const url = new URL('/auth/register', document.location.origin)
+  const url = new URL('/auth/register', 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -53,7 +53,7 @@ export async function userRegistration(data: RegistrationRequest): Promise<UserR
   return await parse(response)
 }
 export async function userLogin(data: SignInRequest): Promise<UserResponse | string> {
-  const url = new URL('/auth/login', document.location.origin)
+  const url = new URL('/auth/login', 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -66,7 +66,7 @@ export async function userLogin(data: SignInRequest): Promise<UserResponse | str
 }
 
 export async function getUserData(token: string): Promise<UserProfileResponse | string> {
-  const url = new URL(`/auth/profile`, document.location.origin)
+  const url = new URL(`/auth/profile`, 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -78,7 +78,7 @@ export async function getUserData(token: string): Promise<UserProfileResponse | 
 }
 
 export async function confirmOrder(data: Order): Promise<ConfirmOrderResponse | string> {
-  const url = new URL('/orders/confirm', document.location.origin)
+  const url = new URL('/orders/confirm', 'http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/')
   const response = await fetch(url, {
     method: 'POST',
     headers: {
