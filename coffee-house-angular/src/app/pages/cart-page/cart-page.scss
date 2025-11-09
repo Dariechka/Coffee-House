@@ -184,6 +184,12 @@
       }
     }
   }
+
+  &__confirm-message {
+    text-align: center;
+
+    @include mix.text('Inter', normal, vars.$light-brown, 24px, 125%, 600, 0.5px);
+  }
 }
 
 .cart__total-block > span {

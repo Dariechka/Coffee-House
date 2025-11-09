@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import type { ErrorResponse, ExtendedProductResponse, ProductResponse } from '@/app/shared/types/types'
+import type { ExtendedProductResponse, ProductResponse } from '@/app/shared/types/types'
 import {
   type ConfirmOrderResponse,
   type Order,
@@ -108,12 +108,20 @@ export class ApiService {
     )
   }
 
-  public confirmOrder(data: Order): Observable<ConfirmOrderResponse | ErrorResponse> {
+  public confirmOrder(data: Order): Observable<ConfirmOrderResponse | string> {
     const headers = {
       'Content-Type': 'application/json',
       accept: 'application/json',
     }
     const body = JSON.stringify(data)
-    return this.http.post<ConfirmOrderResponse | ErrorResponse>(`${baseUrl}orders/confirm`, body, { headers })
+    return this.http.post<ConfirmOrderResponse>(`${baseUrl}orders/confirm`, body, { headers }).pipe(
+      catchError((error) => {
+        if (isErrorResponse(error.error)) {
+          return of(error.error.error)
+        } else {
+          return of(error.message)
+        }
+      })
+    )
   }
 }

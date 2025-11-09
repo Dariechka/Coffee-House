@@ -15,6 +15,7 @@
         (emitChangeProductNumber)="changeNumberOfItem($event)"
       ></app-product-row>
     }
+    <p class="cart__confirm-message">{{ confirmMessage() }}</p>
   </div>
   <div class="cart__total-block">
     <div class="cart__total-block__item">
@@ -72,16 +73,19 @@
       }
     }
   </div>
-  <div class="cart__button-container" style="display: flex">
-    @if (!isSignIn()) {
+  <div class="cart__button-container">
+    @if (!isSignIn() && productsInCart().length > 0) {
+      <button class="cart__button" type="button" (click)="navigate('sign-in')">Sign in</button>
+      <button class="cart__button" type="button" (click)="navigate('registration')">Registration</button>
+      <button class="cart__button" type="button" (click)="confirmOrder()">Confirm</button>
+    } @else if (!isSignIn() && productsInCart().length === 0) {
       <button class="cart__button" type="button" (click)="navigate('sign-in')">Sign in</button>
       <button class="cart__button" type="button" (click)="navigate('registration')">Registration</button>
     } @else if (productsInCart().length > 0) {
-      <button class="cart__button" type="button">Confirm</button>
-      <button class="cart__button" type="button">Order history</button>
+      <button class="cart__button" type="button" (click)="confirmOrder()">Confirm</button>
+      <button class="cart__button" type="button" (click)="navigate('orders')">Order history</button>
     } @else {
-      <button class="cart__button" type="button">Order history</button>
+      <button class="cart__button" type="button" (click)="navigate('orders')">Order history</button>
     }
   </div>
-  <button class="cart__button" type="button" style="display: none">Confirm</button>
 </div>

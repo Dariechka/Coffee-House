@@ -1,0 +1,25 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+:host {
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 40px 100px 0;
+
+  @include mix.center(40px);
+
+  @include mix.respond(xx-mobile) {
+    padding: 20px 10px 60px 0;
+  }
+}
+
+.orders {
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+}
