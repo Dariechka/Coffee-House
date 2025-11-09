@@ -150,6 +150,11 @@
             font-size: 16px;
           }
         }
+
+        @include mix.respond(x3-mobile) {
+          gap: 0;
+          width: 200px;
+        }
       }
 
       &_svg {

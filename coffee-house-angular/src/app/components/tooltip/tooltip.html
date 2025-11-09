@@ -1,6 +1,6 @@
 <p class="tooltip_price">
   {{
-    +(!this.isSignIn
+    +(!this.isSignIn()
       ? ''
       : priceData().discountPrice !== priceData().price && priceData().discountPrice !== 0
         ? priceData().price
@@ -9,7 +9,7 @@
 </p>
 <p class="tooltip_large">
   {{
-    +(!this.isSignIn
+    +(!this.isSignIn()
       ? priceData().price
       : priceData().discountPrice !== priceData().price && priceData().discountPrice !== 0
         ? priceData().discountPrice

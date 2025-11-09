@@ -1,4 +1,4 @@
-import { Component, computed, inject, type OnInit, signal, type Signal } from '@angular/core'
+import { Component, computed, inject, type OnDestroy, type OnInit, signal, type Signal } from '@angular/core'
 import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog'
 import { ErrorServerMessage } from '@/app/shared/server-error-message/server-error-message'
 import { isExtendedProduct } from '@/app/shared/guards/guards'
@@ -8,6 +8,7 @@ import { ModalSizeButton } from '@/app/components/modal/modal-size-button/modal-
 import { LocalStorageService } from '@/app/shared/service/local-storage-service/local-storage-service'
 import { AddDollarPipePipe } from '@/app/shared/pipe/add-dollar-pipe-pipe'
 import { decimals } from '@/app/shared/constants/constants'
+import type { Subscription } from 'rxjs'
 
 @Component({
   selector: 'app-modal',
@@ -15,12 +16,13 @@ import { decimals } from '@/app/shared/constants/constants'
   styleUrl: './modal.scss',
   imports: [ErrorServerMessage, ModalAdditiveButton, ModalSizeButton, AddDollarPipePipe],
 })
-export class Modal implements OnInit {
+export class Modal implements OnInit, OnDestroy {
   protected localStorageService = inject(LocalStorageService)
-  protected isSignIn: boolean = this.localStorageService.isLoggedIn()
+  protected isSignIn = signal<boolean>(this.localStorageService.isLoggedIn())
   public dialogRef = inject<DialogRef<string>>(DialogRef<string>)
   public data: unknown = inject(DIALOG_DATA)
   protected readonly isExtendedProduct = isExtendedProduct
+  protected isLoggedSubscription: Subscription | undefined
 
   public price = signal<PricesHolder>({
     sizePrice: 0,
@@ -58,6 +60,9 @@ export class Modal implements OnInit {
       price: this.totalPrice().discountPrice,
       unloggedPrice: this.totalPrice().price,
     }))
+    this.isLoggedSubscription = this.localStorageService.isLoggedData$.subscribe((data) => {
+      this.isSignIn.set(data)
+    })
   }
 
   protected addToCart(): void {
@@ -169,5 +174,9 @@ export class Modal implements OnInit {
       price: this.price().sizeDiscountPrice + this.price().additiveDiscountPrice,
       unloggedPrice: this.price().sizePrice + this.price().additivePrice,
     }))
+  }
+
+  public ngOnDestroy(): void {
+    this.isLoggedSubscription?.unsubscribe()
   }
 }

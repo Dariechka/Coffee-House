@@ -150,6 +150,12 @@
     }
   }
 
+  @if ($breakpoint == x3-mobile) {
+    @media only screen and (width <= 590px) {
+      @content;
+    }
+  }
+
   @if ($breakpoint == x2-mobile) {
     @media only screen and (width <= 500px) {
       @content;

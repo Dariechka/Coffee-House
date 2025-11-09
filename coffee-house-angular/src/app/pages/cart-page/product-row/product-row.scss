@@ -37,6 +37,10 @@
 
             @include mix.center(15px);
           }
+
+          @include mix.respond(x3-mobile) {
+            width: 200px;
+          }
         }
 
         &_info-block {

@@ -23,7 +23,7 @@
     <div class="cart__list__item_block_info-block">
       <p class="cart__list__item_block_price">
         {{
-          +(!this.isSignIn
+          +(!this.isSignIn()
             ? ''
             : productsInCart().price !== productsInCart().unloggedPrice
               ? productsInCart().unloggedPrice * productsInCart().quantity
@@ -32,7 +32,7 @@
       </p>
       <p class="cart__list__item_block_large">
         {{
-          +(!this.isSignIn
+          +(!this.isSignIn()
             ? productsInCart().unloggedPrice * productsInCart().quantity
             : productsInCart().price !== productsInCart().unloggedPrice
               ? productsInCart().price * productsInCart().quantity

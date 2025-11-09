@@ -130,6 +130,16 @@ export class LocalStorageService {
     this._isLogged.next(true)
   }
 
+  public logOut(): void {
+    const stateData = this.getStateData()
+    stateData.userId = null
+    stateData.accessToken = null
+    this.stateData = stateData
+    this.saveStateData()
+
+    this._isLogged.next(false)
+  }
+
   private getNumberOfItems(): number {
     const stateData = this.getStateData()
     return stateData.order.items.reduce((acc, item) => acc + item.quantity, 0)

@@ -8,7 +8,7 @@
     <div class="menu__card__text_price">
       <p class="menu__card__text_large">
         {{
-          +(!this.isSignIn
+          +(!this.isSignIn()
             ? product().price
             : product().discountPrice !== product().price && product().discountPrice
               ? (product().discountPrice ?? '')
@@ -17,7 +17,7 @@
       </p>
       <p class="menu__card__text_large_price">
         {{
-          +(!this.isSignIn
+          +(!this.isSignIn()
             ? ''
             : product().discountPrice !== product().price && product().discountPrice
               ? product().price

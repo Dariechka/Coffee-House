@@ -33,6 +33,8 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   protected viewportScroller = inject(ViewportScroller)
   protected localStorageService = inject(LocalStorageService)
   protected userToken = this.localStorageService.getUserToken()
+  protected isSignIn = signal<boolean>(this.localStorageService.isLoggedIn())
+  protected isLoggedSubscription: Subscription | undefined
   protected userInfo
   private cartSubscription: Subscription | undefined
 
@@ -44,6 +46,9 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   public ngOnInit(): void {
     this.cartSubscription = this.localStorageService.cartData$.subscribe((data) => {
       this.totalNumberOfProducts.set(data)
+    })
+    this.isLoggedSubscription = this.localStorageService.isLoggedData$.subscribe((data) => {
+      this.isSignIn.set(data)
     })
   }
 
@@ -77,6 +82,7 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.cartSubscription?.unsubscribe()
+    this.isLoggedSubscription?.unsubscribe()
   }
 
   public changeNumberOfItem(prop: { data: StateItemToCart; flag: 'increment' | 'decrement' }): void {

@@ -25,6 +25,13 @@
       >
     </nav>
     <div class="header__left-container" [attr.data-open]="isOpen()">
+      @if (isSignIn()) {
+        <button class="header__menu" (click)="localStorageService.logOut()">
+          <h2 class="header__menu_text header__menu_text_cart">Log Out</h2>
+          <app-icon name="logout" customClass="header__menu_svg"></app-icon>
+          <app-icon name="logout" customClass="header__menu_svg_big"></app-icon>
+        </button>
+      }
       <a [routerLink]="['cart']" class="header__menu">
         <h2 class="header__menu_text header__menu_text_cart">Cart</h2>
         <app-icon name="cart" customClass="header__menu_svg"></app-icon>

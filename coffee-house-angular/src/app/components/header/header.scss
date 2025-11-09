@@ -39,12 +39,12 @@
   }
 
   &__left-container {
-    @include mix.center(32px);
+    @include mix.center(15px);
 
     @include mix.respond(tablet) {
       position: fixed;
       z-index: 10;
-      top: 500px;
+      top: 490px;
       right: -100vw;
       transform: translateX(0);
       flex-direction: column-reverse;
@@ -71,7 +71,9 @@
   &__menu {
     cursor: pointer;
     position: relative;
+    border: none;
     text-decoration: none;
+    background-color: transparent;
     transition: 0.5s ease-out;
 
     &::after {
@@ -123,7 +125,7 @@
       }
     }
 
-    @include mix.center(0.5rem);
+    @include mix.center(5px);
 
     @keyframes go {
       0% {
@@ -137,7 +139,7 @@
   }
 
   &__navigation {
-    @include mix.center(2.5rem);
+    @include mix.center(1rem);
 
     scroll-behavior: smooth;
     justify-content: space-between;
@@ -182,10 +184,6 @@
       }
     }
 
-    @include mix.respond(x-tablet) {
-      gap: 1rem;
-    }
-
     @include mix.respond(tablet) {
       position: fixed;
       z-index: 10;
@@ -194,11 +192,11 @@
       transform: translateX(0);
       display: flex;
       flex-flow: column wrap;
-      gap: 40px;
-      place-content: center space-between;
+      gap: 60px;
+      place-content: center flex-start;
       width: 100vw;
-      height: 400px;
-      padding-top: 60px;
+      height: 480px;
+      padding-top: 20px;
       background-color: vars.$beige;
       transition: transform 0.4s linear;
 
@@ -258,8 +256,8 @@
 
   &__icon-price {
     position: absolute;
-    bottom: 75%;
-    left: 35%;
+    bottom: 79%;
+    left: 28%;
 
     @include mix.text('Inter', normal, vars.$black, 8px, 100%, 500, 0);
 
@@ -273,7 +271,7 @@
 
   &__icon-discount-price {
     position: absolute;
-    bottom: 75%;
+    bottom: 79%;
     left: 100%;
 
     @include mix.text('Inter', normal, vars.$black, 8px, 100%, 500, 0);

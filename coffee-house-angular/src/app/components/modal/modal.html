@@ -42,7 +42,7 @@
         <div class="modal__info__price-container_price">
           <p class="modal__info__title_large_price">
             {{
-              +(!this.isSignIn
+              +(!this.isSignIn()
                 ? ''
                 : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
                   ? totalPrice().price
@@ -51,7 +51,7 @@
           </p>
           <p class="modal__info__title_large">
             {{
-              +(!this.isSignIn
+              +(!this.isSignIn()
                 ? totalPrice().price
                 : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
                   ? totalPrice().discountPrice
