@@ -78,6 +78,19 @@ export type ConfirmOrderResponse = {
   error: string
 }
 
+export type OrderHistory = {
+  orderId: string
+  user: string
+  timestamp: string
+  totalPrice: number
+}
+
+export type OrderHistoryResponse = {
+  data: Array<OrderHistory>
+  message: string
+  error: string
+}
+
 export type ErrorResponse = {
   error: string
 }

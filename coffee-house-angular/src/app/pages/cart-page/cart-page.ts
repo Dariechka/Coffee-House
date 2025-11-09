@@ -87,6 +87,9 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   protected confirmOrder(): void {
+    if (this.userToken === null) {
+      return
+    }
     const order: Order = {
       items: this.productsInCart().map((product) => ({
         productId: product.productId,
@@ -98,7 +101,7 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
         ? this.totalNumberOfProducts().data.discountPrice
         : this.totalNumberOfProducts().data.price,
     }
-    this.api.confirmOrder(order).subscribe((result) => {
+    this.api.confirmOrder(order, this.userToken).subscribe((result) => {
       if (typeof result === 'string') {
         this.confirmMessage.set(result)
       } else {

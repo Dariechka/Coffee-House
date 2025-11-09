@@ -1,4 +1,5 @@
-export const baseUrl = `http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/`
+// export const baseUrl = `http://coffee-shop-be.eu-central-1.elasticbeanstalk.com/`
+export const baseUrl = `http://localhost:3000/`
 export const LOCAL_STORAGE_STATE_KEY = 'SHORT_TRACK_LOCAL_STORAGE_STATE_DATA_KEY'
 export const closingBurgerMenu = 500
 export const borderWindowWidth = 768
