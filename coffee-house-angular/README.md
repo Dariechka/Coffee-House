@@ -1,59 +1,42 @@
-# Untitled
+# Coffee-House: Creative Extension
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.8.
+## Technology stack used
 
-## Development server
+The project uses the following technologies:
 
-To start a local development server, run:
+#### Core stack:
+- Angular `v20.x`
+- TypeScript
+- RxJS
+- SCSS
+- Angular CDK
+- coffee-shop-be backend
 
-```bash
-ng serve
-```
+#### For developing:
+- Husky with lint-staged and commitlint
+- Prettier
+- Eslint
+- Stylelint
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+#### For deploy:
+- Frontend: Firebase
+- Backend: Cloud Run
 
-## Code scaffolding
+#### Additional Project Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Angular Reactive Forms** with custom validation functions
+- **Angular route configuration** with lazy-loaded components
+- **ViewportScroller** for anchor links
+- **Icon component** with an SVG sprite
+- **Not Found page**
+- **Angular Signals** as the primary reactive primitive for local and component-level state management
+- **HttpClient** for fetching backend data
+- **rxResource** for managing loading, error, and success states of responses
+- **API service** for backend requests and **Local Storage service** for calculating and storing data in localStorage
+- **Custom Pipe** for value transformations
+- **Custom Error Component** for form validation messages
+- **Logout functionality**
+- **Cart item controls** for incrementing and decrementing quantities
+- **BehaviorSubjects** for managing `isLogged` and `price` data, with automatic price recalculation
+- **Endpoint** for fetching order history for logged-in users and displaying it on the **Orders page**
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
