@@ -5,6 +5,7 @@
 The project uses the following technologies:
 
 #### Core stack:
+
 - Angular `v20.x`
 - TypeScript
 - RxJS
@@ -13,12 +14,14 @@ The project uses the following technologies:
 - coffee-shop-be backend
 
 #### For developing:
+
 - Husky with lint-staged and commitlint
 - Prettier
 - Eslint
 - Stylelint
 
 #### For deploy:
+
 - Frontend: Firebase
 - Backend: Cloud Run
 
@@ -39,4 +42,3 @@ The project uses the following technologies:
 - **Cart item controls** for incrementing and decrementing quantities
 - **BehaviorSubjects** for managing `isLogged` and `price` data, with automatic price recalculation
 - **Endpoint** for fetching order history for logged-in users and displaying it on the **Orders page**
-

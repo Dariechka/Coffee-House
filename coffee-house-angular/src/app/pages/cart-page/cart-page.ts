@@ -32,7 +32,6 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   protected route = inject(ActivatedRoute)
   protected viewportScroller = inject(ViewportScroller)
   protected localStorageService = inject(LocalStorageService)
-  protected userToken = this.localStorageService.getUserToken()
   protected isSignIn = signal<boolean>(this.localStorageService.isLoggedIn())
   protected isLoggedSubscription: Subscription | undefined
   protected userInfo
@@ -54,10 +53,9 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   constructor() {
-    if (this.userToken !== null) {
-      const token = this.userToken
+    if (this.isSignIn()) {
       this.userInfo = rxResource({
-        stream: () => this.api.getUserData(token),
+        stream: () => this.api.getUserData(),
       })
     } else {
       this.userInfo = undefined
@@ -87,7 +85,7 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   protected confirmOrder(): void {
-    if (this.userToken === null) {
+    if (!this.isSignIn()) {
       return
     }
     const order: Order = {
@@ -101,7 +99,7 @@ export class CartPage implements AfterViewInit, OnInit, OnDestroy {
         ? this.totalNumberOfProducts().data.discountPrice
         : this.totalNumberOfProducts().data.price,
     }
-    this.api.confirmOrder(order, this.userToken).subscribe((result) => {
+    this.api.confirmOrder(order).subscribe((result) => {
       if (typeof result === 'string') {
         this.confirmMessage.set(result)
       } else {

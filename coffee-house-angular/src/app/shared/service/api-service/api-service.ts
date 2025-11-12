@@ -56,15 +56,8 @@ export class ApiService {
   }
 
   public userRegistration(data: RegistrationRequest): Observable<UserResponse | string> {
-    const headers = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        accept: 'application/json',
-      },
-    }
     const body = JSON.stringify(data)
-    return this.http.post<UserResponse>(`${baseUrl}auth/register`, body, headers).pipe(
+    return this.http.post<UserResponse>(`${baseUrl}auth/register`, body).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           return of(error.error.error)
@@ -76,12 +69,8 @@ export class ApiService {
   }
 
   public userLogin(data: SignInRequest): Observable<UserResponse | string> {
-    const headers = {
-      'Content-Type': 'application/json',
-      accept: 'application/json',
-    }
     const body = JSON.stringify(data)
-    return this.http.post<UserResponse>(`${baseUrl}auth/login`, body, { headers }).pipe(
+    return this.http.post<UserResponse>(`${baseUrl}auth/login`, body).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           return of(error.error.error)
@@ -92,12 +81,8 @@ export class ApiService {
     )
   }
 
-  public getUserData(token: string): Observable<UserProfileResponse> {
-    const headers = {
-      accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    }
-    return this.http.get<UserProfileResponse>(`${baseUrl}auth/profile`, { headers }).pipe(
+  public getUserData(): Observable<UserProfileResponse> {
+    return this.http.get<UserProfileResponse>(`${baseUrl}auth/profile`).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           throw new Error(error.error.error)
@@ -108,14 +93,9 @@ export class ApiService {
     )
   }
 
-  public confirmOrder(data: Order, token: string): Observable<ConfirmOrderResponse | string> {
-    const headers = {
-      'Content-Type': 'application/json',
-      accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    }
+  public confirmOrder(data: Order): Observable<ConfirmOrderResponse | string> {
     const body = JSON.stringify(data)
-    return this.http.post<ConfirmOrderResponse>(`${baseUrl}orders/confirm`, body, { headers }).pipe(
+    return this.http.post<ConfirmOrderResponse>(`${baseUrl}orders/confirm`, body).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           return of(error.error.error)
@@ -126,13 +106,8 @@ export class ApiService {
     )
   }
 
-  public getOrders(token: string): Observable<OrderHistoryResponse> {
-    const headers = {
-      'Content-Type': 'application/json',
-      accept: 'application/json',
-      Authorization: `Bearer ${token}`,
-    }
-    return this.http.get<OrderHistoryResponse>(`${baseUrl}orders`, { headers }).pipe(
+  public getOrders(): Observable<OrderHistoryResponse> {
+    return this.http.get<OrderHistoryResponse>(`${baseUrl}orders`).pipe(
       catchError((error) => {
         if (isErrorResponse(error.error)) {
           throw new Error(error.error.error)

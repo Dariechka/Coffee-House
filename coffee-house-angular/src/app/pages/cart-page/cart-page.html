@@ -46,29 +46,31 @@
         </div>
       </div>
     </div>
-    @if (userInfo) {
-      @switch (userInfo?.status()) {
-        @case ('loading') {
-          <app-loader></app-loader>
-        }
-        @case ('error') {
-          <app-server-error [message]="userInfo?.error()?.message ?? ''"></app-server-error>
-        }
-        @case ('resolved') {
-          <div class="cart__total-block__item">
-            <p class="cart__total-block__item__text">Address:</p>
-            <div class="cart__list__item_block_info-block">
-              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.city + ',' }}</p>
-              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.street + ',' }}</p>
-              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.houseNumber }}</p>
+    @if (isSignIn()) {
+      @if (userInfo) {
+        @switch (userInfo?.status()) {
+          @case ('loading') {
+            <app-loader></app-loader>
+          }
+          @case ('error') {
+            <app-server-error [message]="userInfo?.error()?.message ?? ''"></app-server-error>
+          }
+          @case ('resolved') {
+            <div class="cart__total-block__item">
+              <p class="cart__total-block__item__text">Address:</p>
+              <div class="cart__list__item_block_info-block">
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.city + ',' }}</p>
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.street + ',' }}</p>
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.houseNumber }}</p>
+              </div>
             </div>
-          </div>
-          <div class="cart__total-block__item">
-            <p class="cart__total-block__item__text">Pay by:</p>
-            <div class="cart__list__item_block_info-block">
-              <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.paymentMethod | titlecase }}</p>
+            <div class="cart__total-block__item">
+              <p class="cart__total-block__item__text">Pay by:</p>
+              <div class="cart__list__item_block_info-block">
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.paymentMethod | titlecase }}</p>
+              </div>
             </div>
-          </div>
+          }
         }
       }
     }
