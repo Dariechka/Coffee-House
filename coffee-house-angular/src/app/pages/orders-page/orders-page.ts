@@ -30,7 +30,6 @@ export class OrdersPage implements AfterViewInit, OnInit, OnDestroy {
   protected readonly router = inject(Router)
   protected viewportScroller = inject(ViewportScroller)
   protected localStorageService = inject(LocalStorageService)
-  protected userToken = this.localStorageService.getUserToken()
   protected isSignIn = signal<boolean>(this.localStorageService.isLoggedIn())
   protected isLoggedSubscription: Subscription | undefined
   protected ordersInfo: ResourceRef<OrderHistoryResponse | undefined> | undefined
@@ -45,10 +44,9 @@ export class OrdersPage implements AfterViewInit, OnInit, OnDestroy {
   }
 
   constructor() {
-    if (this.userToken !== null) {
-      const token = this.userToken
+    if (this.isSignIn()) {
       this.ordersInfo = rxResource({
-        stream: () => this.api.getOrders(token),
+        stream: () => this.api.getOrders(),
       })
     } else {
       this.ordersInfo = undefined

@@ -14,7 +14,8 @@
     "lint:fix": "npm run lint -- --fix --lint-file-patterns",
     "lint:scss": "stylelint '**/*.{css,scss}'",
     "lint:scss:fix": "stylelint '**/*.{css,scss}' --fix",
-    "prepare": "cd .. && husky coffee-house-angular/.husky"
+    "prepare": "cd .. && husky coffee-house-angular/.husky",
+    "firebase": "firebase deploy"
   },
   "private": true,
   "dependencies": {
