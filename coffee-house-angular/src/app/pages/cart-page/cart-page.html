@@ -76,11 +76,7 @@
     }
   </div>
   <div class="cart__button-container">
-    @if (!isSignIn() && productsInCart().length > 0) {
-      <button class="cart__button" type="button" (click)="navigate('sign-in')">Sign in</button>
-      <button class="cart__button" type="button" (click)="navigate('registration')">Registration</button>
-      <button class="cart__button" type="button" (click)="confirmOrder()">Confirm</button>
-    } @else if (!isSignIn() && productsInCart().length === 0) {
+    @if (!isSignIn()) {
       <button class="cart__button" type="button" (click)="navigate('sign-in')">Sign in</button>
       <button class="cart__button" type="button" (click)="navigate('registration')">Registration</button>
     } @else if (productsInCart().length > 0) {
