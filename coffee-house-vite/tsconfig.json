@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2023" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "useDefineForClassFields": true,
+    "module": "ES2022" /* Specify what module code is generated. */,
+    "lib": [
+      "ES2023",
+      "ES2023.Array",
+      "ES2023.Collection",
+      "DOM",
+      "DOM.Iterable"
+    ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */,
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    "noImplicitAny": true /* Enable error reporting for expressions and declarations with an implied 'any' type. */,
+
+    /* Bundler mode */
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true /* Enable all strict type-checking options. */,
+    "noUnusedLocals": true /* Enable error reporting when local variables aren't read. */,
+    "noUnusedParameters": true /* Raise an error when a function parameter isn't read. */,
+    "noFallthroughCasesInSwitch": true /* Enable error reporting for fallthrough cases in switch statements. */,
+    "noUncheckedSideEffectImports": true /* Check side effect imports. */
+  },
+  "include": ["src", "typing"]
+}

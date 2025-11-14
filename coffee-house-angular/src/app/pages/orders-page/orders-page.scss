@@ -1,0 +1,47 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+:host {
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px 200px;
+
+  @include mix.center(40px);
+
+  @include mix.respond(x5-tablet) {
+    padding: 40px;
+  }
+}
+
+.orders {
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__table {
+    @include mix.center(10px);
+
+    flex-direction: column;
+    width: 100%;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    &_title {
+      @include mix.text('Inter', normal, vars.$black, 32px, 125%, 600, 1px);
+    }
+
+    &_text {
+      @include mix.text('Inter', normal, vars.$black, 24px, 100%, 400, 0);
+    }
+  }
+}

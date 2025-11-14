@@ -1,0 +1,44 @@
+<div class="cart__list__item">
+  <div class="cart__list__item_block" (click)="deleteItem()">
+    <button class="cart__list__item_block__button">
+      <app-icon name="bin" customClass="cart__list__item_svg"></app-icon>
+    </button>
+    <div class="cart__img" [style.background-image]="'url(./images/card-' + productsInCart().productId + '.png)'"></div>
+    <div class="cart__list__item_text">
+      <h3 class="cart__list__item_text_title">{{ productsInCart().productName }}</h3>
+      <h3 class="cart__list__item_text_text">{{ productsInCart().size }}</h3>
+      <h3 class="cart__list__item_text_text">{{ productsInCart().additives.join(', ') }}</h3>
+    </div>
+  </div>
+  <div class="cart__list__item_block cart__list__item_block_quantity">
+    <div class="cart__list__item_block_quantity_left">
+      <button class="cart__list__item_block__button" (click)="changeNumber('decrement')">
+        <app-icon name="minus" customClass="cart__list__item_button-svg"></app-icon>
+      </button>
+      <p class="cart__list__item_block_large">{{ productsInCart().quantity }}</p>
+      <button class="cart__list__item_block__button" (click)="changeNumber('increment')">
+        <app-icon name="plus" customClass="cart__list__item_button-svg"></app-icon>
+      </button>
+    </div>
+    <div class="cart__list__item_block_info-block">
+      <p class="cart__list__item_block_price">
+        {{
+          +(!this.isSignIn()
+            ? ''
+            : productsInCart().price !== productsInCart().unloggedPrice
+              ? productsInCart().unloggedPrice * productsInCart().quantity
+              : '') | addDollarPipe
+        }}
+      </p>
+      <p class="cart__list__item_block_large">
+        {{
+          +(!this.isSignIn()
+            ? productsInCart().unloggedPrice * productsInCart().quantity
+            : productsInCart().price !== productsInCart().unloggedPrice
+              ? productsInCart().price * productsInCart().quantity
+              : productsInCart().unloggedPrice * productsInCart().quantity) | addDollarPipe
+        }}
+      </p>
+    </div>
+  </div>
+</div>

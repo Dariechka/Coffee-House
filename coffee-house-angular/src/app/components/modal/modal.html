@@ -1,0 +1,66 @@
+@if (typeof data === 'string') {
+  <app-server-error [message]="data"></app-server-error>
+}
+@if (isExtendedProduct(data)) {
+  <div class="modal">
+    <button class="modal__close" (click)="dialogRef.close()">
+      <svg class="modal__close_svg" width="14" height="14" viewBox="0 0 14 14">
+        <use class="" href="./icon.svg#cross"></use>
+      </svg>
+    </button>
+    <div class="modal__img" [style.background-image]="'url(./images/card-' + data.id + '.png)'"></div>
+    <div class="modal__info">
+      <div class="modal__info__title">
+        <h2 class="modal__info__title_large">{{ data.name }}</h2>
+        <p class="modal__info__title_small">{{ data.description }}</p>
+      </div>
+      <div class="modal__info__buttons-container">
+        <p class="modal__info__title_small">Size</p>
+        <div class="modal__buttons">
+          @for (size of buttonSizes; track $index) {
+            <app-modal-size-button
+              [sizeData]="size"
+              (emitSizeData)="updateSizePrice($event)"
+              [activeClass]="size.typeSize === dataToOrder().size"
+            ></app-modal-size-button>
+          }
+        </div>
+      </div>
+      <div class="modal__info__buttons-container">
+        <p class="modal__info__title_small">Additives</p>
+        <div class="modal__buttons">
+          @for (additive of calculateAdditiveData(); track $index) {
+            <app-modal-additive-button
+              (emitAdditiveData)="updateAdditivePrice($event)"
+              [additiveData]="additive"
+            ></app-modal-additive-button>
+          }
+        </div>
+      </div>
+      <div class="modal__info__price-container">
+        <h3 class="modal__info__title_large">Total:</h3>
+        <div class="modal__info__price-container_price">
+          <p class="modal__info__title_large_price">
+            {{
+              +(!this.isSignIn()
+                ? ''
+                : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
+                  ? totalPrice().price
+                  : '') | addDollarPipe
+            }}
+          </p>
+          <p class="modal__info__title_large">
+            {{
+              +(!this.isSignIn()
+                ? totalPrice().price
+                : totalPrice().discountPrice !== totalPrice().price && totalPrice().discountPrice !== 0
+                  ? totalPrice().discountPrice
+                  : totalPrice().price) | addDollarPipe
+            }}
+          </p>
+        </div>
+      </div>
+      <button class="modal__info__add" (click)="addToCart()">Add to cart</button>
+    </div>
+  </div>
+}

@@ -1,0 +1,73 @@
+<section class="enjoy">
+  <div class="container">
+    <div class="enjoy__background">
+      <video #bgVideo autoplay muted loop playsinline class="enjoy__background__video">
+        <source src="./video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <div class="enjoy__text">
+        <h1 class="enjoy__text__title">
+          <span class="enjoy__text__title_italic">Enjoy</span> premium coffee at our charming cafe
+        </h1>
+        <p class="enjoy__text__text">
+          With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination
+          for coffee lovers and those seeking a warm and inviting space to enjoy their favorite beverage.
+        </p>
+        <a [routerLink]="['/menu']" class="enjoy__text__link">
+          <p class="enjoy__text__link_text">Menu</p>
+          <app-icon name="cup" customClass="enjoy__text__link_svg"></app-icon>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="favorite-coffee" class="favorite">
+  <div class="container favorite__container">
+    <h2 class="favorite__title">Choose your <span class="favorite__title_italic">favorite</span> coffee</h2>
+    <app-slider></app-slider>
+  </div>
+</section>
+<section id="about" class="about">
+  <div class="container about__container">
+    <h2 class="about__title">
+      Resource is <span class="about__title_italic">the perfect and cozy place</span> where you can enjoy a variety of
+      hot beverages, relax, catch up with friends, or get some work done.
+    </h2>
+    <div class="about__gallery">
+      <div class="about__gallery__image about__gallery__image_1"></div>
+      <div class="about__gallery__image about__gallery__image_2"></div>
+      <div class="about__gallery__image about__gallery__image_3"></div>
+      <div class="about__gallery__image about__gallery__image_4"></div>
+    </div>
+  </div>
+</section>
+<section id="mobile-app" class="app">
+  <div class="container app__container">
+    <div class="app__text">
+      <h2 class="app__text__title"><span class="app__text__title_italic">Download</span> our apps to start ordering</h2>
+      <div class="app__text__text">
+        Download the Resource app today and experience the comfort of ordering your favorite coffee from wherever you
+        are
+      </div>
+      <div class="app__text__buttons-container">
+        <button class="app__text__button">
+          <app-icon name="apple" customClass="app__text__button__svg"></app-icon>
+          <span class="app__text__button__text">
+            Available on the
+            <span class="app__text__button__text__platform">App Store</span>
+          </span>
+        </button>
+        <button class="app__text__button">
+          <app-icon name="android" customClass="app__text__button__svg"></app-icon>
+          <span class="app__text__button__text">
+            Available on
+            <span class="app__text__button__text__platform">Google Play</span>
+          </span>
+        </button>
+      </div>
+    </div>
+    <div class="app__image">
+      <img src="./images/phones.png" alt="phones" class="app__image_img" />
+    </div>
+  </div>
+</section>

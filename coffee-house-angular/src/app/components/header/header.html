@@ -1,0 +1,72 @@
+<header class="header">
+  <div class="container header__container">
+    <a [routerLink]="['main']" class="header__logo">
+      <app-icon name="logo" customClass="header__logo_svg"></app-icon>
+      <div class="header__logo_circle"></div>
+      <h2 class="header__logo_text">COFFEE HOUSE</h2>
+    </a>
+    <button class="header__burger-menu" [attr.data-open]="isOpen()" (click)="toggleOpen()">
+      <span class="header__burger-menu_line up"></span>
+      <span class="header__burger-menu_line down"></span>
+    </button>
+    <nav class="header__navigation" [attr.data-open]="isOpen()">
+      <a (click)="navigateWithDelay('/main', 'favorite-coffee', $event)" class="header__navigation_item"
+        >Favorite coffee</a
+      >
+      <a (click)="navigateWithDelay('/main', 'about', $event)" class="header__navigation_item">About</a>
+      <a
+        (click)="navigateWithDelay('/main', 'mobile-app', $event)"
+        [routerLink]="['/main']"
+        class="header__navigation_item"
+        >Mobile app</a
+      >
+      <a (click)="navigateWithDelay(getCurrentPage(), 'contact-us', $event)" class="header__navigation_item"
+        >Contact us</a
+      >
+    </nav>
+    <div class="header__left-container" [attr.data-open]="isOpen()">
+      @if (isSignIn()) {
+        <button class="header__menu" (click)="localStorageService.logOut()">
+          <h2 class="header__menu_text header__menu_text_cart">Log Out</h2>
+          <app-icon name="logout" customClass="header__menu_svg"></app-icon>
+          <app-icon name="logout" customClass="header__menu_svg_big"></app-icon>
+        </button>
+      }
+      <a [routerLink]="['cart']" class="header__menu">
+        <h2 class="header__menu_text header__menu_text_cart">Cart</h2>
+        <app-icon name="cart" customClass="header__menu_svg"></app-icon>
+        <app-icon name="bigCart" customClass="header__menu_svg_big"></app-icon>
+        <p class="header__cart-number">{{ cartData().quantity === 0 ? '' : cartData().quantity }}</p>
+        <p class="header__icon-price">
+          {{
+            +(!this.isSignIn()
+              ? ''
+              : cartData().data.discountPrice !== cartData().data.price &&
+                  cartData().data.discountPrice !== 0 &&
+                  cartData().data.price !== 0
+                ? cartData().data.price
+                : '') | addDollarPipe
+          }}
+        </p>
+        <p class="header__icon-discount-price">
+          {{
+            +(!this.isSignIn()
+              ? cartData().data.price !== 0
+                ? cartData().data.price
+                : ''
+              : cartData().data.discountPrice !== cartData().data.price && cartData().data.discountPrice !== 0
+                ? cartData().data.discountPrice
+                : cartData().data.price !== 0
+                  ? cartData().data.price
+                  : '') | addDollarPipe
+          }}
+        </p>
+      </a>
+      <a [routerLink]="['menu']" class="header__menu">
+        <h2 class="header__menu_text">Menu</h2>
+        <app-icon name="cup" customClass="header__menu_svg"></app-icon>
+        <app-icon name="bigCup" customClass="header__menu_svg_big"></app-icon>
+      </a>
+    </div>
+  </div>
+</header>

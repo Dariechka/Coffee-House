@@ -1,0 +1,224 @@
+export type Category = 'coffee' | 'tea' | 'dessert'
+
+export type Product = {
+  id: number
+  name: string
+  description: string
+  price: string
+  discountPrice: string | null
+  category: Category
+}
+
+export type Additive = {
+  name: string
+  price: number
+  discountPrice: number | null
+}
+
+export type ExtendedProduct = Product & {
+  sizes: {
+    s: Size
+    m: Size
+    l: Size
+    xl: Size
+    xxl: Size
+  }
+  additives: Array<Additive>
+}
+
+export type ProductResponse = {
+  data: Array<Product>
+  message: string
+  error: string
+}
+
+export type ExtendedProductResponse = {
+  data: ExtendedProduct
+  message: string
+  error: string
+}
+
+export type UserResponse = {
+  data: {
+    access_token: string
+    user: {
+      id: number
+      login: string
+      city: string
+      street: string
+      houseNumber: string
+      paymentMethod: string
+      createdAt: string
+    }
+  }
+  message: string
+  error: string
+}
+
+export type UserProfileResponse = {
+  data: {
+    id: number
+    login: string
+    city: string
+    street: string
+    houseNumber: string
+    paymentMethod: string
+    createdAt: string
+  }
+  message: string
+  error: string
+}
+
+export type ConfirmOrderResponse = {
+  data: {
+    message: string
+    orderId: string
+  }
+  message: string
+  error: string
+}
+
+export type OrderHistory = {
+  orderId: string
+  user: string
+  timestamp: string
+  totalPrice: number
+}
+
+export type OrderHistoryResponse = {
+  data: Array<OrderHistory>
+  message: string
+  error: string
+}
+
+export type ErrorResponse = {
+  error: string
+}
+
+export type PricesHolder = {
+  sizePrice: number
+  sizeDiscountPrice: number
+  additivePrice: number
+  additiveDiscountPrice: number
+}
+
+export type PriceData = {
+  price: number
+  discountPrice: number
+}
+
+export type InputProps = {
+  onUpdate: (value: string) => undefined | string
+  addClassToParent: (name: string, flag: boolean, text?: string) => void
+  classes: Array<string>
+  name: string
+  type: string
+  min?: string
+}
+
+export type InputComponentProps = Omit<InputProps, 'addClassToParent'>
+
+export type RegistrationRequest = {
+  login: string
+  password: string
+  confirmPassword: string
+  city: string
+  street: string
+  houseNumber: number
+  paymentMethod: 'card' | 'cash'
+}
+
+export type SignInRequest = Pick<RegistrationRequest, 'login' | 'password'>
+
+export type City = 'New York' | 'San Francisco' | 'Chicago'
+export const cities = ['New York', 'San Francisco', 'Chicago']
+
+export type Street = Record<City, Array<string>>
+export const streets: Street = {
+  'New York': [
+    'Broadway',
+    'Fifth Avenue',
+    'Madison Avenue',
+    'Wall Street',
+    'Park Avenue',
+    'Lexington Avenue',
+    'Canal Street',
+    'Bowery',
+    'Houston Street',
+    '42nd Street',
+  ],
+  'San Francisco': [
+    'Lombard Street',
+    'Market Street',
+    'Mission Street',
+    'Haight Street',
+    'Castro Street',
+    'Van Ness Avenue',
+    'Divisadero Street',
+    'Geary Boulevard',
+    'Embarcadero',
+    'Folsom Street',
+  ],
+  Chicago: [
+    'Michigan Avenue',
+    'State Street',
+    'Lake Shore Drive',
+    'Wacker Drive',
+    'Clark Street',
+    'LaSalle Street',
+    'Halsted Street',
+    'Roosevelt Road',
+    'Division Street',
+    'Ashland Avenue',
+  ],
+}
+
+export type SizeButtonProps = {
+  size: Size
+  typeSize: string
+}
+
+export type Size = {
+  size: string
+  price: string
+  discountPrice: string | null
+}
+
+export type AdditiveButtonProps = {
+  additive: Additive
+  index: number
+}
+
+export type StateItemToCart = {
+  productId: number
+  productName: string
+  size: string
+  additives: Array<string>
+  quantity: number
+  price: number
+  unloggedPrice: number
+}
+
+export type StateOrder = {
+  items: Array<StateItemToCart>
+  totalPrice: number
+  totalUnloggedPrice: number
+}
+
+export type ItemToCart = {
+  productId: number
+  size: string
+  additives: Array<string>
+  quantity: number
+}
+
+export type Order = {
+  items: Array<ItemToCart>
+  totalPrice: number
+}
+
+export type StateData = {
+  accessToken: string | null
+  userId: number | null
+  order: StateOrder
+}

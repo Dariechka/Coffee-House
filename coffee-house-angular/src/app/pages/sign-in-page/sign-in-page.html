@@ -1,0 +1,41 @@
+<section class="sign-in container sign-in__container">
+  <h2 class="sign-in__title">Sign In</h2>
+  <form [formGroup]="signInForm" class="sign-in__form" (submit)="signIn()">
+    <div class="sign-in__form_item">
+      <label for="login" class="sign-in__form_label">Login</label>
+      <input
+        id="login"
+        name="login"
+        formControlName="login"
+        autocomplete="off"
+        placeholder="Login"
+        type="text"
+        class="sign-in__form_input"
+        required
+      />
+      <app-icon name="error" customClass="error-svg"></app-icon>
+      <app-icon name="correct" customClass="correct-svg"></app-icon>
+      <app-error formControlName="login"></app-error>
+    </div>
+    <div class="sign-in__form_item">
+      <label for="password" class="sign-in__form_label">Password</label>
+      <input
+        id="password"
+        name="password"
+        formControlName="password"
+        type="password"
+        autocomplete="off"
+        placeholder="Password"
+        class="sign-in__form_input"
+        required
+      />
+      <app-icon name="error" customClass="error-svg"></app-icon>
+      <app-icon name="correct" customClass="correct-svg"></app-icon>
+      <app-error formControlName="password"></app-error>
+    </div>
+    <button type="submit" class="sign-in__submit" [disabled]="disabledButton()">Sign in</button>
+    @if (serverError() !== '') {
+      <app-server-error [message]="serverError()"></app-server-error>
+    }
+  </form>
+</section>

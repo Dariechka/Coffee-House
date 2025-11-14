@@ -1,0 +1,54 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.button {
+  @include mix.button(46px, transparent, vars.$beige2);
+  @include mix.center(8px);
+
+  cursor: pointer;
+  position: relative;
+  flex: 0 1 0;
+  justify-content: flex-start;
+  width: 100%;
+  padding-right: 16px;
+  padding-left: 8px;
+  white-space: nowrap;
+  transition: 0.5s ease-out;
+
+  &_circle {
+    justify-content: center;
+    width: 34px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: vars.$beige2;
+
+    @include mix.center(0);
+  }
+
+  &_text {
+    @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+  }
+
+  &:hover app-tooltip {
+    display: block;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: vars.$gray;
+
+      & > .button_circle {
+        background-color: vars.$beige;
+      }
+    }
+  }
+}
+
+.active {
+  border-color: vars.$gray;
+  background-color: vars.$gray;
+
+  & > .button_circle {
+    background-color: vars.$beige;
+  }
+}

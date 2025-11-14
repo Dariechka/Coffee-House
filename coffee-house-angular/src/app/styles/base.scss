@@ -1,0 +1,86 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  background-color: vars.$beige;
+}
+
+body {
+  margin: 0 auto;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
+
+.container {
+  overflow: hidden;
+  max-width: vars.$large;
+  margin: 0 auto;
+  padding: 0 2.5rem;
+
+  @include mix.respond(mobile) {
+    padding: 0 1rem;
+  }
+}
+
+@media (hover: hover) {
+  .contact__social-media__button:hover app-icon .contact__social-media__button__svg use {
+    stroke: vars.$black;
+  }
+
+  .app__text__button:hover app-icon .app__text__button__svg use {
+    fill: vars.$beige;
+  }
+
+  .enjoy__text__link:hover .enjoy__text__link_svg {
+    display: flex;
+  }
+
+  .favorite__slider__button:hover app-icon .favorite__slider__button_svg {
+    stroke: vars.$beige;
+  }
+
+  .menu__load-button:hover app-icon .menu__load-button_svg use {
+    stroke: vars.$beige;
+  }
+}
+
+input.ng-invalid.ng-touched {
+  border-color: vars.$red;
+}
+
+select.ng-invalid.ng-touched {
+  border-color: vars.$red;
+}
+
+input.ng-invalid.ng-touched ~ app-icon .error-svg {
+  display: flex;
+}
+
+input.ng-valid.ng-touched ~ app-icon .correct-svg {
+  display: flex;
+}
+
+input.ng-valid.ng-touched {
+  border-color: vars.$green;
+}
+
+select.ng-valid.ng-touched {
+  border-color: vars.$green;
+}
+
+@media only screen and (width <= 768px) {
+  .header__menu_svg_big {
+    display: flex;
+    align-items: center;
+  }
+}

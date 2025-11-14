@@ -1,0 +1,170 @@
+@use 'fonts';
+@use './variables' as vars;
+
+@mixin background($url) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+@mixin text($ff: false, $fst: false, $color: false, $fs: false, $lh: false, $fw: false, $ls: false) {
+  @if ($ff) {
+    font-family: $ff;
+  }
+
+  @if ($fst) {
+    font-style: $fst;
+  }
+
+  @if ($color) {
+    color: $color;
+  }
+
+  @if ($fs) {
+    font-size: $fs;
+  }
+
+  @if ($lh) {
+    line-height: $lh;
+  }
+
+  @if ($fw) {
+    font-weight: $fw;
+  }
+
+  @if ($ls) {
+    letter-spacing: $ls;
+  }
+
+  margin: 0;
+}
+
+@mixin center($gap) {
+  display: flex;
+  gap: $gap;
+  align-items: center;
+}
+
+@mixin img() {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@mixin button($height, $color, $border-color: false) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: $height;
+  border-radius: 100px;
+  background-color: $color;
+
+  @if ($border-color) {
+    border: 1px solid $border-color;
+  }
+}
+
+@mixin italic() {
+  font-style: italic;
+  color: vars.$light-brown;
+}
+
+@mixin respond($breakpoint) {
+  @if ($breakpoint == xxx2-tablet) {
+    @media only screen and (width <= 1420px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == xx3-tablet) {
+    @media only screen and (width <= 1340px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == xxx-tablet) {
+    @media only screen and (width <= 1300px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == xx2-tablet) {
+    @media only screen and (width <= 1240px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == xx-tablet) {
+    @media only screen and (width <= 1200px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x4-tablet) {
+    @media only screen and (width <= 1089px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x3-tablet) {
+    @media only screen and (width <= 1050px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x-tablet) {
+    @media only screen and (width <= 1000px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x2-tablet) {
+    @media only screen and (width <= 900px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x5-tablet) {
+    @media only screen and (width <= 850px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == tablet) {
+    @media only screen and (width <= 768px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == xxx-mobile) {
+    @media only screen and (width <= 700px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == xx-mobile) {
+    @media only screen and (width <= 680px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x2-mobile) {
+    @media only screen and (width <= 500px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == x-mobile) {
+    @media only screen and (width <= 470px) {
+      @content;
+    }
+  }
+
+  @if ($breakpoint == mobile) {
+    @media only screen and (width <= 380px) {
+      @content;
+    }
+  }
+}

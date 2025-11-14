@@ -1,0 +1,9 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.error {
+  position: absolute;
+  top: 100%;
+
+  @include mix.text('Inter', normal, vars.$red, 11px, 100%, 400, 0);
+}

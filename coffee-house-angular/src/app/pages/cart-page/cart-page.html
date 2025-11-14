@@ -1,0 +1,89 @@
+<div class="container cart__container">
+  <h2 class="cart__title">Cart</h2>
+  <div class="cart__list">
+    <div class="cart__total-block__item">
+      <p class="cart__total-block__item__text"></p>
+      <div class="cart__list__item_block cart__list__item_block_header">
+        <p class="cart__total-block__item__text">Quantity</p>
+        <div class="cart__total-block__item__text">Price</div>
+      </div>
+    </div>
+    @for (product of productsInCart(); track $index) {
+      <app-product-row
+        [productsInCart]="product"
+        (emitProductData)="deleteItem($event)"
+        (emitChangeProductNumber)="changeNumberOfItem($event)"
+      ></app-product-row>
+    }
+    <p class="cart__confirm-message">{{ confirmMessage() }}</p>
+  </div>
+  <div class="cart__total-block">
+    <div class="cart__total-block__item">
+      <p class="cart__total-block__item__text">Total:</p>
+      <div class="cart__list__item_block">
+        <p class="cart__list__item_block_large">
+          {{ totalNumberOfProducts().quantity === 0 ? '' : totalNumberOfProducts().quantity }}
+        </p>
+        <div class="cart__list__item_block_info-block">
+          <p class="cart__list__item_block_price">
+            {{
+              +(!isSignIn()
+                ? ''
+                : totalNumberOfProducts().data.discountPrice !== totalNumberOfProducts().data.price
+                  ? totalNumberOfProducts().data.price
+                  : '') | addDollarPipe
+            }}
+          </p>
+          <p class="cart__list__item_block_large">
+            {{
+              +(!isSignIn()
+                ? totalNumberOfProducts().data.price
+                : totalNumberOfProducts().data.discountPrice !== totalNumberOfProducts().data.price
+                  ? totalNumberOfProducts().data.discountPrice
+                  : totalNumberOfProducts().data.price) | addDollarPipe
+            }}
+          </p>
+        </div>
+      </div>
+    </div>
+    @if (isSignIn()) {
+      @if (userInfo) {
+        @switch (userInfo?.status()) {
+          @case ('loading') {
+            <app-loader></app-loader>
+          }
+          @case ('error') {
+            <app-server-error [message]="userInfo?.error()?.message ?? ''"></app-server-error>
+          }
+          @case ('resolved') {
+            <div class="cart__total-block__item">
+              <p class="cart__total-block__item__text">Address:</p>
+              <div class="cart__list__item_block_info-block">
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.city + ',' }}</p>
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.street + ',' }}</p>
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.houseNumber }}</p>
+              </div>
+            </div>
+            <div class="cart__total-block__item">
+              <p class="cart__total-block__item__text">Pay by:</p>
+              <div class="cart__list__item_block_info-block">
+                <p class="cart__total-block__item__text">{{ userInfo.value()?.data?.paymentMethod | titlecase }}</p>
+              </div>
+            </div>
+          }
+        }
+      }
+    }
+  </div>
+  <div class="cart__button-container">
+    @if (!isSignIn()) {
+      <button class="cart__button" type="button" (click)="navigate('sign-in')">Sign in</button>
+      <button class="cart__button" type="button" (click)="navigate('registration')">Registration</button>
+    } @else if (productsInCart().length > 0) {
+      <button class="cart__button" type="button" (click)="confirmOrder()">Confirm</button>
+      <button class="cart__button" type="button" (click)="navigate('orders')">Order history</button>
+    } @else {
+      <button class="cart__button" type="button" (click)="navigate('orders')">Order history</button>
+    }
+  </div>
+</div>

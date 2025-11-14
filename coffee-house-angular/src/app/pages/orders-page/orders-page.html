@@ -1,0 +1,25 @@
+<h2 class="orders__title">Orders</h2>
+<div class="orders__table">
+  <div class="orders__row">
+    <p class="orders__row_title">Date</p>
+    <p class="orders__row_title">Price</p>
+  </div>
+  @if (ordersInfo) {
+    @switch (ordersInfo?.status()) {
+      @case ('loading') {
+        <app-loader></app-loader>
+      }
+      @case ('error') {
+        <app-server-error [message]="ordersInfo?.error()?.message ?? ''"></app-server-error>
+      }
+      @case ('resolved') {
+        @for (data of ordersInfo.value()?.data; track $index) {
+          <div class="orders__row">
+            <p class="orders__row_text">{{ data.timestamp | date: 'medium' }}</p>
+            <p class="orders__row_text">{{ data.totalPrice | addDollarPipe }}</p>
+          </div>
+        }
+      }
+    }
+  }
+</div>

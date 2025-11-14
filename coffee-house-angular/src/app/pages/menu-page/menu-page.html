@@ -1,0 +1,45 @@
+<section class="menu">
+  <div class="container menu__container">
+    <h1 class="menu__title">
+      Behind each of our cups hides an <span class="menu__title_italic">amazing surprise</span>
+    </h1>
+    <div class="menu__buttons-container">
+      @for (category of categories; track $index) {
+        <button
+          class="menu__button"
+          [class.active-button]="selectedCategory() === category"
+          (click)="handleCategoryButtonClick(category)"
+        >
+          <span class="menu__button_circle">
+            <img [src]="'./images/' + category + '.png'" alt="product-button" class="menu__button_img" />
+          </span>
+          <span class="menu__button_text">{{ category | titlecase }}</span>
+        </button>
+      }
+    </div>
+    <div class="menu__list">
+      @switch (allCategories.status()) {
+        @case ('loading') {
+          <app-loader></app-loader>
+        }
+        @case ('error') {
+          <app-server-error [message]="allCategories.error()?.message ?? ''"></app-server-error>
+        }
+        @case ('resolved') {
+          @for (product of filteredProducts(); track product.id) {
+            <app-card [product]="product"></app-card>
+          }
+        }
+      }
+    </div>
+    @if (viewportWidth() <= 768) {
+      <button
+        class="menu__load-button"
+        [style.display]="loadButtonAvailable() ? 'none' : 'flex'"
+        (click)="loadButtonAvailable.set(true)"
+      >
+        <app-icon name="load" customClass="menu__load-button_svg"></app-icon>
+      </button>
+    }
+  </div>
+</section>

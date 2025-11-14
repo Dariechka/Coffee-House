@@ -1,0 +1,128 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.cart {
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+
+    &__success {
+      @include mix.text('Inter', normal, vars.$gray, 24px, 125%, 600, 0.5px);
+
+      @include mix.respond(xx-mobile) {
+        font-size: 16px;
+      }
+
+      text-align: center;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &_block {
+        @include mix.center(20px);
+
+        justify-content: space-between;
+
+        &_quantity {
+          width: 340px;
+
+          &_left {
+            justify-content: space-between;
+            width: 100px;
+
+            @include mix.center(15px);
+          }
+
+          @include mix.respond(x3-mobile) {
+            width: 200px;
+          }
+        }
+
+        &_info-block {
+          @include mix.center(20px);
+
+          @include mix.respond(xx-mobile) {
+            gap: 6px;
+          }
+        }
+
+        &_price {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          text-decoration-line: line-through;
+          opacity: 0.5;
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        &_large {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        &__button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 22px;
+          height: 22px;
+          border: none;
+          background-color: transparent;
+        }
+      }
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &_title {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        &_text {
+          @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+        }
+
+        @include mix.respond(xx-mobile) {
+          gap: 4px;
+        }
+      }
+    }
+  }
+
+  &__img {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 110%;
+    transition: 0.5s ease-out;
+
+    @media (hover: hover) {
+      &:hover {
+        background-size: 100%;
+      }
+    }
+
+    @include mix.respond(xx-mobile) {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}

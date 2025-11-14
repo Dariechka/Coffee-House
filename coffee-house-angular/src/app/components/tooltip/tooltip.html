@@ -1,0 +1,18 @@
+<p class="tooltip_price">
+  {{
+    +(!this.isSignIn()
+      ? ''
+      : priceData().discountPrice !== priceData().price && priceData().discountPrice !== 0
+        ? priceData().price
+        : '') | addDollarPipe
+  }}
+</p>
+<p class="tooltip_large">
+  {{
+    +(!this.isSignIn()
+      ? priceData().price
+      : priceData().discountPrice !== priceData().price && priceData().discountPrice !== 0
+        ? priceData().discountPrice
+        : priceData().price) | addDollarPipe
+  }}
+</p>

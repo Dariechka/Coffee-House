@@ -1,0 +1,101 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.sign-in {
+  &__container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 0 100px;
+
+    @include mix.center(40px);
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__form {
+    @include mix.center(24px);
+
+    flex-direction: column;
+    justify-content: center;
+
+    &_item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+
+      & > app-icon {
+        width: 0;
+        height: 0;
+      }
+    }
+
+    &_label {
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+    }
+
+    &_input {
+      width: 400px;
+      height: 56px;
+      padding: 16px 12px;
+      border: 1px solid vars.$beige2;
+      border-radius: 12px;
+      background-color: transparent;
+      transition: ease-in-out 0.5s;
+
+      @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+
+      &::placeholder {
+        color: vars.$gray2;
+      }
+
+      &:focus {
+        border-color: vars.$beige2;
+        outline: none;
+      }
+
+      &_small {
+        width: 260px;
+      }
+
+      @include mix.respond(xx3-tablet) {
+        width: 260px;
+      }
+    }
+  }
+
+  &__submit {
+    cursor: pointer;
+    margin-top: 32px;
+    transition: 0.5s ease-out;
+
+    &[disabled] {
+      cursor: auto;
+
+      @media (hover: hover) {
+        &:hover {
+          color: vars.$black;
+          background-color: transparent;
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: vars.$beige;
+        background-color: vars.$gray;
+      }
+    }
+
+    @include mix.button(44px, transparent, vars.$gray);
+    @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+  }
+}

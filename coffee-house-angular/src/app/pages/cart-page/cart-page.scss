@@ -1,0 +1,207 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+:host {
+  position: relative;
+  width: 100%;
+  background-color: vars.$beige;
+}
+
+.cart {
+  &__container {
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 40px 100px 0;
+
+    @include mix.center(40px);
+
+    @include mix.respond(xx-mobile) {
+      padding: 20px 10px 60px 0;
+    }
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+      letter-spacing: 1px;
+    }
+  }
+
+  &__button-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+
+    @include mix.respond(xx-mobile) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    margin-top: 16px;
+    transition: 0.5s ease-out;
+
+    &[disabled] {
+      cursor: auto;
+
+      @media (hover: hover) {
+        &:hover {
+          color: vars.$black;
+          background-color: transparent;
+        }
+      }
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        color: vars.$beige;
+        background-color: vars.$gray;
+      }
+    }
+
+    @include mix.button(44px, transparent, vars.$gray);
+    @include mix.text('Inter', normal, vars.$black, 16px, 150%, 600, 0);
+  }
+
+  &__total-block {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    padding-left: 48px;
+
+    @include mix.respond(xx-mobile) {
+      padding-left: 5px;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__text {
+        @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+        @include mix.respond(xx-mobile) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+
+    &__success {
+      @include mix.text('Inter', normal, vars.$gray, 24px, 125%, 600, 0.5px);
+
+      @include mix.respond(xx-mobile) {
+        font-size: 16px;
+      }
+
+      text-align: center;
+    }
+
+    &__item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &_block {
+        justify-content: space-between;
+        width: 295px;
+
+        @include mix.center(20px);
+
+        &_info-block {
+          @include mix.center(20px);
+
+          @include mix.respond(xx-mobile) {
+            gap: 6px;
+          }
+        }
+
+        &_header {
+          width: 340px;
+        }
+
+        &_price {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          text-decoration-line: line-through;
+          opacity: 0.5;
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        &_large {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        @include mix.respond(x3-mobile) {
+          gap: 0;
+          width: 200px;
+        }
+      }
+
+      &_svg {
+        cursor: pointer;
+      }
+
+      &_text {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        &_title {
+          @include mix.text('Inter', normal, vars.$black, 24px, 125%, 600, 0);
+
+          @include mix.respond(xx-mobile) {
+            font-size: 16px;
+          }
+        }
+
+        &_text {
+          @include mix.text('Inter', normal, vars.$black, 16px, 150%, 400, 0);
+        }
+
+        @include mix.respond(xx-mobile) {
+          gap: 4px;
+        }
+      }
+    }
+  }
+
+  &__confirm-message {
+    text-align: center;
+
+    @include mix.text('Inter', normal, vars.$light-brown, 24px, 125%, 600, 0.5px);
+  }
+}
+
+.cart__total-block > span {
+  margin-left: 46%;
+}
+
+.cart__total-block > .error-message {
+  text-align: center;
+}
+
+.cart-page > .error-message {
+  position: sticky;
+  z-index: 1;
+  top: 12px;
+}

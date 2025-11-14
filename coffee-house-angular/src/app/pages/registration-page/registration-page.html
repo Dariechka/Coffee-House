@@ -1,0 +1,141 @@
+<section class="registration container registration__container">
+  <h2 class="registration__title">Registration</h2>
+  <form [formGroup]="registrationForm" class="registration__form" (submit)="signUp()">
+    <div class="registration__form__top-row">
+      <div class="registration__form_item">
+        <label for="login" class="registration__form_label">Login</label>
+        <input
+          id="login"
+          name="login"
+          formControlName="login"
+          autocomplete="off"
+          placeholder="Login"
+          type="text"
+          class="registration__form_input"
+          required
+        />
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
+        <app-error formControlName="login"></app-error>
+      </div>
+      <div class="registration__form_item">
+        <label for="password" class="registration__form_label">Password</label>
+        <input
+          id="password"
+          name="password"
+          formControlName="password"
+          type="password"
+          autocomplete="off"
+          placeholder="Password"
+          class="registration__form_input"
+          required
+        />
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
+        <app-error formControlName="password"></app-error>
+      </div>
+      <div class="registration__form_item">
+        <label for="confirmPassword" class="registration__form_label">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          formControlName="confirmPassword"
+          type="password"
+          autocomplete="off"
+          placeholder="Confirm Password"
+          class="registration__form_input"
+          required
+        />
+        @if (
+          (registrationForm.get('confirmPassword')?.touched || registrationForm.get('password')?.touched) &&
+          !registrationForm.valid
+        ) {
+          <div class="error">{{ registrationForm.getError('confirmPasswordIsValid') }}</div>
+        }
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
+      </div>
+    </div>
+    <div class="registration__form__low-row">
+      <div class="registration__form_item">
+        <label class="registration__form_label" for="city">City</label>
+        <select formControlName="city" class="registration__form_input registration__form_input_small" id="city">
+          <option value="">Select city</option>
+          @for (city of City; track $index) {
+            <option [value]="city">{{ city }}</option>
+          }
+        </select>
+        <app-error formControlName="city"></app-error>
+      </div>
+      <div class="registration__form_item">
+        <label class="registration__form_label" for="street">Street</label>
+        <select formControlName="street" class="registration__form_input registration__form_input_small" id="street">
+          <option value="">Select street</option>
+          @for (street of streets(); track $index) {
+            <option [value]="street">{{ street }}</option>
+          }
+        </select>
+        @if (registrationForm.get('street')?.touched && registrationForm.get('city')?.pristine) {
+          <div class="error">You need to select a city first</div>
+        }
+        @if (
+          registrationForm.get('street')?.touched &&
+          registrationForm.get('city')?.touched &&
+          !registrationForm.get('street')?.valid
+        ) {
+          <div class="error">This field is required</div>
+        }
+      </div>
+      <div class="registration__form_item">
+        <label for="houseNumber" class="registration__form_label">House number</label>
+        <input
+          id="houseNumber"
+          name="houseNumber"
+          formControlName="houseNumber"
+          type="number"
+          autocomplete="off"
+          placeholder="House Number"
+          class="registration__form_input registration__form_input_small"
+          required
+        />
+        <app-icon name="error" customClass="error-svg"></app-icon>
+        <app-icon name="correct" customClass="correct-svg"></app-icon>
+        <app-error formControlName="houseNumber"></app-error>
+      </div>
+      <fieldset class="registration__form_fieldset">
+        <legend class="registration__form_label">Pay By</legend>
+        <label class="registration__form_item_radio">
+          Cash
+          <input
+            formControlName="paymentMethod"
+            class="registration__form_input_radio"
+            type="radio"
+            name="paymentMethod"
+            value="cash"
+            checked=""
+          />
+          <span class="registration__form_item_radio_state">
+            <span class="registration__form_item_radio_circle"></span>
+          </span>
+        </label>
+        <label class="registration__form_item_radio">
+          Card
+          <input
+            formControlName="paymentMethod"
+            class="registration__form_input_radio"
+            type="radio"
+            name="paymentMethod"
+            value="card"
+          />
+          <span class="registration__form_item_radio_state">
+            <span class="registration__form_item_radio_circle"></span>
+          </span>
+        </label>
+      </fieldset>
+    </div>
+    <button type="submit" class="registration__submit" [disabled]="disabledButton()">Registration</button>
+    @if (serverError() !== '') {
+      <app-server-error [message]="serverError()"></app-server-error>
+    }
+  </form>
+</section>

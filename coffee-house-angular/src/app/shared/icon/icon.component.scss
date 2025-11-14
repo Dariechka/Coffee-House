@@ -1,0 +1,104 @@
+@use 'variables' as vars;
+@use 'mixins' as mix;
+
+.contact__info__list_item_svg {
+  align-self: flex-start;
+  width: 20px;
+  height: 20px;
+  fill: none;
+}
+
+.contact__social-media__button__svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+
+  & use {
+    stroke: vars.$beige;
+  }
+}
+
+.header__logo_svg {
+  position: absolute;
+  z-index: 1;
+  top: 20%;
+  right: 8%;
+  width: 93px;
+  height: 23px;
+  fill: none;
+}
+
+.header__menu_svg {
+  width: 20px;
+  height: 20px;
+
+  @include mix.respond(tablet) {
+    display: none;
+  }
+}
+
+.header__menu_svg_big {
+  width: 40px;
+  height: 40px;
+
+  @media only screen and (width > 768px) {
+    display: none;
+  }
+}
+
+.app__text__button__svg {
+  width: 36px;
+  height: 36px;
+  fill: vars.$black;
+}
+
+.enjoy__text__link_svg {
+  display: none;
+  width: 20px;
+  height: 20px;
+  transition: 0.5s ease-out;
+}
+
+.favorite__slider__button_svg {
+  width: 14px;
+  height: 14px;
+  stroke: vars.$black;
+}
+
+.menu__load-button_svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: vars.$black;
+}
+
+.error-svg {
+  position: absolute;
+  top: 50%;
+  left: 90%;
+  display: none;
+  width: 16px;
+  height: 16px;
+}
+
+.correct-svg {
+  position: absolute;
+  top: 50%;
+  left: 90%;
+  display: none;
+  width: 16px;
+  height: 16px;
+}
+
+.cart__list__item_svg {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+
+.cart__list__item_button-svg {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  stroke: vars.$black;
+}

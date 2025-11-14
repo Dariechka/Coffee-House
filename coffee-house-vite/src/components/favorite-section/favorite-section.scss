@@ -1,0 +1,33 @@
+@use './../../styles/_variables' as vars;
+@use './../../styles/_mixins' as mix;
+
+.favorite {
+  background-color: vars.$beige;
+
+  &__container {
+    @include mix.center(40px);
+
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    padding-top: 100px;
+    padding-bottom: 100px;
+
+    @include mix.respond(xx-mobile) {
+      justify-content: center;
+    }
+  }
+
+  &__title {
+    @include mix.text('Inter', normal, vars.$black, 60px, 125%, 600, 2px);
+
+    text-align: center;
+
+    &_italic {
+      @include mix.italic;
+    }
+
+    @include mix.respond(xx-mobile) {
+      font-size: 32px;
+    }
+  }
+}
